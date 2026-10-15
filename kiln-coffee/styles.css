@@ -75,6 +75,10 @@ body.tx-contours .statement, body.tx-contours .gallery, body.tx-contours .hero--
   background-image: var(--texture); background-size: cover; background-position: center;
 }
 
+/* ---------- entrada do topo: escondido até o JS montar a animação (ou 2,8 s, se o JS falhar) ---------- */
+.intro .hero-title, .intro .hero-kicker, .intro .hero-sub, .intro .hero-actions, .intro .hero-tab, .intro .hero-row { opacity: 0; animation: introFallback .01s linear 2.8s forwards; }
+@keyframes introFallback { to { opacity: 1; } }
+
 /* ---------- carregamento ---------- */
 .loader {
   position: fixed; inset: 0; z-index: 400; display: flex; flex-direction: column; justify-content: flex-end;
@@ -434,6 +438,7 @@ body.tx-contours .statement, body.tx-contours .gallery, body.tx-contours .hero--
 
 /* ---------- movimento reduzido ---------- */
 @media (prefers-reduced-motion: reduce) {
+  .intro .hero-title, .intro .hero-kicker, .intro .hero-sub, .intro .hero-actions, .intro .hero-tab, .intro .hero-row { opacity: 1; animation: none; }
   .grain, .mq-track, .m-ring, .loader-word span { animation: none; }
   .loader { display: none; }
   .btn::before, .overlay, .menu-float { transition: none; }
