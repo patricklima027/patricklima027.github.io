@@ -227,7 +227,8 @@
   var unmask = function (el) { el.classList.add("split-done"); };
   var split = function (el, type) {
     if (!Split) return null;
-    var opts = type === "chars" ? { type: "chars", mask: "chars" } : { type: type };
+    // "words,chars": as letras ficam dentro da palavra, então a linha nunca quebra no meio de uma palavra ("DON / E")
+    var opts = type === "chars" ? { type: "words,chars", mask: "chars" } : { type: type };
     try { return Split.create ? Split.create(el, opts) : new Split(el, { type: type }); }
     catch (err) { return null; }
   };
