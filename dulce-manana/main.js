@@ -158,7 +158,7 @@
     try { sessionStorage.setItem("seen", "1"); } catch (err) {}
     if (!loader || getComputedStyle(loader).display === "none") { if (loader) loader.remove(); done(); return; }
     var count = loader.querySelector("[data-count]");
-    var start = performance.now(), dur = reduce ? 0 : 1100;
+    var start = performance.now(), dur = reduce ? 0 : 900;
     (function tick(now) {
       var p = Math.min(1, (now - start) / dur);
       if (count) count.textContent = String(Math.round(p * 100)).padStart(2, "0");
@@ -197,7 +197,15 @@
     });
   }
 
-  if (!motion) { finishLoader(function () {}); return; }
+  if (!motion) { root.classList.remove("intro"); finishLoader(function () {}); return; }
+
+  // espera as fontes (no máximo 1,5 s) antes de dividir as letras: medidas certas e sem "pulo" no título
+  var fontsReady = document.fonts && document.fonts.ready
+    ? Promise.race([document.fonts.ready, new Promise(function (r) { setTimeout(r, 1500); })])
+    : Promise.resolve();
+  fontsReady.then(startMotion);
+
+  function startMotion() {
 
   /* =================== animações (GSAP + ScrollTrigger + SplitText) =================== */
   gsap.registerPlugin(ScrollTrigger);
@@ -292,12 +300,14 @@
   heroLines.forEach(function (ln) { var s = split(ln, "chars"); if (s) heroChars = heroChars.concat(s.chars); });
   if (heroChars.length) gsap.set(heroChars, { yPercent: 115 });
   if (heroMedia) gsap.set(heroMedia.parentNode, { scale: 1.18 });
+  root.classList.remove("intro");
   finishLoader(function () {
     var tl = gsap.timeline({ defaults: { ease: "expo.out" } });
     if (heroMedia) tl.to(heroMedia.parentNode, { scale: 1, duration: 2.2 }, 0);
-    if (heroChars.length) tl.to(heroChars, { yPercent: 0, duration: 1.3, stagger: 0.022 }, 0.15);
-    tl.to(heroBits, { opacity: 1, y: 0, duration: 1.1, stagger: 0.08 }, 0.55);
+    if (heroChars.length) tl.to(heroChars, { yPercent: 0, duration: 1.1, stagger: Math.min(0.022, 0.6 / heroChars.length) }, 0.1);
+    tl.to(heroBits, { opacity: 1, y: 0, duration: 1, stagger: 0.07 }, 0.45);
     fitAll();
     ScrollTrigger.refresh();
   });
+  }
 })();
