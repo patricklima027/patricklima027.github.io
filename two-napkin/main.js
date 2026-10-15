@@ -28,11 +28,22 @@
     el.style.fontSize = "100px";
     var w = inner.getBoundingClientRect().width;
     if (!w) return;
-    var size = 100 * el.clientWidth * (parseFloat(el.getAttribute("data-fit-ratio")) || 1) / w;
+    // largura útil (sem o padding) e 2% de folga: algumas letras passam da própria caixa
+    var cs = getComputedStyle(el);
+    var avail = el.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    var size = 98 * avail * (parseFloat(el.getAttribute("data-fit-ratio")) || 1) / w;
     var maxH = window.innerHeight * (parseFloat(el.getAttribute("data-fit-max")) || 0.36);
     el.style.fontSize = Math.min(size, maxH / 0.84) + "px";
   }
-  function fitAll() { document.querySelectorAll("[data-fit]").forEach(fit); }
+  // segurança: título que não cabe na coluna (palavra longa em fonte larga) diminui até caber
+  function shrinkToFit() {
+    document.querySelectorAll(".sec-title, .mc-title, .v-addr, .sv-name, .cl-title").forEach(function (el) {
+      el.style.fontSize = "";
+      var avail = el.clientWidth, need = el.scrollWidth;
+      if (avail && need > avail + 1) el.style.fontSize = (parseFloat(getComputedStyle(el).fontSize) * avail / need * 0.98) + "px";
+    });
+  }
+  function fitAll() { document.querySelectorAll("[data-fit]").forEach(fit); shrinkToFit(); }
   fitAll();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { fitAll(); if (motion) ScrollTrigger.refresh(); });
   var resizeTimer;
@@ -212,6 +223,8 @@
   var Split = window.SplitText;
   if (Split) gsap.registerPlugin(Split);
   // letras recortadas pela própria máscara: sobem "de dentro" da linha
+  // quando a entrada termina, a máscara deixa de cortar (senão some a perna do "p", o "g" e as letras cursivas)
+  var unmask = function (el) { el.classList.add("split-done"); };
   var split = function (el, type) {
     if (!Split) return null;
     var opts = type === "chars" ? { type: "chars", mask: "chars" } : { type: type };
@@ -244,6 +257,7 @@
     var s = split(el, "chars");
     if (!s) return;
     gsap.from(s.chars, { yPercent: 110, duration: 1.1, ease: "expo.out", stagger: 0.018,
+      onComplete: function () { unmask(el); },
       scrollTrigger: { trigger: el, start: "top 86%" } });
   });
 
@@ -289,6 +303,7 @@
   if (word) {
     var ws = split(word, "chars");
     if (ws) gsap.from(ws.chars, { yPercent: 100, duration: 1.2, ease: "expo.out", stagger: 0.03,
+      onComplete: function () { unmask(word); },
       scrollTrigger: { trigger: word, start: "top 95%" } });
   }
 
@@ -304,7 +319,8 @@
   finishLoader(function () {
     var tl = gsap.timeline({ defaults: { ease: "expo.out" } });
     if (heroMedia) tl.to(heroMedia.parentNode, { scale: 1, duration: 2.2 }, 0);
-    if (heroChars.length) tl.to(heroChars, { yPercent: 0, duration: 1.1, stagger: Math.min(0.022, 0.6 / heroChars.length) }, 0.1);
+    if (heroChars.length) tl.to(heroChars, { yPercent: 0, duration: 1.1, stagger: Math.min(0.022, 0.6 / heroChars.length),
+      onComplete: function () { heroLines.forEach(unmask); } }, 0.1);
     tl.to(heroBits, { opacity: 1, y: 0, duration: 1, stagger: 0.07 }, 0.45);
     fitAll();
     ScrollTrigger.refresh();
