@@ -1,0 +1,59 @@
+/* display em itálico, como o SOULFUL SAZÓN do logo */
+.hl:not(.hl--script), .sec-title, .st-text, .mc-title, .v-addr, .ftr-word, .loader-word, .cl-title, .mq-item:not(.mq-item--alt), .sv-name { font-style: italic; }
+/* vermelho sobre preto/azul não passa AA em texto pequeno: vai para o dourado */
+.menu-index span, .mc-num, .mr-note, .sv-num { color: var(--accent); }
+.ftr-word { color: var(--accent); }
+/* papel xadrez do forro da caixa, no topo de cada categoria (cresce da esquerda ao entrar na tela) */
+.mc-title { flex-wrap: wrap; }
+.mc-title::before { content: ""; flex: 0 0 100%; height: 10px; margin-bottom: 14px;
+  background: repeating-conic-gradient(#F4EFE6 0 25%, #0B0B0D 0 50%) 0 0 / 10px 10px;
+  transform-origin: left; }
+@supports (animation-timeline: view()) {
+  @keyframes strip-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .mc-title::before { animation: strip-grow linear both; animation-timeline: view(); animation-range: entry 5% entry 70%; }
+}
+@media (prefers-reduced-motion: reduce) { .mc-title::before { animation: none; } }
+/* agenda: dia, data e nome em itálico slab, como o logo */
+.stop-day, .stop-date, .stop-name { font-style: italic; }
+/* topo: foto escurecida só na tela, sombra central atrás do título */
+.hero-media .media { filter: brightness(.8) contrast(1.08) saturate(1.04); }
+@media (min-width: 700px) { .hero-media .media { filter: brightness(.92) contrast(1.05) saturate(1.05); object-position: 50% 100%; } }
+@media (max-width: 699px) { .hero-media .media { object-position: 61% 50%; } }
+.hero-shade { background: radial-gradient(ellipse 75% 34% at 50% 50%, rgb(11 11 13 / .42), rgb(11 11 13 / 0) 80%), linear-gradient(180deg, rgb(0 0 0 / .4) 0%, rgb(0 0 0 / .08) 30%, rgb(0 0 0 / .12) 62%, rgb(0 0 0 / .72) 100%); }
+.hero .hl:not(.hl--script) { text-shadow: 0 .02em .28em rgb(0 0 0 / .35); }
+.hero .hl--script { text-shadow: 0 .04em .32em rgb(0 0 0 / .6), 0 0 .08em rgb(0 0 0 / .5); }
+/* a bandeirinha fincada no Ó fica à vista, num respiro entre o script e SAZÓN */
+.hero .hl:has(.pk) { padding-top: .3em; }
+
+/* bandeirinha como acento do Ó: inclinada como um acento agudo, com a ponta do palito no topo da letra */
+.hero { --pk-tilt: 12deg; --pk-h: .62em; --pk-x: 90%; --pk-y: 66%; }
+
+/* kicker: legível sobre as listras da bandeira da foto, em 2 linhas sem "·" pendurado */
+.hero-kicker { font-size: 1rem; font-weight: 500; line-height: 1.35; text-shadow: 0 0 .5em rgb(0 0 0 / .95), 0 1px 3px rgb(0 0 0 / .9), 0 0 1.4em rgb(0 0 0 / .8); }
+
+/* desktop: o título desce e deixa a bandeira real da foto livre acima de SOULFUL */
+@media (min-width: 900px) {
+  /* foto ampliada a partir de baixo: a bandeirinha real sobe para o espaço livre acima do título */
+  .hero-media .media { scale: 1.14; transform-origin: 50% 100%; }
+  .hero-body { justify-content: flex-end; padding-bottom: 110px; }
+  .hero-kicker { position: absolute; top: 74px; left: 0; right: 0; margin: 0; }
+}
+
+/* colagem em 1440: o título ocupa uma faixa no meio e nenhuma foto passa por trás dele (nem sobre rosto) */
+@media (min-width: 900px) {
+  .collage { height: clamp(820px, 64vw, 1000px); }
+  .cl-title { top: 50%; }
+  .cl-1 { left: 6%; top: 0; width: 16.5%; }
+  .cl-2 { left: 62%; top: 0; width: 17%; }
+  .cl-3 { left: 27%; top: 65%; width: 16.5%; }
+  .cl-4 { left: 71%; top: 65%; width: 16.5%; }
+}
+
+/* textos de leitura no sol: 16 px ou mais */
+.menu-note, .ab-meta, .mc-note, .mr-desc { font-size: 1rem; }
+.ab-meta { line-height: 1.8; }
+.cl figcaption, .form label span { font-size: .9rem; }
+
+/* cardápio no celular: miniatura e texto alinhados ao centro da linha */
+.mr[data-img] { align-items: center; }
+.mr[data-img] .mr-price { padding-top: 0; }
