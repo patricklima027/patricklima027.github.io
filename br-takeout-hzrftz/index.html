@@ -65,13 +65,15 @@
   <nav class="hdr-nav" aria-label="Main">
     <a href="#menu">Menu</a><a href="#saturday">Saturday</a><a href="#marmitas">Marmitas</a><a href="#sweets">Sweets</a><a href="#visit">Visit</a>
   </nav>
-  <button class="hdr-btn" id="menubtn" aria-expanded="false" aria-controls="sheet"><span>Menu</span><i aria-hidden="true"></i></button>
+  <div class="lang" role="group" aria-label="Language" lang="en"><button type="button" data-lang="en" aria-label="English" aria-pressed="true">EN</button><button type="button" data-lang="pt" lang="pt" aria-label="Português" aria-pressed="false">PT</button><button type="button" data-lang="es" lang="es" aria-label="Español" aria-pressed="false">ES</button></div>
+  <button class="hdr-btn" id="menubtn" aria-expanded="false" aria-controls="sheet"><span data-k="Nav:menu">Menu</span><i aria-hidden="true"></i></button>
 </header>
 
 <div class="sheet" id="sheet" hidden>
   <nav aria-label="Sections">
     <a href="#menu">Menu</a><a href="#saturday">Saturday</a><a href="#marmitas">Marmitas</a><a href="#sweets">Sweets</a><a href="#visit">Visit</a>
   </nav>
+  <div class="lang lang-sheet" role="group" aria-label="Language" lang="en"><button type="button" data-lang="en" aria-label="English" aria-pressed="true">EN</button><button type="button" data-lang="pt" lang="pt" aria-label="Português" aria-pressed="false">PT</button><button type="button" data-lang="es" lang="es" aria-label="Español" aria-pressed="false">ES</button></div>
   <p class="sheet-sig"><span>vem pro BR</span></p>
 </div>
 
@@ -393,6 +395,7 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js" defer></script>
+<script src="i18n.js" defer></script>
 <script src="main.js" defer></script>
 </body>
 </html>

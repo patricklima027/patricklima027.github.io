@@ -41,25 +41,32 @@
 
   /* ---------- estado ao vivo no fuso de New York ---------- */
   var HOURS = { 0: null, 1: [11, 21], 2: [11, 21], 3: [11, 21], 4: [11, 21], 5: [11, 21], 6: [11, 17] };
-  var DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  var I = window.BR_I18N || null;
+  var lang = "en";
+  var MAP = {};
+  if (I) I.D.forEach(function (r) { MAP[r[0]] = { pt: r[1], es: r[2] }; });
+  function tr(key) { var m = MAP[key]; return lang === "en" || !m ? key : m[lang]; }
+  var WD = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   function ny() {
     try {
       var p = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", weekday: "short", hour: "numeric", minute: "numeric", hourCycle: "h23" }).formatToParts(new Date());
       var o = {}; p.forEach(function (x) { o[x.type] = x.value; });
-      return { d: DAYS.indexOf(o.weekday), m: parseInt(o.hour, 10) * 60 + parseInt(o.minute, 10) };
+      return { d: WD.indexOf(o.weekday), m: parseInt(o.hour, 10) * 60 + parseInt(o.minute, 10) };
     } catch (e) { return null; }
   }
-  function h12(h) { return (h % 12 || 12) + (h < 12 ? " AM" : " PM"); }
   function status() {
     var t = ny(), el = $("#status");
     if (!t) return;
+    var S = I ? I.S[lang] : null;
     var today = HOURS[t.d];
     var next = function () { for (var i = 1; i <= 7; i++) { var d = (t.d + i) % 7; if (HOURS[d]) return { d: d, h: HOURS[d][0] }; } };
     var txt;
-    if (today && t.m >= today[0] * 60 && t.m < today[1] * 60) txt = "Open now · until " + h12(today[1]);
-    else if (today && t.m < today[0] * 60) txt = "Opens today at " + h12(today[0]);
-    else { var n = next(); txt = "Closed · opens " + DAYS[n.d] + " " + h12(n.h); }
-    if (el) el.textContent = txt;
+    if (S) {
+      if (today && t.m >= today[0] * 60 && t.m < today[1] * 60) txt = S.open.replace("{t}", S.h(today[1]));
+      else if (today && t.m < today[0] * 60) txt = S.today.replace("{t}", S.h(today[0]));
+      else { var n = next(); txt = S.closed.replace("{d}", S.days[n.d]).replace("{t}", S.h(n.h)); }
+      if (el) el.textContent = txt;
+    }
     $$(".hours tr").forEach(function (tr) {
       var on = tr.dataset.days.split(",").indexOf(String(t.d)) > -1;
       tr.classList.toggle("today", on);
@@ -67,12 +74,61 @@
     });
   }
 
+  /* ---------- idiomas: EN / PT / ES, sem recarregar ---------- */
+  var reg = [];
+  function walk(el) {
+    var tag = el.tagName;
+    if (/^(SCRIPT|STYLE|SVG|NOSCRIPT|PATH|USE)$/i.test(tag)) return;
+    ["aria-label", "alt"].forEach(function (a) { var v = el.getAttribute && el.getAttribute(a); if (v && MAP[v]) reg.push({ n: el, a: a, k: v }); });
+    if (el.dataset && el.dataset.k) { reg.push({ n: el, k: el.dataset.k }); return; }
+    var key = el.innerHTML.trim();
+    if (MAP[key]) { reg.push({ n: el, k: key }); return; }
+    Array.prototype.forEach.call(el.childNodes, function (c) {
+      if (c.nodeType === 3) { var tx = c.data.trim(); if (tx && MAP[tx]) reg.push({ n: c, t: 1, k: tx, ws: c.data }); }
+      else if (c.nodeType === 1) walk(c);
+    });
+  }
+  function setLang(l, save) {
+    if (!I) return;
+    lang = l;
+    doc.lang = l === "pt" ? "pt-BR" : l;
+    reg.forEach(function (r) {
+      var v = tr(r.k);
+      if (r.a) r.n.setAttribute(r.a, v);
+      else if (r.t) { if (r.n.data.trim() !== v) r.n.data = r.n.data.replace(r.n.data.trim(), v); }
+      else if (r.n.innerHTML !== v) r.n.innerHTML = v;
+    });
+    var ix = l === "en" ? 0 : l === "pt" ? 1 : 2;
+    document.title = I.META.title[ix];
+    var md = $('meta[name="description"]'); if (md) md.setAttribute("content", I.META.desc[ix]);
+    $$(".lang button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.lang === l ? "true" : "false"); });
+    var bt = $("#menubtn"); if (bt) bt.firstElementChild.textContent = tr(bt.getAttribute("aria-expanded") === "true" ? "Close" : "Nav:menu");
+    if (save) { try { localStorage.setItem("br-lang", l); } catch (e) {} }
+    status(); fitAll();
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
+  }
+  function initLang() {
+    if (!I) return;
+    walk(document.body);
+    var l = null;
+    var q = /[?&]lang=(en|pt|es)/.exec(location.search);
+    try { l = q ? q[1] : localStorage.getItem("br-lang"); } catch (e) { l = q ? q[1] : null; }
+    if (l !== "pt" && l !== "es" && l !== "en") {
+      l = "en";
+      var nl = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || "en"];
+      for (var i = 0; i < nl.length; i++) { var c = String(nl[i]).toLowerCase(); if (c.indexOf("pt") === 0) { l = "pt"; break; } if (c.indexOf("es") === 0) { l = "es"; break; } if (c.indexOf("en") === 0) break; }
+    }
+    doc.classList.add("i18n");
+    $$(".lang button").forEach(function (b) { b.addEventListener("click", function () { setLang(b.dataset.lang, true); }); });
+    if (l !== "en") setLang(l, false);
+  }
+
   /* ---------- menu em tela cheia (celular) ---------- */
   var btn = $("#menubtn"), sheet = $("#sheet");
   function setSheet(open) {
     if (!btn || !sheet) return;
     btn.setAttribute("aria-expanded", open);
-    btn.firstElementChild.textContent = open ? "Close" : "Menu";
+    btn.firstElementChild.textContent = tr(open ? "Close" : "Nav:menu");
     if (open) { sheet.hidden = false; requestAnimationFrame(function () { sheet.classList.add("open"); }); }
     else { sheet.classList.remove("open"); setTimeout(function () { if (btn.getAttribute("aria-expanded") === "false") sheet.hidden = true; }, 320); }
     if (window.lenis) { open ? window.lenis.stop() : window.lenis.start(); }
@@ -148,7 +204,7 @@
   });
 
   /* ---------- inicio ---------- */
-  measure(); status(); onScroll();
+  initLang(); measure(); status(); onScroll();
   setInterval(status, 60000);
   window.addEventListener("resize", function () { measure(); fitAll(); });
   var fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
