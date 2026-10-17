@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 120" preserveAspectRatio="none" class="streak" aria-hidden="true">
+  <!-- Pincelada seca, como as faixas vermelha e azul atrás das letras da camiseta (foto 07). Cor = currentColor. -->
+  <path fill="currentColor" d="M14 34 C40 22 96 18 160 16 L300 12 C380 10 470 12 540 16 L604 20 L590 26 L628 30 L612 36 L634 44 L606 50 L626 60 L600 66 L630 76 L598 82 L618 92 L560 98 C470 104 380 108 290 108 L150 106 C96 104 52 102 22 96 L40 90 L8 84 L30 76 L4 66 L28 58 L6 48 L26 42 Z"/>
+  <path fill="currentColor" opacity=".55" d="M520 104 L640 102 L600 112 L500 114 Z M10 104 L120 110 L30 116 Z"/>
+</svg>

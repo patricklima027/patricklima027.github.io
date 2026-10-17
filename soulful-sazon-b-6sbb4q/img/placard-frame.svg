@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" preserveAspectRatio="none" class="placard-frame" aria-hidden="true">
+  <!-- Placa preta da tenda (foto 06): moldura branca fina com volutas nos cantos. O texto vai no HTML, por cima. -->
+  <rect x="0" y="0" width="400" height="240" rx="10" fill="#2C292C"/>
+  <g fill="none" stroke="#ECE8E4" stroke-width="2.2" stroke-linecap="round">
+    <path d="M44 16 H356"/><path d="M44 224 H356"/><path d="M16 44 V196"/><path d="M384 44 V196"/>
+    <g id="curl"><path d="M44 16 C30 16 22 20 19 28 C16 36 22 42 28 40 C33 38 33 31 28 30"/><path d="M16 44 C16 32 18 24 24 21"/></g>
+    <use href="#curl" transform="translate(400 0) scale(-1 1)"/>
+    <use href="#curl" transform="translate(0 240) scale(1 -1)"/>
+    <use href="#curl" transform="translate(400 240) scale(-1 -1)"/>
+  </g>
+</svg>
