@@ -45,11 +45,59 @@
       if (avail && need > avail + 1) el.style.fontSize = (parseFloat(getComputedStyle(el).fontSize) * avail / need * 0.98) + "px";
     });
   }
-  function fitAll() { document.querySelectorAll("[data-fit]").forEach(fit); shrinkToFit(); }
+  // o bloco do título do topo respeita também a ALTURA da tela: o que sobra entre o kicker e o subtítulo (e as margens do quadro)
+  // é o limite; se o título passa disso, todas as linhas diminuem juntas. Kicker e subtítulo ficam no fluxo, então nada se sobrepõe.
+  function fitHeroTitle() {
+    var body = document.querySelector(".hero--poster .hero-body");
+    var title = body && body.querySelector(".hero-title");
+    if (!title) return;
+    var lines = [].slice.call(title.querySelectorAll(".hl[data-fit]"));
+    for (var pass = 0; pass < 3; pass++) {
+      var cs = getComputedStyle(body);
+      var room = body.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+      [].slice.call(body.children).forEach(function (ch) {
+        if (ch === title) return;
+        var s = getComputedStyle(ch);
+        if (s.position === "absolute" || s.display === "none") return;
+        room -= ch.offsetHeight + parseFloat(s.marginTop) + parseFloat(s.marginBottom);
+      });
+      room -= 4;
+      var h = title.getBoundingClientRect().height;
+      if (h <= room || room <= 0) break;
+      var k = room / h;
+      lines.forEach(function (l) { l.style.fontSize = (parseFloat(l.style.fontSize) * k) + "px"; });
+    }
+  }
+  function fitAll() { document.querySelectorAll("[data-fit]").forEach(fit); shrinkToFit(); fitHeroTitle(); }
   fitAll();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { fitAll(); if (motion) ScrollTrigger.refresh(); });
   var resizeTimer;
   window.addEventListener("resize", function () { clearTimeout(resizeTimer); resizeTimer = setTimeout(fitAll, 120); });
+
+  /* ---------- palavra da tela de carregamento: cabe na largura da tela (com a margem do layout) em qualquer tamanho ---------- */
+  function fitLoaderWord() {
+    var w = document.querySelector(".loader-word");
+    if (!w) return;
+    var box = w.closest(".loader") || w.parentNode;
+    w.style.fontSize = "100px";
+    var range = document.createRange();
+    range.selectNodeContents(w);
+    var textW = range.getBoundingClientRect().width;  // largura só do texto (o padding da máscara não entra)
+    var cs = getComputedStyle(box);
+    var avail = box.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    if (textW && avail > 0) {
+      // reserva ~.15em para a sobra do itálico no fim da última letra; teto: o tamanho do CSS (13vw, até 12rem)
+      var size = avail / (textW / 100 + 0.15);
+      var cap = Math.min(window.innerWidth * 0.13, 192);
+      w.style.fontSize = Math.max(16, Math.min(size, cap)) + "px";
+    } else {
+      w.style.fontSize = "";
+    }
+    box.classList.add("is-fit");
+  }
+  fitLoaderWord();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitLoaderWord);
+  window.addEventListener("resize", fitLoaderWord);
 
   /* ---------- rolagem suave ---------- */
   if (!reduce && window.Lenis) {
@@ -273,13 +321,12 @@
   gsap.registerPlugin(ScrollTrigger);
   var Split = window.SplitText;
   if (Split) gsap.registerPlugin(Split);
-  // letras recortadas pela própria máscara: sobem "de dentro" da linha
-  // quando a entrada termina, a máscara deixa de cortar (senão some a perna do "p", o "g" e as letras cursivas)
-  var unmask = function (el) { el.classList.add("split-done"); };
+  // entrada das letras SEM máscara: cada letra aparece inteira (opacidade 0→1 + desliza ~.35em), nunca cortada
+  // (a máscara cortava o itálico e o script durante a entrada)
   var split = function (el, type) {
     if (!Split) return null;
     // "words,chars": as letras ficam dentro da palavra, então a linha nunca quebra no meio de uma palavra ("DON / E")
-    var opts = type === "chars" ? { type: "words,chars", mask: "chars" } : { type: type };
+    var opts = type === "chars" ? { type: "words,chars", charsClass: "sp-c" } : { type: type };
     try { return Split.create ? Split.create(el, opts) : new Split(el, { type: type }); }
     catch (err) { return null; }
   };
@@ -308,8 +355,7 @@
   document.querySelectorAll("[data-split]").forEach(function (el) {
     var s = split(el, "chars");
     if (!s) return;
-    gsap.from(s.chars, { yPercent: 110, duration: 1.1, ease: "expo.out", stagger: 0.018,
-      onComplete: function () { unmask(el); },
+    gsap.from(s.chars, { opacity: 0, yPercent: 40, duration: 0.9, ease: "power3.out", stagger: 0.016,
       scrollTrigger: { trigger: el, start: "top 86%" } });
   });
 
@@ -353,11 +399,11 @@
   // agenda: as faixas entram de lados alternados, como as faixas do flyer; a bandeirinha de hoje cai no lugar
   var strips = [].slice.call(document.querySelectorAll(".stop:not([hidden])"));
   if (strips.length) {
-    strips.forEach(function (el, i) { gsap.set(el, { clipPath: i % 2 ? "inset(-90px -24px -90px 100%)" : "inset(-90px 100% -90px -24px)" }); });
+    // sem cortina (clip-path): a faixa entra inteira, com opacidade e deslocamento lateral alternado
+    strips.forEach(function (el, i) { gsap.set(el, { opacity: 0, x: i % 2 ? 40 : -40 }); });
     ScrollTrigger.batch(strips, { start: "top 92%", once: true,
       onEnter: function (batch) {
-        gsap.to(batch, { clipPath: "inset(-90px -24px -90px -24px)", duration: 0.7, ease: "power3.out", stagger: 0.12,
-          onComplete: function () { batch.forEach(function (el) { el.style.clipPath = "none"; }); } });
+        gsap.to(batch, { opacity: 1, x: 0, duration: 0.7, ease: "power3.out", stagger: 0.12 });
         batch.forEach(function (el) {
           var f = el.querySelector(".stop-today img");
           if (f) gsap.fromTo(f, { yPercent: -140, rotation: -24, opacity: 0, transformOrigin: "6% 100%" },
@@ -370,8 +416,7 @@
   var word = document.querySelector(".ftr-word span");
   if (word) {
     var ws = split(word, "chars");
-    if (ws) gsap.from(ws.chars, { yPercent: 100, duration: 1.2, ease: "expo.out", stagger: 0.03,
-      onComplete: function () { unmask(word); },
+    if (ws) gsap.from(ws.chars, { opacity: 0, yPercent: 40, duration: 1, ease: "power3.out", stagger: 0.03,
       scrollTrigger: { trigger: word, start: "top 95%" } });
   }
 
@@ -380,22 +425,36 @@
   var heroBits = document.querySelectorAll(".hero-kicker, .hero-sub, .hero-actions, .hero-tab, .hero-row");
   gsap.set(heroBits, { opacity: 0, y: 20 });
   var heroChars = [];
-  heroLines.forEach(function (ln) { var s = split(ln, "chars"); if (s) heroChars = heroChars.concat(s.chars); });
-  if (heroChars.length) gsap.set(heroChars, { yPercent: 115 });
+  // deslocamento da entrada (em % da altura da letra, ~.34em). A última linha do título nunca invade o subtítulo:
+  // o deslocamento cabe na folga entre as duas
+  var heroGroups = [];
+  heroLines.forEach(function (ln, i) { var s = split(ln, "chars"); if (s) { heroChars = heroChars.concat(s.chars); heroGroups.push({ chars: s.chars, line: ln, last: i === heroLines.length - 1 }); } });
+  var heroPct = function (g) {
+    var fs = parseFloat((g.line.closest(".hl") || g.line).style.fontSize) || 0;
+    var sub = document.querySelector(".hero-sub");
+    if (!g.last || !fs || !sub) return 40;
+    var gap = parseFloat(getComputedStyle(sub).marginTop) || 0;
+    return Math.max(0, Math.min(40, 100 * (gap - 3) / (0.84 * fs)));
+  };
+  var heroStart = function () { heroGroups.forEach(function (g) { g.pct = heroPct(g); gsap.set(g.chars, { opacity: 0, yPercent: g.pct }); }); };
+  heroStart();
   if (heroMedia) gsap.set(heroMedia.parentNode, { scale: 1.18 });
   var pick = document.querySelector("[data-pick]");  // bandeirinha no lugar do acento: cai no fim da entrada
   if (pick) gsap.set(pick, { yPercent: -170, rotation: -22, opacity: 0, transformOrigin: "6% 100%" });
   root.classList.remove("intro");
   finishLoader(function () {
+    fitAll();           // tamanhos finais antes de calcular o deslocamento da entrada
+    heroStart();
     var tl = gsap.timeline({ defaults: { ease: "expo.out" } });
     if (heroMedia) tl.to(heroMedia.parentNode, { scale: 1, duration: 2.2 }, 0);
-    if (heroChars.length) tl.to(heroChars, { yPercent: 0, duration: 1.1, stagger: Math.min(0.022, 0.6 / heroChars.length),
-      onComplete: function () { heroLines.forEach(unmask); } }, 0.1);
+    if (heroChars.length) tl.to(heroChars, { opacity: 1, yPercent: 0, duration: 0.9, ease: "power3.out", stagger: Math.min(0.022, 0.6 / heroChars.length) }, 0.1);
     tl.to(heroBits, { opacity: 1, y: 0, duration: 1, stagger: 0.07 }, 0.45);
     if (pick) {
       var dropPick = function () {
+        // durante a queda a bandeirinha passa ATRÁS da linha em script (nunca cobre "meets"); ao pousar volta para a frente
+        gsap.set(pick.parentNode, { zIndex: 0 });
         gsap.set(pick, { yPercent: -170, rotation: -22, opacity: 0 });
-        return gsap.timeline({ delay: 0.85 })
+        return gsap.timeline({ delay: 0.85, onComplete: function () { gsap.set(pick.parentNode, { zIndex: 2 }); } })
           .to(pick, { opacity: 1, yPercent: 0, duration: 0.3, ease: "power2.in" })
           .to(pick, { rotation: 11, duration: 0.17, ease: "sine.out" })
           .to(pick, { rotation: -7, duration: 0.17, ease: "sine.inOut" })
@@ -410,5 +469,24 @@
     fitAll();
     ScrollTrigger.refresh();
   });
+
+  /* revisão: ?seek=0.5 congela as letras animadas na metade da entrada (opacidade e deslocamento do ponto escolhido, 0 a 1).
+     Só para conferência, não é usado no site publicado. */
+  var seekMatch = location.search.match(/[?&]seek=([\d.]+)/);
+  if (seekMatch) {
+    var seekRuns = 0;
+    var seekTimer = setInterval(function () {
+      if (++seekRuns > 14) return clearInterval(seekTimer);
+      if (seekRuns < 5) return;  // deixa a entrada normal começar; depois congela repetidamente
+      var P = Math.min(1, parseFloat(seekMatch[1]));
+      ScrollTrigger.getAll().forEach(function (st) { st.kill(); });
+      gsap.globalTimeline.clear();
+      gsap.set(".sp-c", { opacity: P, yPercent: 40 * (1 - P) });
+      heroGroups.forEach(function (g) { gsap.set(g.chars, { opacity: P, yPercent: heroPct(g) * (1 - P) }); });
+      document.querySelectorAll("[data-words] div").forEach(function (w) { w.style.opacity = 0.35 + 0.65 * P; });
+      gsap.set(".hero-kicker, .hero-sub, .hero-actions, .hero-tab, .hero-row", { opacity: 1, y: 0 });
+      document.querySelectorAll(".mr, .sv, .rv, .hours li, .ct-links li, .stop").forEach(function (el) { el.style.opacity = 1; el.style.transform = "none"; });
+    }, 400);
+  }
   }
 })();

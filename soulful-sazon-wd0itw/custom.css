@@ -36,7 +36,6 @@
   /* foto ampliada a partir de baixo: a bandeirinha real sobe para o espaço livre acima do título */
   .hero-media .media { scale: 1.14; transform-origin: 50% 100%; }
   .hero-body { justify-content: flex-end; padding-bottom: 110px; }
-  .hero-kicker { position: absolute; top: 74px; left: 0; right: 0; margin: 0; }
 }
 
 /* colagem em 1440: o título ocupa uma faixa no meio e nenhuma foto passa por trás dele (nem sobre rosto) */
