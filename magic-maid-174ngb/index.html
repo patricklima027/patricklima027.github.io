@@ -28,7 +28,8 @@
   <nav class="nav" aria-label="Sections">
     <a href="#basket">The basket</a>
     <a href="#where">Where we clean</a>
-    <a href="#quote" class="nav-cta">Get a quote</a>
+    <a href="#quote" class="nav-cta">Pack your basket</a>
+    <button type="button" class="lang" id="langBtn" aria-label="Español / English"><b>EN</b> / ES</button>
   </nav>
 </header>
 
@@ -47,7 +48,7 @@
     <h1 class="h-hero"><span class="hl">It's not magic,</span> <span class="hl it">it's cleaning experience.</span></h1>
     <p class="hero-sub">Home, apartment, office and Airbnb cleaning in Orlando, FL.</p>
     <div class="hero-cta">
-      <a class="btn btn-main" href="#quote">Get a quote</a>
+      <a class="btn btn-main" href="#quote">Pack your basket</a>
       <a class="btn btn-line" href="https://wa.me/13218887611" target="_blank" rel="noopener">Message us on WhatsApp</a>
     </div>
   </div>
@@ -154,10 +155,35 @@
 </section>
 
 <section class="quote" id="quote">
-  <div class="wrap quote-grid">
-    <div class="quote-text">
-      <h2 class="h-big">Book your service <em>today.</em></h2>
-      <p class="lede">Tell us about the place. We'll get back to you with a quote.</p>
+  <div class="wrap quote-head">
+    <h2 class="h-big">Pack your <em>basket.</em></h2>
+    <p class="lede">Tell us what your place needs. We turn it into a message you can send us on WhatsApp with one tap.</p>
+  </div>
+  <div class="wrap tool">
+    <div class="tool-vis">
+      <svg id="basketSvg" viewBox="0 0 400 340" role="img" aria-label="Your Magic Basket, filling up as you choose">
+        <defs>
+          <pattern id="weave" width="22" height="16" patternUnits="userSpaceOnUse"><rect width="22" height="16" fill="#C9A06A"/><path d="M0 8h22M5 0v8M16 8v8" stroke="#8C6A3C" stroke-width="2" fill="none"/></pattern>
+        </defs>
+        <ellipse cx="200" cy="332" rx="130" ry="7" fill="#14302A" opacity=".12"/>
+        <path d="M92 196C92 52 308 52 308 196" fill="none" stroke="#B98A52" stroke-width="12" stroke-linecap="round"/>
+        <g class="item on" id="it-cloth"><g transform="translate(96 150)"><rect width="74" height="56" rx="16" fill="#C98BB3"/><path d="M10 22c20 8 40 8 54 0" stroke="#E8C4DC" stroke-width="3" fill="none" stroke-linecap="round"/></g></g>
+        <g class="item on" id="it-gloves"><g transform="translate(250 114)" fill="#E7C63A" stroke="#B8962A" stroke-width="2"><rect x="0" y="40" width="48" height="70" rx="14"/><rect x="2" y="6" width="9" height="46" rx="4.5"/><rect x="14" y="0" width="9" height="52" rx="4.5"/><rect x="26" y="4" width="9" height="48" rx="4.5"/><rect x="38" y="14" width="9" height="40" rx="4.5"/></g></g>
+        <g class="item" id="it-spray"><g transform="translate(144 84)"><rect x="0" y="44" width="50" height="96" rx="12" fill="#E8C4DC" stroke="#14302A" stroke-width="2.5"/><rect x="15" y="26" width="20" height="20" fill="#2B6656"/><path d="M5 26h34v-16h-22l-12 5z" fill="#2B6656"/><path d="M39 16l16 7v9l-16-4z" fill="#2B6656"/><path d="M8 80h34" stroke="#fff" stroke-width="3" opacity=".7" stroke-linecap="round"/></g></g>
+        <g class="item" id="it-brush"><g transform="translate(222 92) rotate(10 18 40)"><rect x="4" y="-16" width="28" height="22" rx="3" fill="#F0E3B5" stroke="#B8A05A" stroke-width="2"/><path d="M10 -16v20M18 -16v20M26 -16v20" stroke="#B8A05A" stroke-width="1.6"/><rect x="0" y="6" width="36" height="78" rx="10" fill="#C89B62" stroke="#8C6A3C" stroke-width="2.5"/></g></g>
+        <g class="item" id="it-sponge"><g transform="translate(206 150)"><rect width="52" height="46" rx="8" fill="#2B6656"/><rect width="52" height="30" rx="8" fill="#E7C63A"/><circle cx="14" cy="12" r="3" fill="#B8962A"/><circle cx="34" cy="18" r="2.5" fill="#B8962A"/></g></g>
+        <g class="item" id="it-squeegee"><g transform="translate(176 34)"><rect x="19" y="16" width="10" height="130" rx="4" fill="#14302A"/><rect x="0" y="4" width="48" height="14" rx="3" fill="#5B8FA8"/><rect x="0" y="14" width="48" height="5" rx="2" fill="#14302A"/></g></g>
+        <g class="item" id="it-grout"><g transform="translate(272 86) rotate(-8 6 40)"><rect x="-4" y="-12" width="20" height="18" rx="3" fill="#F6F1E7" stroke="#14302A" stroke-width="2"/><path d="M0 -12v18M6 -12v18M12 -12v18" stroke="#14302A" stroke-width="1.2"/><rect x="0" y="6" width="12" height="90" rx="6" fill="#C98BB3"/></g></g>
+        <g class="item" id="it-box"><g transform="translate(86 116)"><rect width="56" height="84" rx="6" fill="#F6F1E7" stroke="#14302A" stroke-width="2.5"/><path d="M10 22h36M10 36h36M10 50h22" stroke="#2B6656" stroke-width="3" stroke-linecap="round"/></g></g>
+        <g class="item" id="it-spark"><g transform="translate(200 44)"><path d="M0 -30l7 23 23 7-23 7-7 23-7-23-23-7 23-7z" fill="#fff" stroke="#E8C4DC" stroke-width="3"/></g><g transform="translate(250 30) scale(.5)"><path d="M0 -30l7 23 23 7-23 7-7 23-7-23-23-7 23-7z" fill="#E8C4DC"/></g></g>
+        <path d="M70 190h260l-22 140H92z" fill="url(#weave)" stroke="#8C6A3C" stroke-width="3" stroke-linejoin="round"/>
+        <rect x="62" y="178" width="276" height="22" rx="11" fill="#C79A5E" stroke="#8C6A3C" stroke-width="3"/>
+        <g class="item" id="it-paw"><g transform="translate(290 280)" fill="#2B6656"><ellipse cx="0" cy="8" rx="9" ry="7"/><circle cx="-11" cy="-4" r="4"/><circle cx="-4" cy="-10" r="4"/><circle cx="5" cy="-10" r="4"/><circle cx="12" cy="-4" r="4"/></g></g>
+        <g transform="rotate(-3 200 255)"><path d="M200 200q-6 24 0 34" fill="none" stroke="#8C6A3C" stroke-width="2"/><rect x="122" y="232" width="156" height="68" rx="7" fill="#FBF8F1" stroke="#14302A" stroke-width="2"/><circle cx="200" cy="240" r="3" fill="#C9A06A" stroke="#14302A"/>
+          <text id="tag1" x="200" y="258" text-anchor="middle" font-family="Boska, Georgia, serif" font-size="15" font-weight="500" fill="#14302A">Home</text>
+          <text id="tag2" x="200" y="276" text-anchor="middle" font-family="General Sans, sans-serif" font-size="12" fill="#5B6F68">2 bedrooms · 1 bathroom</text>
+          <text id="tag3" x="200" y="292" text-anchor="middle" font-family="Boska, Georgia, serif" font-style="italic" font-size="13" fill="#2B6656">General cleaning</text></g>
+      </svg>
       <a class="wa" href="https://wa.me/13218887611?text=Hi%2C%20I%20would%20like%20a%20cleaning%20quote." target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 4h18v13H9.5L4 21v-4H3z"/></svg>
         <span><b>WhatsApp</b><i>(321) 888-7611</i></span>
@@ -167,28 +193,57 @@
     <form class="form" id="quoteForm" novalidate>
       <fieldset>
         <legend>What are we cleaning?</legend>
-        <div class="opts">
-          <label><input type="radio" name="place" value="Home" checked><span>Home</span></label>
-          <label><input type="radio" name="place" value="Apartment"><span>Apartment</span></label>
-          <label><input type="radio" name="place" value="Office"><span>Office</span></label>
-          <label><input type="radio" name="place" value="Airbnb"><span>Airbnb</span></label>
-          <label><input type="radio" name="place" value="Commercial space"><span>Commercial</span></label>
+        <div class="opts" data-group="place">
+          <label><input type="radio" name="place" value="home" checked><span>Home</span></label>
+          <label><input type="radio" name="place" value="apartment"><span>Apartment</span></label>
+          <label><input type="radio" name="place" value="office"><span>Office</span></label>
+          <label><input type="radio" name="place" value="airbnb"><span>Airbnb</span></label>
+          <label><input type="radio" name="place" value="commercial"><span>Commercial</span></label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>How big is it?</legend>
+        <div class="steppers">
+          <div class="stp" data-k="beds"><span class="stp-l">Bedrooms</span><button type="button" class="stp-b" data-d="-1" aria-label="Fewer bedrooms">−</button><output id="bedsOut">2</output><button type="button" class="stp-b" data-d="1" aria-label="More bedrooms">+</button></div>
+          <div class="stp" data-k="baths"><span class="stp-l">Bathrooms</span><button type="button" class="stp-b" data-d="-1" aria-label="Fewer bathrooms">−</button><output id="bathsOut">1</output><button type="button" class="stp-b" data-d="1" aria-label="More bathrooms">+</button></div>
         </div>
       </fieldset>
       <fieldset>
         <legend>What kind of clean?</legend>
-        <div class="opts">
-          <label><input type="radio" name="kind" value="General cleaning" checked><span>General</span></label>
-          <label><input type="radio" name="kind" value="Deep cleaning"><span>Deep</span></label>
-          <label><input type="radio" name="kind" value="Not sure yet"><span>Not sure yet</span></label>
+        <div class="opts" data-group="kind">
+          <label><input type="radio" name="kind" value="general" checked><span>General</span></label>
+          <label><input type="radio" name="kind" value="deep"><span>Deep</span></label>
+          <label><input type="radio" name="kind" value="unsure"><span>Not sure yet</span></label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Anything extra?</legend>
+        <div class="opts" data-group="extras">
+          <label><input type="checkbox" name="extra" value="grout"><span>Grout &amp; tile joints</span></label>
+          <label><input type="checkbox" name="extra" value="grease"><span>Kitchen grease</span></label>
+          <label><input type="checkbox" name="extra" value="closet"><span>Closet organizing</span></label>
+          <label><input type="checkbox" name="extra" value="fridge"><span>Inside fridge or oven</span></label>
+          <label><input type="checkbox" name="extra" value="windows"><span>Windows</span></label>
+          <label><input type="checkbox" name="extra" value="pets"><span>Pets at home</span></label>
         </div>
       </fieldset>
       <div class="two">
-        <label class="fld"><span>Your name</span><input name="name" autocomplete="name" required></label>
-        <label class="fld"><span>Neighborhood or ZIP</span><input name="zip" autocomplete="postal-code" inputmode="numeric" placeholder="Orlando, FL"></label>
+        <label class="fld"><span>When?</span>
+          <select name="when">
+            <option value="asap">As soon as possible</option>
+            <option value="week">This week</option>
+            <option value="later">Next week or later</option>
+            <option value="asking">Just asking for now</option>
+          </select></label>
+        <label class="fld"><span>Neighborhood or ZIP</span><input name="zip" autocomplete="postal-code" placeholder="Orlando, FL"></label>
       </div>
-      <label class="fld"><span>Anything we should know? (rooms, pets, buildup...)</span><textarea name="notes" rows="3"></textarea></label>
-      <button class="btn btn-main btn-full" type="submit">Send my request on WhatsApp</button>
+      <div class="two">
+        <label class="fld"><span>Your name</span><input name="name" autocomplete="name"></label>
+        <label class="fld"><span>Write my message in</span>
+          <select name="mlang"><option value="en">English</option><option value="es">Español</option></select></label>
+      </div>
+      <label class="fld"><span>Anything we should know? (pets, buildup, access...)</span><textarea name="notes" rows="2"></textarea></label>
+      <button class="btn btn-main btn-full" type="submit">Send my basket on WhatsApp</button>
       <p class="small form-note" id="formNote">This opens WhatsApp with your request written for you. You press send.</p>
     </form>
   </div>
@@ -209,12 +264,13 @@
 
 <div class="dock" id="dock">
   <a class="btn btn-line" href="https://wa.me/13218887611" target="_blank" rel="noopener">WhatsApp</a>
-  <a class="btn btn-main" href="#quote">Get a quote</a>
+  <a class="btn btn-main" href="#quote">Pack your basket</a>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js" defer></script>
+<script src="i18n.js" defer></script>
 <script src="main.js" defer></script>
 </body>
 </html>
