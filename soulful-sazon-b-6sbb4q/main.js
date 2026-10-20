@@ -27,9 +27,12 @@
       tk.classList.toggle('done', done);
       $('.stamp', tk).hidden = !today;
       $('.over', tk).hidden = !done;
-      var which = tk.id === 'tk-fri' ? 'fri' : 'sun';
-      $('.pin-' + which).classList.toggle('done', done);
-      $('#stop-' + which).classList.toggle('done', done);
+      var which = tk.dataset.pin; /* só as paradas do mapa têm data-pin (wed, sun) */
+      if (which) {
+        var pn = $('.pin-' + which), sp = $('#stop-' + which);
+        if (pn) pn.classList.toggle('done', done);
+        if (sp) sp.classList.toggle('done', done);
+      }
       if (!done) { allDone = false; if (!next) { next = tk; nextToday = today; } }
     });
     var slip = $('#slip');
@@ -56,13 +59,14 @@
     trl.style.left = (pt.x / 800 * 100) + '%';
     trl.style.top = (pt.y / 1032 * 100) + '%';
     routeM.style.strokeDashoffset = 1 - p;
-    $('#tk-fri').classList.toggle('lit', p < 0.08 && !$('#tk-fri').classList.contains('done'));
-    $('#tk-sun').classList.toggle('lit', p > 0.92);
+    var a = $('#tk-wed'), b = $('#tk-sun');
+    if (a) a.classList.toggle('lit', p < 0.08 && !a.classList.contains('done'));
+    if (b) b.classList.toggle('lit', p > 0.92);
   }
   function trailerStatic() {
     if (sched.allDone) { routeM.style.strokeDashoffset = 0; return; }
     trl.hidden = false;
-    placeTrailer(sched.next && sched.next.id === 'tk-sun' ? 1 : 0);
+    placeTrailer(sched.next && sched.next.dataset.pin === 'sun' ? 1 : 0);
     $$('.tk').forEach(function (t) { t.classList.remove('lit'); });
   }
 
