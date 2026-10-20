@@ -14,6 +14,8 @@
     var body = lines.join('\n');
     out.hidden = false;
     out.textContent = 'Opening your messages app. If nothing opens, text this to 689-364-3026:\n' + body;
-    window.location.href = 'sms:' + TO + '?&body=' + encodeURIComponent(body);
+    var a = document.createElement('a');
+    a.href = 'sms:' + TO + '?&body=' + encodeURIComponent(body);
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
   });
 })();

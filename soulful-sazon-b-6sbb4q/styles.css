@@ -30,7 +30,7 @@ button{font:inherit;color:inherit}
 .preview-strip{height:var(--strip);display:flex;align-items:center;justify-content:center;text-align:center;padding:0 8px;background:var(--paper-2);border-bottom:1px solid var(--ink);font:600 11.5px/1.1 var(--f-t);letter-spacing:.01em}
 
 /* cabeçalho = faixa da tenda */
-.tent{position:sticky;top:0;z-index:50;height:var(--hdr);background:var(--valance);display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad)}
+.tent{padding-left:max(var(--pad),env(safe-area-inset-left))!important;padding-right:max(var(--pad),env(safe-area-inset-right))!important;position:sticky;top:0;z-index:50;height:var(--hdr);background:var(--valance);display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad)}
 .tent-name{padding:.3em .2em .2em;margin:-.3em -.2em -.2em;font:800 21px/1 var(--f-t);font-variation-settings:"wdth" 118;letter-spacing:.01em;text-decoration:none;background:linear-gradient(var(--red-lt),#B92A26);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap}
 .tent-name .est{display:inline-block;margin-left:.55em;font:600 12px/1 var(--f-t);font-variation-settings:"wdth" 100;letter-spacing:.02em;color:var(--paper);-webkit-text-fill-color:var(--paper);vertical-align:.12em}
 .tent{gap:10px}
@@ -69,7 +69,7 @@ button{font:inherit;color:inherit}
 .checker{height:10px;background:repeating-conic-gradient(var(--ink) 0 25%,var(--paper) 0 50%) 0 0/10px 10px}
 
 /* barra fixa (celular): as duas placas */
-.bar{position:fixed;z-index:60;left:0;right:0;bottom:0;height:calc(var(--bar) + env(safe-area-inset-bottom));padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:var(--valance);display:flex;gap:8px}
+.bar{position:fixed;z-index:60;left:0;right:0;bottom:0;height:calc(var(--bar) + env(safe-area-inset-bottom));padding:8px max(8px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));background:var(--valance);display:flex;gap:8px}
 .pl{flex:1;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;color:var(--chalk);font:900 17px/1 var(--f-p);letter-spacing:.01em}
 .pl::before{content:"";position:absolute;inset:0;background:url(img/placard-frame.svg) 0 0/100% 100% no-repeat}
 .pl span{position:relative}
@@ -285,6 +285,7 @@ figcaption{font:600 14px/1.35 var(--f-t);color:var(--muted)}
 .chap{padding:34px var(--pad) 18px;font:900 10.6vw/1 var(--f-d);font-variation-settings:"wdth" var(--wd,140);text-transform:uppercase;white-space:nowrap}
 .owners{position:relative;margin:34px var(--pad) 0;overflow:hidden;max-width:640px}
 .owners img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 40%}
+.owners-fam img{aspect-ratio:3/4;object-position:50% 50%}
 .owners figcaption{position:absolute;left:10px;bottom:10px;background:var(--paper);color:var(--ink);padding:4px 10px 5px;font:700 13px/1.2 var(--f-t)}
 .story-t{padding:26px var(--pad) 0;display:grid;gap:18px;max-width:640px}
 .story-t p{font:500 19px/1.5 var(--f-t)}
@@ -422,3 +423,13 @@ html.lenis,html.lenis body{height:auto}
   .js:not(.rm) .box figcaption,.js:not(.rm) .nophoto{font-size:14px}
   .js:not(.rm) .spin{position:static;grid-column:2;grid-row:2;margin-top:8px;rotate:-2deg;min-height:44px;padding:8px 14px 10px;font-size:14px}
 }
+
+/* dica "Add to Home Screen" (só celular, uma vez; some enquanto a seção Order aparece) */
+.a2hs{position:fixed;z-index:70;left:10px;right:10px;bottom:calc(var(--bar) + env(safe-area-inset-bottom) + 10px);display:flex;align-items:center;gap:10px;padding:10px 6px 10px 14px;background:var(--paper-2);color:var(--ink);border:3px solid var(--ink);border-radius:8px;box-shadow:4px 4px 0 var(--ink);opacity:0;translate:0 12px;pointer-events:none;transition:opacity .25s,translate .25s}
+.a2hs.on{opacity:1;translate:0 0;pointer-events:auto}
+.a2hs p{flex:1;font:600 15px/1.3 var(--f-t)}
+.a2hs b{font-weight:800}
+.a2hs-go{min-height:44px;padding:0 14px;border:0;border-radius:6px;background:var(--mac);color:var(--ink);font:800 15px/1 var(--f-t);cursor:pointer}
+.a2hs-x{width:44px;min-height:44px;border:0;background:none;font:400 28px/1 var(--f-t);color:var(--ink);cursor:pointer}
+@media (min-width:900px){.a2hs{display:none}}
+@media (prefers-reduced-motion:reduce){.a2hs{transition:none}}
