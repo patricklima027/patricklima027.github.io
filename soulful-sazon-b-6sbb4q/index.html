@@ -34,6 +34,7 @@ setTimeout(function(){if(!window.__sazonReady)document.documentElement.classList
 <div class="preview-strip">Preview made for Soulful Sazón by Ribeiro Web Co. · not live yet</div>
 
 <header class="tent" id="tent">
+  <a class="tent-seal" href="#top" aria-label="Soulful Sazón, back to the top"><img src="img/logo-selo.webp" alt="Soulful Sazón logo: a chef in front of a Puerto Rican flag" width="40" height="45"></a>
   <a class="tent-name" href="#top">SOULFUL SAZÓN<span class="est">est. 2025</span></a>
   <nav class="tent-nav" aria-label="Sections">
     <a href="#build">How to build!</a>
@@ -54,7 +55,7 @@ setTimeout(function(){if(!window.__sazonReady)document.documentElement.classList
     </picture>
     <div class="shade"></div>
   </div>
-  <a class="slip hide0" id="slip" href="#pickup"><em>this week</em><span>Wed 10/21 Loco Wings Wednesday · Sun 10/25 Lake Eola</span></a>
+  <a class="slip hide0" id="slip" href="#pickup"><em>this week</em><span>Wed 10/21 Loco Wings Wednesday · Thu 10/22 E Colonial Dr</span></a>
   <h1 class="lock" aria-label="Soulful Sazón: where Boricua meets Soul">
     <span class="w wb hide0" aria-hidden="true">BORICUA</span>
     <span class="meets hide0" aria-hidden="true">meets</span>
@@ -72,12 +73,12 @@ setTimeout(function(){if(!window.__sazonReady)document.documentElement.classList
       <ol class="steps">
         <li class="step" data-step="0"><span class="sn">1</span><span class="st">Choose your protein</span>
           <ul class="opts" data-cat="meat">
-            <li class="b">Pernil</li><li class="b">Churrasco</li><li class="b">Chicharrón de pollo</li><li class="b">Carne frita</li><li class="b">Shrimp</li><li class="s">Loco Wings</li>
+            <li class="b">Pernil</li><li class="b">Churrasco</li><li class="b">Pollo frito</li><li class="b">Carne frita</li><li class="b">Grilled shrimp</li><li class="s">Loco Wings</li>
           </ul></li>
         <li class="step" data-step="1"><span class="sn">2</span><span class="st">Choose your rice</span>
           <ul class="opts" data-cat="rice"><li class="b">Arroz con gandules</li><li class="s">Rice &amp; red beans</li></ul></li>
         <li class="step" data-step="2"><span class="sn">3</span><span class="st">Choose 2 sides</span>
-          <ul class="opts" data-cat="side"><li class="s">Mac &amp; cheese</li><li class="s">Collard greens</li><li class="s">Yams</li><li class="b">Tostones</li></ul></li>
+          <ul class="opts" data-cat="side"><li class="s">Mac &amp; cheese</li><li class="s">Collard greens</li><li class="s">Candied yams</li><li class="b">Maduros</li><li class="b">Tostones</li></ul></li>
       </ol>
       <p class="stepnow" aria-hidden="true"></p>
       <div class="reel" aria-hidden="true"></div>
@@ -107,29 +108,84 @@ setTimeout(function(){if(!window.__sazonReady)document.documentElement.classList
 
 <section class="more" id="more" aria-labelledby="more-h">
   <div class="checker" aria-hidden="true"></div>
-  <h2 id="more-h">More on the menu</h2>
+  <h2 id="more-h">The menu</h2>
   <article class="row">
     <div class="row-t">
-      <h3>Loco Wings</h3>
-      <p>Choose either 5, 10, or 20 wings tossed in one of our homemade signature wing sauces with our famous Cajun fries</p>
-      <p class="sm">Loco Wings by Soulful Sazón · <a href="https://www.instagram.com/eatlocowings/" rel="noopener">@eatlocowings</a></p>
+      <h3>Combos</h3>
+      <p>Every combo comes with arroz con gandules or rice &amp; red beans, plus 2 sides.</p>
+      <dl class="items">
+        <div><dt>Carne frita</dt><dd>Fried pork chunks.</dd></div>
+        <div><dt>Pollo frito</dt><dd>Fried chicken thighs.</dd></div>
+        <div><dt>Pernil</dt><dd>Pulled pork.</dd></div>
+        <div><dt>Loco Wings</dt><dd>Wings, regular sauce.</dd></div>
+        <div><dt>Churrasco</dt><dd>Skirt steak.</dd></div>
+        <div><dt>Grilled shrimp</dt></div>
+      </dl>
     </div>
-    <img class="sticker" style="--r:3deg" src="img/wings-shirt.webp" width="1000" height="1000" loading="lazy" alt="Two open takeout boxes of glazed wings with sides, held in front of a black Where Boricua Meets Soul shirt.">
+    <img class="sticker" style="--r:3deg" src="img/g-chicken-combo.webp" width="720" height="960" loading="lazy" alt="A takeout box with grilled chicken strips over rice, collard greens and mac and cheese.">
   </article>
   <article class="row alt">
     <div class="row-t">
-      <h3>Empanadas &amp; alcapurrias</h3>
+      <img class="mini-logo" src="img/logo-loco.webp" width="420" height="415" loading="lazy" alt="Loco Wings by Soulful Sazón logo: a rooster chef with flaming wings">
+      <h3>Loco Wings</h3>
+      <p>Choose either 5, 10, or 20 wings tossed in one of our homemade signature wing sauces with our famous Cajun fries</p>
+      <h4>Wing sauces</h4>
+      <ul class="sauces">
+        <li>Soul Fire Honey</li><li>Loco Lemon</li><li>Loco Lemon Heat</li><li>Boricua Buffalo</li><li>Gifted Gold (no heat)</li><li>Soulful BBQ</li><li>Dirty South Ranch</li><li>Fuego</li><li>Loco Yaki</li><li>Loco Parm (garlic parm)</li><li>Kingston Kick (jerk)</li>
+      </ul>
+      <p class="sm">Loco Wings by Soulful Sazón · <a href="https://www.instagram.com/eatlocowings/" rel="noopener">@eatlocowings</a></p>
+    </div>
+    <img class="sticker" style="--r:-3deg" src="img/wings-fries.webp" width="720" height="960" loading="lazy" alt="A cardboard box of glazed wings on top of crinkle-cut fries.">
+  </article>
+  <article class="row">
+    <div class="row-t">
+      <h3>Appetizers</h3>
       <dl class="items">
-        <div><dt>Empanadas</dt><dd>Our fresh, crispy empanadas are stuffed with flavorful, savory fillings and seasoned to perfection.</dd></div>
         <div><dt>Alcapurrias</dt><dd>A Puerto Rican favorite! Crispy fritters made from seasoned root vegetables and green bananas, stuffed with delicious savory meat.</dd></div>
+        <div><dt>Empanadas</dt><dd>Our fresh, crispy empanadas are stuffed with flavorful, savory fillings and seasoned to perfection. Beef, beef &amp; cheese, chicken or pernil.</dd></div>
+        <div><dt>Boricua Bites</dt><dd>Your choice of meat (pernil, carne frita or pollo frito) with 4 tostones and your choice of sauce.</dd></div>
+        <div><dt>Egg rolls</dt><dd>Beef &amp; cheese, mac n pernil or seafood.</dd></div>
+        <div><dt>Pinchos</dt><dd>Pollo, carne frita or camarones (shrimp).</dd></div>
+        <div><dt>Mofongo balls</dt><dd>Your choice of meat. Shrimp or churrasco is extra.</dd></div>
       </dl>
     </div>
-    <img class="sticker wide" style="--r:-3deg" src="img/empanada.webp" width="1000" height="560" loading="lazy" alt="Two fried empanadas in a paper boat lined with checkered paper, a small Puerto Rican flag on a pick.">
+    <img class="sticker wide" style="--r:3deg" src="img/empanada.webp" width="1000" height="560" loading="lazy" alt="Two fried empanadas in a paper boat lined with checkered paper, a small Puerto Rican flag on a pick.">
   </article>
-  <article class="row mini">
-    <h3>Build your bowl</h3>
+  <article class="row alt">
+    <div class="row-t">
+      <h3>Build your bowl</h3>
+      <p>Choose your protein: chicken, carne frita, pernil, churrasco or shrimp. Then 1 base, 1 side and 1 topper.</p>
+      <dl class="items">
+        <div><dt>Base</dt><dd>Arroz con gandules or rice &amp; red beans.</dd></div>
+        <div><dt>Side</dt><dd>Mac, yams or greens.</dd></div>
+        <div><dt>Topper</dt><dd>Tostones, maduro or cornbread.</dd></div>
+      </dl>
+    </div>
+    <img class="sticker" style="--r:-3deg" src="img/bowl-hand.webp" width="720" height="960" loading="lazy" alt="A gloved hand holding a bowl with mac and cheese, tostones and meat.">
+  </article>
+  <article class="row mini sides">
+    <h3>Sides, sauces &amp; drinks</h3>
+    <dl class="items">
+      <div><dt>Sides</dt><dd>Arroz con gandules, white rice &amp; red beans, collard greens, candied yams, maduros, tostones and mac &amp; cheese. Cornbread on the side.</dd></div>
+      <div><dt>Homemade sauces</dt><dd>Mayo ketchup, spicy mayo ketchup, mofo (cilantro garlic) and green drip (chimi churri).</dd></div>
+      <div><dt>Drinks</dt><dd>Water, soda, malta and Gatorade.</dd></div>
+    </dl>
   </article>
   <p class="menu-note">Some appetizers are only available at certain locations due to different menus on the truck and the tent.</p>
+  <div class="gallery" aria-label="Photos from the window">
+    <h3>From the window</h3>
+    <ul class="strip">
+      <li><img class="sticker" style="--r:-2deg" src="img/g-toston-pernil.webp" width="720" height="960" loading="lazy" alt="A fried tostón topped with pulled pork and a green sauce."></li>
+      <li><img class="sticker" style="--r:2deg" src="img/egg-rolls.webp" width="720" height="960" loading="lazy" alt="Fried rolls in a paper boat lined with checkered paper, a small Puerto Rican flag on a pick."></li>
+      <li><img class="sticker" style="--r:-2deg" src="img/g-wings-combo.webp" width="720" height="960" loading="lazy" alt="A takeout box with glazed wings, mac and cheese and collard greens."></li>
+      <li><img class="sticker" style="--r:2deg" src="img/g-pollo-frito.webp" width="720" height="960" loading="lazy" alt="A takeout box with fried chicken thighs over rice, with collard greens and mac and cheese."></li>
+      <li><img class="sticker" style="--r:-2deg" src="img/g-loaded-fries.webp" width="720" height="960" loading="lazy" alt="Fries loaded with chicken, sauces and toppings."></li>
+      <li><img class="sticker" style="--r:2deg" src="img/g-combo-cornbread.webp" width="720" height="960" loading="lazy" alt="A takeout box with chicken, mac and cheese, greens and a cornbread muffin."></li>
+      <li><img class="sticker" style="--r:-2deg" src="img/g-bowl-green.webp" width="720" height="960" loading="lazy" alt="A bowl of meat with a green drizzle sauce."></li>
+      <li><img class="sticker" style="--r:2deg" src="img/g-bowl-cornbread.webp" width="720" height="960" loading="lazy" alt="A bowl with cornbread, fried balls and pulled meat in front of the Soulful Sazón banner."></li>
+      <li><img class="sticker" style="--r:-2deg" src="img/g-egg-roll.webp" width="720" height="960" loading="lazy" alt="Two fried rolls wrapped in foil, held in a hand."></li>
+    </ul>
+  </div>
 </section>
 
 <section class="order" id="order" aria-labelledby="order-h">
@@ -139,6 +195,7 @@ setTimeout(function(){if(!window.__sazonReady)document.documentElement.classList
   <a class="phone" href="tel:+16893643026" aria-label="Call 689-364-3026"><span class="phone-t">(689) 364-3026</span></a>
   <p class="lead">Call us or text us.</p>
   <p class="txt">For all pre-orders, bookings, promotions, and catering inquires, contact us at <a class="tel" href="tel:+16893643026">689-364-3026</a>. Let us cater your next event!</p>
+  <p class="txt txt2">Text your order. Preorders are highly recommended.</p>
   <div class="btns">
     <a class="btn btn-red" href="https://cash.app/$soulfulsazonus/l/CALL_CAESDUxSUjJBQlJFOTNWWlo/in-store/CALISOG_CAI" rel="noopener">Order</a>
     <a class="btn btn-line" href="tel:+16893643026">Call us</a>
@@ -203,20 +260,38 @@ setTimeout(function(){if(!window.__sazonReady)document.documentElement.classList
           <div class="tk-day"><span class="stamp" hidden>today</span><b>WED</b><i>10/21</i></div>
           <div class="tk-body">
             <h3>Loco Wings Wednesday</h3>
-            <p class="addr">9705 E Colonial Dr, Orlando, FL 32817</p>
+            <p class="addr">9795 E Colonial Dr, Orlando, FL 32827</p>
             <p class="time">3 PM – 9 PM</p>
+            <a class="dir" href="https://www.google.com/maps/search/?api=1&amp;query=9795+E+Colonial+Dr+Orlando+FL+32827">Directions</a>
+            <span class="sr over" hidden>This stop is over.</span>
+          </div>
+        </li>
+        <li class="tk" id="tk-thu" data-start="202610221200" data-end="202610222000" data-slip="Thu 10/22 · E Colonial Dr · 12&nbsp;PM–8&nbsp;PM">
+          <div class="tk-day"><span class="stamp" hidden>today</span><b>THU</b><i>10/22</i></div>
+          <div class="tk-body">
+            <h3>Soulful Sazón trailer</h3>
+            <p class="addr">9705 E Colonial Dr, Orlando, FL 32817</p>
+            <p class="time">12 PM – 8 PM</p>
             <a class="dir" href="https://www.google.com/maps/search/?api=1&amp;query=9705+E+Colonial+Dr+Orlando+FL+32817">Directions</a>
             <span class="sr over" hidden>This stop is over.</span>
+          </div>
+        </li>
+        <li class="tk closed" id="tk-fri" data-closed="1" data-start="202610230000" data-end="202610232359" data-slip="Fri 10/23 · Closed">
+          <div class="tk-day"><b>FRI</b><i>10/23</i></div>
+          <div class="tk-body">
+            <h3>Closed</h3>
+            <p class="addr">Private event.</p>
+            <span class="sr over" hidden>This day is over.</span>
           </div>
         </li>
         <li class="tk" id="tk-sun" data-pin="sun" data-start="202610251000" data-end="202610251500" data-slip="Sun 10/25 · Orlando Farmers Market · 10&nbsp;AM–3&nbsp;PM">
           <div class="tk-day"><span class="stamp" hidden>today</span><b>SUN</b><i>10/25</i></div>
           <div class="tk-body">
             <h3>Orlando Farmers Market</h3>
-            <p class="addr">Lake Eola, in front of the playground</p>
+            <p class="addr">Lake Eola, in front of the playground<br>528 E Washington St, Orlando, FL 32801</p>
             <p class="time">10 AM – 3 PM</p>
             <figure class="tent-ph"><img src="img/fam-tent.webp" width="1200" height="1200" loading="lazy" alt="The crew in pink shirts in front of the black Soulful Sazón tent at Lake Eola."><figcaption>Look for this tent.</figcaption></figure>
-            <a class="dir" href="https://www.google.com/maps/search/?api=1&amp;query=Lake+Eola+Park+playground+Orlando+FL">Directions</a>
+            <a class="dir" href="https://www.google.com/maps/search/?api=1&amp;query=528+E+Washington+St+Orlando+FL+32801">Directions</a>
             <span class="sr over" hidden>This stop is over.</span>
           </div>
         </li>
@@ -229,7 +304,7 @@ setTimeout(function(){if(!window.__sazonReady)document.documentElement.classList
       <div class="usual">
         <h3>Most weeks</h3>
         <ul>
-          <li><b>Wednesday</b> Loco Wings Wednesday, 3 PM – 9 PM<br>9705 E Colonial Dr, Orlando, FL 32817</li>
+          <li><b>Wednesday</b> Loco Wings Wednesday, 3 PM – 9 PM<br>E Colonial Dr, Orlando, FL</li>
           <li><b>Sunday</b> Orlando Farmers Market, 10 AM – 3 PM<br>Lake Eola, in front of the playground</li>
         </ul>
         <p>Other days change.</p>
@@ -263,6 +338,7 @@ setTimeout(function(){if(!window.__sazonReady)document.documentElement.classList
 </main>
 
 <footer class="foot">
+  <img class="foot-seal" src="img/logo-selo.webp" alt="" width="188" height="210" loading="lazy">
   <p class="band"><span>WHERE BORICUA</span> <span>MEETS SOUL</span></p>
   <a class="ig" href="https://www.instagram.com/soulfulsazon/" rel="noopener">@soulfulsazon</a>
   <p class="foot-l">Schedule is pinned. <a href="tel:+16893643026">Call</a> · <a href="sms:+16893643026">Text</a> 689-364-3026</p>

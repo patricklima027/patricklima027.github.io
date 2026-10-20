@@ -25,7 +25,7 @@
       var done = now >= e;
       var today = !done && (now >= s || String(s).slice(0, 8) === String(now).slice(0, 8));
       tk.classList.toggle('done', done);
-      $('.stamp', tk).hidden = !today;
+      var st = $('.stamp', tk); if (st) st.hidden = !today;
       $('.over', tk).hidden = !done;
       var which = tk.dataset.pin; /* só as paradas do mapa têm data-pin (wed, sun) */
       if (which) {
@@ -33,10 +33,10 @@
         if (pn) pn.classList.toggle('done', done);
         if (sp) sp.classList.toggle('done', done);
       }
-      if (!done) { allDone = false; if (!next) { next = tk; nextToday = today; } }
+      if (!done) { allDone = false; if (!next && !tk.dataset.closed) { next = tk; nextToday = today; } }
     });
     var slip = $('#slip');
-    if (allDone) {
+    if (allDone || !next) {
       slip.href = IG;
       slip.innerHTML = '<em>new week, new stops</em><span>Our schedule is pinned on Instagram.</span>';
       $('#nw-h').textContent = 'New week, new stops.';
@@ -79,7 +79,7 @@
   var PH = [
     { c: ['Pernil', 'Arroz con gandules', 'Mac & cheese', 'Collard greens'], type: 'c', cap: "Pernil, mac & cheese, collards. That's a combo." },
     { c: ['Carne frita', 'Rice & red beans', 'Mac & cheese', 'Tostones'], type: 'f', el: '#shot-carne', cap: 'Carne frita.' },
-    { c: ['Chicharrón de pollo', 'Rice & red beans', 'Mac & cheese', 'Collard greens'], type: 'f', el: '#shot-chic' }
+    { c: ['Pollo frito', 'Rice & red beans', 'Mac & cheese', 'Collard greens'], type: 'f', el: '#shot-chic' }
   ];
   function mk(arr) { return { meat: find('meat', arr[0]), rice: find('rice', arr[1]), sides: [find('side', arr[2]), find('side', arr[3])] }; }
   var key = function (c) { return [c.meat.n, c.rice.n].concat(c.sides.map(function (s) { return s.n; }).sort()).join('|'); };

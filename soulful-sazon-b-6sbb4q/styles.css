@@ -33,12 +33,17 @@ button{font:inherit;color:inherit}
 .tent{position:sticky;top:0;z-index:50;height:var(--hdr);background:var(--valance);display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad)}
 .tent-name{padding:.3em .2em .2em;margin:-.3em -.2em -.2em;font:800 21px/1 var(--f-t);font-variation-settings:"wdth" 118;letter-spacing:.01em;text-decoration:none;background:linear-gradient(var(--red-lt),#B92A26);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap}
 .tent-name .est{display:inline-block;margin-left:.55em;font:600 12px/1 var(--f-t);font-variation-settings:"wdth" 100;letter-spacing:.02em;color:var(--paper);-webkit-text-fill-color:var(--paper);vertical-align:.12em}
+.tent{gap:10px}
+.tent-seal{flex:none;display:block;margin:-2px 0 -8px;line-height:0}
+.tent-seal img{width:auto;height:50px;filter:drop-shadow(0 2px 0 rgb(0 0 0/.35))}
+.tent-name{margin-right:auto}
 .tent-nav{display:flex;align-items:center;gap:22px}
 .tent-nav a{display:inline-flex;align-items:center;min-height:44px;font:600 13px/1 var(--f-t);color:var(--paper);text-decoration:none;background:linear-gradient(#fff6,#fff6) 0 calc(50% + 11px)/100% 1px no-repeat}
 .tent-nav a:hover{border-color:var(--mac)}
 .tent-nav a{white-space:nowrap}
-@media (max-width:429px){.tent-name{font-size:19px}.tent-name .est{font-size:11px;margin-left:.45em}.tent-nav a{font-size:12.5px}}
-@media (max-width:359px){.tent-name{font-size:16px}.tent-name .est{display:none}.tent-nav a{font-size:12px}}
+@media (max-width:429px){.tent{gap:7px}.tent-seal img{height:42px}.tent-name{font-size:16px}.tent-name .est{font-size:10.5px;margin-left:.4em}.tent-nav a{font-size:12px}}
+@media (max-width:379px){.tent-name{font-size:14.5px}.tent-name .est{font-size:10px}.tent-nav a{font-size:11.5px}}
+@media (max-width:339px){.tent-name .est{display:none}}
 
 /* ============ 1. O CHOQUE ============ */
 .hero{position:relative;height:calc(100svh - var(--strip) - var(--hdr) - var(--bar));min-height:520px;overflow:hidden;isolation:isolate;background:var(--paper)}
@@ -153,6 +158,18 @@ figcaption{font:600 14px/1.35 var(--f-t);color:var(--muted)}
 .items{margin-top:6px;max-width:34em}
 .items dt{margin-top:16px;font:800 20px/1.2 var(--f-t);font-variation-settings:"wdth" 100}
 .items dd{margin:4px 0 0;font:500 17px/1.45 var(--f-t)}
+.row h4{margin-top:16px;font:800 18px/1.2 var(--f-t);font-variation-settings:"wdth" 100}
+.sauces{margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;max-width:34em}
+.sauces li{font:600 16px/1.3 var(--f-t);padding-left:.9em;position:relative}
+.sauces li::before{content:"";position:absolute;left:0;top:.5em;width:.45em;height:.45em;border-radius:50%;background:var(--boricua)}
+.sauces li:nth-child(even)::before{background:var(--soul)}
+.mini-logo{width:96px;height:auto;margin-bottom:6px}
+.row.mini.sides .items{max-width:44em}
+.gallery{padding:34px 0 0;border-top:3px solid var(--ink);margin-top:22px}
+.gallery h3{padding:0 var(--pad);font:900 6.4vw/1 var(--f-d);font-variation-settings:"wdth" 100;text-transform:uppercase}
+.strip{margin-top:20px;display:flex;gap:16px;overflow-x:auto;padding:12px var(--pad) 22px;scroll-snap-type:x proximity;scroll-padding-left:var(--pad);-webkit-overflow-scrolling:touch}
+.strip li{flex:none;width:min(62vw,260px);scroll-snap-align:start}
+.strip img{width:100%;aspect-ratio:3/4;object-fit:cover}
 .menu-note{margin:0;padding:20px max(var(--pad),calc(100% - 44em)) 0 var(--pad);border-top:3px solid var(--ink);font:600 16px/1.45 var(--f-t);color:var(--muted)}
 .row .sm a{color:var(--soul);font-weight:700}
 .row.mini{padding:18px var(--pad) 22px}
@@ -183,6 +200,7 @@ figcaption{font:600 14px/1.35 var(--f-t);color:var(--muted)}
 .btn-line{background:transparent;color:var(--ink)}
 .btn-mac{background:var(--mac);color:var(--ink);border-color:var(--paper)}
 .btn:hover{translate:0 -2px}
+.txt2{margin-top:6px;font-weight:700}
 .txt .tel{white-space:nowrap;font-weight:800;color:var(--boricua);text-underline-offset:.2em}
 .deliv-t{margin-top:22px;font:700 16px/1.2 var(--f-t)}
 .btns.deliv{margin-top:8px}
@@ -242,6 +260,7 @@ figcaption{font:600 14px/1.35 var(--f-t);color:var(--muted)}
 .tent-ph::before{content:"";position:absolute;z-index:2;top:-9px;left:34%;width:60px;height:18px;background:#e9e2d0d9;rotate:-4deg}
 .tent-ph figcaption{position:absolute;right:-6px;bottom:-14px;font:400 19px/1 var(--f-b);color:var(--boricua);background:var(--paper-2);padding:.15em .5em .25em;border-radius:8px;rotate:-4deg;box-shadow:0 2px 0 #0002}
 .tk.lit{box-shadow:10px 10px 0 var(--boricua)}
+.tk.closed .tk-body h3{color:var(--boricua)}
 .tk.done{opacity:.45}
 .tk.done .dir{display:none}
 .tk.done::after{content:"";position:absolute;inset:0;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 40' preserveAspectRatio='none'%3E%3Cpath d='M3 36 C30 24 60 16 97 5' fill='none' stroke='%231B1A1B' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat}
@@ -278,6 +297,7 @@ figcaption{font:600 14px/1.35 var(--f-t);color:var(--muted)}
 
 /* ============ rodapé ============ */
 .foot{background:var(--valance);color:var(--chalk);padding:34px var(--pad) calc(var(--bar) + 30px)}
+.foot-seal{display:block;width:150px;height:auto;margin:0 0 20px}
 .band{padding:.12em .08em .1em;margin:-.12em -.08em -.1em;display:flex;flex-direction:column;font:800 8.5vw/1.08 var(--f-t);font-variation-settings:"wdth" 118;letter-spacing:.005em;background:linear-gradient(var(--red-lt),#B92A26);-webkit-background-clip:text;background-clip:text;color:transparent;width:fit-content}
 .band span{display:block;white-space:nowrap}
 .ig{display:inline-block;margin-top:26px;font:900 9.6vw/1 var(--f-d);font-variation-settings:"wdth" 100;color:var(--paper);text-decoration:none;border-bottom:4px solid var(--blue-lt)}
@@ -325,6 +345,10 @@ figcaption{font:600 14px/1.35 var(--f-t);color:var(--muted)}
 
   .more{padding-bottom:60px}
   .more h2{font-size:7.4vw;padding:56px var(--pad) 34px}
+  .gallery h3{font-size:3vw}
+  .strip li{width:240px}
+  .mini-logo{width:120px}
+  .tent-seal img{height:58px}
   .row{grid-template-columns:1fr 1fr;align-items:center;gap:5vw;padding:34px var(--pad) 44px}
   .row h3{font-size:5.4vw}
   .row p{font-size:19px}
