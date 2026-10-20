@@ -3,7 +3,7 @@
    - GSAP/Lenis (jsdelivr) e fontes do Google: guardados na primeira vez, para abrir sem sinal;
    - tudo o mais (Cash App, DoorDash, Uber Eats, mapas, Instagram, tel:, sms:): vai direto para a rede.
    Ao publicar uma versão nova, troque VERSION. */
-var VERSION = 'sazon-v2-4';
+var VERSION = 'sazon-v2-5';
 var CORE = ['./', 'index.html', 'styles.css', 'main.js', 'form.js', 'pwa.js', 'manifest.webmanifest',
   'img/favicon.svg', 'img/favicon.png', 'img/icon-192.png', 'img/logo-selo.webp', 'img/streak.svg', 'img/placard-frame.svg', 'img/trailer.svg', 'img/clamshell.svg',
   'img/hero-chicharron-1000.webp', 'img/hero-chicharron-1300.webp'];
