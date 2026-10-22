@@ -1,0 +1,242 @@
+/* Osso Duro Jiu-Jitsu & Muay Thai (modelo-br-artes-marciais) — custom.css.
+   Conceito: "Todo osso duro um dia foi faixa branca". A página sobe a escada das faixas (osso/branca, azul, roxa, marrom, preta);
+   a faixa fixa no alto muda de cor com a seção (custom.js) e o topo é a parede com as cinco faixas penduradas.
+   Ordem do Patrick (21/10/2026): site de agendamento. O botão "Agendar aula experimental" é amarelo (a cor do tatame) em tudo que é
+   foto ou fundo escuro e fica no topo, na barra do celular, em cada turma da grade e no fim de cada bloco.
+   Regra: o amarelo não tem contraste como texto sobre o osso, então nas seções claras todo destaque vira azul. */
+
+:root {
+  --azul: #1D3FA0; --roxa: #5B2A86; --marrom: #5A3820; --preta: #0F0F12;
+  --osso: #EEE8DA; --branca: #F7F5EE; --amarelo: #E9C52F;
+}
+
+/* ---------- faixa fixa no alto: a cor da seção em que você está ---------- */
+.belt {
+  top: env(safe-area-inset-top, 0px); height: 6px; padding-right: 14px; gap: 6px;
+  background: var(--branca); box-shadow: 0 1px 0 rgb(15 15 18 / .3); transition: background .5s cubic-bezier(.16, 1, .3, 1);
+}
+.belt[data-belt-now="branca"] { background: var(--branca); }
+.belt[data-belt-now="azul"] { background: var(--azul); }
+.belt[data-belt-now="roxa"] { background: var(--roxa); }
+.belt[data-belt-now="marrom"] { background: var(--marrom); }
+.belt[data-belt-now="preta"] { background: var(--preta); box-shadow: 0 1px 0 rgb(238 232 218 / .22); }
+.belt u { width: 5px; background: var(--branca); opacity: 0; transition: opacity .2s; }
+.belt[data-belt-now="preta"] u { opacity: 1; }
+.belt[data-belt-now="preta"] u:nth-child(2) { transition-delay: .12s; }
+.belt[data-belt-now="preta"] u:nth-child(3) { transition-delay: .24s; }
+.belt[data-belt-now="preta"] u:nth-child(4) { transition-delay: .36s; }
+
+/* ---------- topo: a parede de faixas ---------- */
+/* a foto é clara (parede branca): o véu escuro dá contraste ao título e ao subtítulo (medido a 390 e 360 px: kicker 7:1, subtítulo 5:1, script 4,1:1) */
+.hero-shade { background: linear-gradient(180deg, rgb(15 15 18 / .56) 0%, rgb(15 15 18 / .50) 22%, rgb(15 15 18 / .56) 50%, rgb(15 15 18 / .62) 66%, rgb(15 15 18 / .88) 100%); }
+.hero-kicker, .hero-title, .hero-sub { text-shadow: 0 1px 18px rgb(15 15 18 / .35); }
+.hero .btn--solid { min-height: 60px; font-size: 1.04rem; }
+.hero .btn--line { min-height: 60px; }
+/* a foto "respira" devagar (CSS puro, no contêiner: o template já anima a foto em si ao entrar e ao rolar) */
+.hero-media { animation: respira 16s ease-out infinite alternate; }
+@keyframes respira { to { transform: scale(1.05); } }
+/* o cabeçalho do template inverte a cor sobre a foto ("difference") e some numa parede clara: aqui é branco com sombra
+   enquanto o topo está sobre a foto; depois de 80 px de rolagem o template troca para o cabeçalho de osso */
+.hdr:not(.hdr--solid) { mix-blend-mode: normal; color: #fff; text-shadow: 0 1px 14px rgb(15 15 18 / .6); }
+.hdr-brand { white-space: nowrap; }
+
+/* computador: a parede de faixas à direita (as faixas ficam inteiras e em ordem), o título e o botão de agendar à esquerda */
+@media (min-width: 900px) and (orientation: landscape) {
+  .hero-media .media { position: absolute; left: 0; top: -6%; width: 120%; height: 120%; max-width: none; object-position: 0 0; }
+  .hero-body { align-items: flex-start; text-align: left; padding: 70px 54% 170px clamp(28px, 5vw, 72px); }
+  .hero-sub { margin-left: 0; margin-right: 0; }
+  .hero-actions { left: clamp(28px, 5vw, 72px); right: auto; bottom: clamp(64px, 9vh, 96px); }
+  .hero-shade { background: linear-gradient(90deg, rgb(15 15 18 / .62) 0%, rgb(15 15 18 / .4) 38%, rgb(15 15 18 / 0) 62%),
+                           linear-gradient(180deg, rgb(15 15 18 / .38) 0%, rgb(15 15 18 / 0) 28%, rgb(15 15 18 / 0) 66%, rgb(15 15 18 / .6) 100%); }
+}
+
+/* o template usa a foto 9:16 até 899 px (celular e tablet em pé); a partir de 900 px em pé (janela alta e estreita) ela entra aqui.
+   Até 899 px o corte vai para o alto da foto, onde estão as faixas (no celular deitado a janela é baixa e o centro seria só parede). */
+@media (max-width: 899px) { .hero-media .media { object-position: 50% 8%; } }
+@media (min-width: 900px) and (orientation: portrait) {
+  .hero-media::before { content: ""; position: absolute; inset: 0; z-index: 1; background: var(--dark) url("img/hero-retrato.jpg") 50% 0 / cover no-repeat; }
+}
+
+/* aviso de exemplo sempre à vista: o cabeçalho é fixo, então "exemplo" fica ao lado do nome em qualquer rolagem.
+   Até 1023 px o cabeçalho mostra só o nome curto (o link guarda o nome completo em aria-label) para o aviso caber
+   e para não bater no botão fixo de agendar do computador. */
+.hdr-brand::after { content: "exemplo"; margin-left: 10px; padding-left: 10px; border-left: 1px solid currentColor; font: 500 .875rem/1 var(--f-mono); text-transform: none; letter-spacing: 0; vertical-align: .1em; opacity: .9; }
+@media (max-width: 1023px) { .hdr-full { display: none; } .hdr-short { display: inline; } }
+
+/* ---------- botões: retos como o patch do kimono, nunca pílula ---------- */
+.btn { border-radius: var(--r); font-weight: 700; letter-spacing: .01em; }
+.vmap-go { border-radius: var(--r); }
+
+/* agendar: amarelo do tatame sobre foto e sobre fundo escuro; azul sobre o osso (o template já pinta azul) */
+.hero .btn--solid, .ov-cta .btn--solid, .book .btn--solid, .mb-1,
+.hdr:not(.hdr--solid) + .fcta { background: var(--amarelo); color: var(--preta); }
+.hero .btn--solid::before, .ov-cta .btn--solid::before, .book .btn--solid::before,
+.hdr:not(.hdr--solid) + .fcta::before { background: var(--preta); }
+.hero .btn--solid:hover, .ov-cta .btn--solid:hover, .book .btn--solid:hover,
+.hdr:not(.hdr--solid) + .fcta:hover { color: var(--amarelo); }
+.hero .btn--line { color: #fff; border-color: rgb(255 255 255 / .85); }
+.mbar { background: color-mix(in srgb, var(--preta) 95%, transparent); }
+.mbar a { border-radius: var(--r); }
+.mb-1 { font-size: 1.02rem; letter-spacing: .01em; box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--amarelo) 55%, transparent); }
+/* barra do celular: o rótulo inteiro cabe em uma linha a 390 px; some enquanto o botão de agendar do próprio bloco está na tela */
+@media (max-width: 899px) {
+  .mb-2 { padding: 0 14px; gap: 6px; }
+  .mb-1 { padding: 0 10px; gap: 8px; font-size: .93rem; line-height: 1.1; }
+}
+body.book-in-view .mbar { transform: translateY(160%); visibility: hidden; transition: transform .6s var(--ease), visibility 0s linear .6s; }   /* escondida também do teclado */
+
+/* "como chegar" no escuro: osso com letra preta (o amarelo é só de agendar) */
+.visit .btn--solid { background: var(--osso); color: var(--preta); }
+.visit .btn--solid::before { background: #fff; }
+.visit .btn--solid:hover { color: var(--preta); }
+.contact .book { margin-bottom: clamp(28px, 3.4vw, 44px); }
+.contact .book-text { order: 2; flex: 1 0 100%; max-width: 52ch; font: 400 .9375rem/1.55 var(--f-text); letter-spacing: 0; text-transform: none; color: var(--muted); }
+.book { border-top: 1px solid var(--line); padding-top: clamp(28px, 4vw, 48px); }
+
+/* ---------- destaques em marcador: azul no osso, amarelo no escuro ---------- */
+.st-text em, .sec-title em, .sec-intro em { color: var(--azul); }
+.schedule .sec-title em, .menu .sec-title em, .team .sec-title em, .visit .sec-title em, .contact .sec-title em,
+.book-text em, .mr-note { color: var(--amarelo); }
+.mr-note { font-size: 1.05em; }
+
+/* ---------- escada de seções: cada degrau é uma faixa (redefine as variáveis que o template usa) ---------- */
+.marquee { background: var(--preta); }
+.schedule { --bg: var(--azul); --ink: var(--osso); --muted: #D3D9F2; --line: rgb(238 232 218 / .28); background: var(--bg); color: var(--ink); }
+.menu { --bg: var(--roxa); --ink: var(--osso); --muted: #DDD0EC; --line: rgb(238 232 218 / .28); background: var(--bg); color: var(--ink); }
+.team { --bg: var(--marrom); --ink: var(--osso); --muted: #E3D3C0; --line: rgb(238 232 218 / .28); background: var(--bg); color: var(--ink); }
+.visit, .contact, .ftr { --bg: var(--preta); --ink: var(--osso); --muted: #B9B3A4; --line: rgb(238 232 218 / .22); background: var(--bg); color: var(--ink); }
+
+/* faixa corrida: cada palavra na cor da faixa (6 itens x 2 voltas = 12 itens por grupo, itens nos filhos ímpares) */
+.mq-item:nth-child(12n+1) { color: var(--branca); }
+.mq-item:nth-child(12n+3) { color: #6E8FF0; }
+.mq-item:nth-child(12n+5) { color: #A878E0; }
+.mq-item:nth-child(12n+7) { color: #C9915A; }
+.mq-item:nth-child(12n+9) { color: transparent; -webkit-text-stroke: 2px var(--osso); }
+.mq-item:nth-child(12n+11) { color: var(--amarelo); }
+.mq-sep { color: rgb(238 232 218 / .35); }
+
+/* ---------- turmas: a grade que leva ao botão de agendar ---------- */
+.schedule .sec-head { margin-bottom: clamp(32px, 4.5vw, 64px); }
+.schedule .sec-intro { max-width: 52ch; }
+.sch-list { border-top: 1px solid var(--line); }
+.sch-row {
+  position: relative; display: grid; grid-template-columns: minmax(130px, 19%) minmax(0, 1fr) auto;
+  grid-template-areas: "when main time" "when main go"; gap: 4px clamp(18px, 3vw, 40px); align-items: baseline;
+  padding: 24px 0 24px 26px; border-bottom: 1px solid var(--line);
+}
+.sch-row::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--osso); transform-origin: top; }
+.sch-row[data-level="kids"]::before { background: var(--amarelo); }
+.sch-when { grid-area: when; font: 500 .9375rem var(--f-mono); text-transform: uppercase; }
+.sch-main { grid-area: main; min-width: 0; }
+.sch-title { font-size: clamp(1.15rem, 2.4vw, 1.9rem); line-height: 1.08; }
+.sch-level { margin-top: 6px; font: 400 .9375rem var(--f-mono); color: var(--muted); }
+.sch-note, .menu-note { font-size: .9375rem; line-height: 1.55; }
+.sch-note { margin-top: 28px; max-width: 64ch; }
+.sch-text { margin: 4px 0 0; color: var(--ink); opacity: .9; }
+.sch-time { grid-area: time; font: 700 1.05rem var(--f-mono); text-align: right; }
+.sch-go {
+  grid-area: go; justify-self: end; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; margin-top: 8px; padding: 0 16px;
+  border: 1.5px solid var(--amarelo); border-radius: var(--r); color: var(--amarelo); font: 700 .9375rem/1 var(--f-text); text-decoration: none; white-space: nowrap;
+  transition: background-color .3s, color .3s;
+}
+.sch-go .icon { width: 1.25em; height: 1.25em; }
+.sch-go:hover, .sch-go:focus-visible { background: var(--amarelo); color: var(--preta); }
+@media (max-width: 699px) {
+  .sch-row { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "when time" "main main" "go go"; padding: 20px 0 20px 20px; }
+  .sch-title { font-size: 1.25rem; }
+  .sch-go { justify-self: start; margin-top: 6px; }
+}
+
+/* a grade escreve uma linha por vez (custom.js liga .sch-anim): a barra cresce de cima para baixo e o texto só faz fade + deslize de 8 px */
+.sch-anim .sch-row::before { transform: scaleY(0); transition: transform .4s cubic-bezier(.16, 1, .3, 1); }
+.sch-anim .sch-row.is-in::before { transform: scaleY(1); }
+.sch-anim .sch-row .sch-when, .sch-anim .sch-row .sch-main, .sch-anim .sch-row .sch-time, .sch-anim .sch-row .sch-go { opacity: 0; transform: translateY(8px); }
+.sch-anim .sch-row.is-in .sch-when, .sch-anim .sch-row.is-in .sch-main, .sch-anim .sch-row.is-in .sch-time, .sch-anim .sch-row.is-in .sch-go {
+  opacity: 1; transform: none; transition: opacity .5s ease .12s, transform .5s cubic-bezier(.16, 1, .3, 1) .12s;
+}
+.sch-anim .sch-row.is-in .sch-go { transition: opacity .5s ease .12s, transform .5s cubic-bezier(.16, 1, .3, 1) .12s, background-color .3s, color .3s; }
+
+/* ---------- mensalidade ---------- */
+.mc-title { border-bottom-color: var(--osso); }
+.mc-num, .menu-index span { color: var(--amarelo); }
+.menu-index a:hover { color: var(--osso); }
+.mr-price { font-weight: 700; }
+
+/* ---------- equipe: a faixa de cada professor, desenhada, com os graus ---------- */
+@media (max-width: 999px) { .tm { grid-template-columns: 30px minmax(0, 1fr); column-gap: 14px; } }
+.tm-num { color: var(--amarelo); font-size: .875rem; }
+.tm-belt { position: relative; display: block; width: clamp(220px, 22vw, 280px); max-width: 100%; height: 14px; margin: 14px 0 10px; background: var(--branca); box-shadow: 0 0 0 1px rgb(238 232 218 / .5); transform-origin: left center; }
+.tm-belt[data-belt="roxa"] { background: #7A45A8; }
+.tm-belt[data-belt="preta"] { background: var(--preta); }
+.tm-belt::before { content: ""; position: absolute; right: 16px; top: 0; bottom: 0; width: 46px; background: var(--preta); }
+.tm-belt[data-belt="preta"]::before { background: #B3261E; }
+.tm-belt::after {
+  content: ""; position: absolute; right: 24px; top: 0; bottom: 0; width: calc(var(--g, 0) * 7px - 4px);
+  background: repeating-linear-gradient(90deg, var(--branca) 0 3px, transparent 3px 7px); transition: opacity .4s ease .5s;
+}
+.tm-belt[data-graus="1"] { --g: 1; } .tm-belt[data-graus="2"] { --g: 2; } .tm-belt[data-graus="3"] { --g: 3; } .tm-belt[data-graus="4"] { --g: 4; }
+
+/* a faixa de cada professor amarra da esquerda para a direita, e os graus acendem depois (custom.js liga .tm-anim) */
+.tm-anim .tm .tm-belt { transform: scaleX(0); }
+.tm-anim .tm.is-in .tm-belt { transform: scaleX(1); transition: transform .9s cubic-bezier(.16, 1, .3, 1); }
+.tm-anim .tm .tm-belt::after { opacity: 0; }
+.tm-anim .tm.is-in .tm-belt::after { opacity: 1; }
+.tm-anim .tm > :not(.tm-num):not(.tm-belt) { opacity: 0; transform: translateY(8px); }
+.tm-anim .tm.is-in > :not(.tm-num):not(.tm-belt) { opacity: 1; transform: none; transition: opacity .5s ease, transform .6s cubic-bezier(.16, 1, .3, 1); }
+
+/* ---------- colagem: 3 fotos que não aparecem no topo nem na frase grande; nenhuma cruza o título "TATAME" ---------- */
+.cl-1 img { aspect-ratio: 1; } .cl-2 img { aspect-ratio: 3 / 4; } .cl-3 img { aspect-ratio: 3 / 2; }
+@media (max-width: 899px) { .cl-3 { grid-column: 1 / -1; } }
+@media (min-width: 900px) {
+  .collage { height: clamp(900px, 80vw, 1240px); }
+  .cl-title { top: 50%; }
+  .cl-1 { left: 7%; top: 1%; width: 22%; }
+  .cl-2 { left: 66%; top: 2%; width: 17%; }
+  .cl-3 { left: 28%; top: 61%; width: 38%; }
+}
+.cl figcaption { font: 400 1.05rem/1.15 var(--f-script); color: var(--ink); text-transform: uppercase; }
+
+/* ---------- contato: a mensagem que vai pronta, no quadro branco ---------- */
+.ct-links .icon { color: var(--amarelo); }
+.ct-links a:hover { color: var(--amarelo); }
+.wa-note { max-width: 480px; padding: 22px 24px 26px; background: var(--osso); color: var(--preta); border: 5px solid var(--branca); outline: 2px solid rgb(238 232 218 / .35); }
+.wa-note figcaption { color: #5E5A50; font-size: .9375rem; }
+.wa-note p { gap: 12px; }
+.wa-note span { font: 400 1.25rem/1.25 var(--f-script); color: var(--azul); text-transform: uppercase; }
+.wa-note span:first-child { font: 600 1.05rem/1.4 var(--f-text); color: var(--preta); text-transform: none; }
+.wa-blank { border-bottom-color: var(--azul); }
+
+/* ---------- mapa, horário e rodapé ---------- */
+.today-badge { border-radius: 0; background: var(--amarelo); color: var(--preta); font-weight: 700; }
+.m-dot { fill: var(--amarelo); }
+.m-ring { stroke: var(--amarelo); }
+.ftr-word { color: var(--osso); margin-bottom: .16em; }
+.ftr { --brand: var(--osso); }
+
+/* ---------- menu em tela cheia ---------- */
+/* seis itens em letra gigante estouram a altura de um notebook (o primeiro sai da tela): o tamanho também respeita a altura */
+.ov-nav a { font-size: clamp(1.5rem, min(7.6vw, 7.5vh), 7.5rem); min-height: 44px; align-items: center; }
+.ov-nav a:hover { color: var(--amarelo); }
+.ov-num { color: var(--amarelo); }
+.ov-cta { margin-bottom: 4px; }
+/* celular deitado: os seis itens em duas colunas, para o botão de agendar aparecer sem rolar o menu */
+@media (max-height: 500px) and (min-width: 560px) { .ov-nav ul { columns: 2; column-gap: 40px; } .ov-nav li { break-inside: avoid; } }
+
+/* telefone de exemplo: o toque explica em vez de discar */
+.ex-toast { position: fixed; z-index: 130; left: 12px; right: 12px; bottom: 84px; max-width: 440px; margin: 0; padding: 12px 16px; background: var(--osso); color: var(--preta); border-left: 6px solid var(--amarelo); font: 500 .9375rem/1.45 var(--f-text); box-shadow: 0 14px 30px -12px rgb(0 0 0 / .6); opacity: 0; transform: translateY(10px); pointer-events: none; transition: opacity .3s ease, transform .4s cubic-bezier(.16, 1, .3, 1); }
+.ex-toast.is-on { opacity: 1; transform: none; }
+@media (min-width: 900px) { .ex-toast { left: 28px; right: auto; bottom: 28px; } }
+
+/* ---------- movimento reduzido: tudo aparece parado e completo ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .hero-media { animation: none; }
+  .belt, .belt u, .tm-belt::after, .sch-go { transition: none; }
+  .belt[data-belt-now="preta"] u { transition-delay: 0s; }
+  .ex-toast { transition: none; }
+  /* a faixa corrida não anda: as seis faixas ficam em linhas, inteiras e legíveis */
+  .marquee .mq-track { width: 100%; }
+  .marquee .mq-group[aria-hidden="true"] { display: none; }
+  .marquee .mq-group { flex: 0 1 100%; min-width: 0; flex-wrap: wrap; justify-content: flex-start; padding: 0 var(--pad); row-gap: .1em; }
+  .marquee .mq-group > :nth-child(n+12) { display: none; }
+  .marquee .mq-item { font-size: clamp(2rem, 6vw, 4.5rem); }
+}
