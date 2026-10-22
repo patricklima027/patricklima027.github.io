@@ -38,28 +38,22 @@
 .run-mile .rn { grid-row: 1 / 3; font: 900 clamp(64px, 20vw, 96px)/.8 var(--f-script); font-style: normal; text-transform: none; color: var(--accent); min-width: 1ch; }
 .run-mile h3 { margin: 0; font: 800 clamp(20px, 5.4vw, 26px)/1.05 var(--f-display); text-transform: uppercase; }
 .run-mile p { margin: 6px 0 0; font: 400 16px/1.4 var(--f-text); color: var(--run-dim); }
-/* coluna da direita (só no computador): hodômetro grande e o botão principal */
+/* hodômetro grande e botão principal sobre o mapa (só no computador, com a rota viva) */
 .run-side { display: none; }
-.run-odo { margin: 0 0 28px; display: grid; gap: 6px; font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
-.run-odo b { font-size: clamp(52px, 6.4vw, 128px); font-weight: 700; line-height: .9; letter-spacing: -.04em; }
-.odo-u { font-size: clamp(16px, 1.6vw, 28px); color: var(--run-dim); }
-.odo-t { font-size: clamp(22px, 2.4vw, 44px); color: var(--run-dim); }
+.run-odo { margin: 0; display: grid; gap: 4px; justify-items: end; font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.run-odo b { font-size: clamp(56px, 6.2vw, 132px); font-weight: 700; line-height: .9; letter-spacing: -.04em; }
+.odo-u { font-size: clamp(16px, 1.5vw, 28px); color: var(--run-dim); }
+.odo-t { font-size: clamp(22px, 2.3vw, 44px); color: var(--run-dim); }
 .run-side .btn { max-width: 100%; white-space: normal; text-align: center; }
 
-/* computador (≥ 900 px): o mapa abre na vertical, num palco em retrato no centro (o percurso de Savannah é alto e estreito), quase da altura da tela;
-   os painéis de milha ficam à esquerda, o hodômetro grande e o botão à direita, em tipografia grande, sem cobrir o mapa */
+/* computador parado (reduzir movimento ou sem JS): o mapa ocupa a largura toda e a altura da tela menos o cabeçalho, com os painéis em colunas embaixo */
 @media (min-width: 900px) {
-  .run-pin { --stage-h: min(calc(100svh - 112px), 1000px); --stage-w: min(46vw, 560px, calc(var(--stage-h) * .62));
-    grid-template-columns: minmax(0, 1fr) var(--stage-w) minmax(0, 1fr); column-gap: clamp(20px, 3vw, 64px); align-items: center; padding: 0 var(--pad);
-    background-image: linear-gradient(rgb(241 238 230 / .035) 1px, transparent 1px), linear-gradient(90deg, rgb(241 238 230 / .035) 1px, transparent 1px);
-    background-size: 64px 64px; background-position: center; }
-  .run-miles { grid-column: 1; grid-row: 1; justify-self: end; width: 100%; max-width: 460px; padding: 0; }
-  .run-map { grid-column: 2; grid-row: 1; width: var(--stage-w); height: var(--stage-h); border: 1px solid var(--run-rule); background: #101214; }
-  .run-side { grid-column: 3; grid-row: 1; display: grid; justify-self: start; width: 100%; max-width: 460px; }
-  .run-mile { grid-template-columns: 1fr; row-gap: 14px; margin-bottom: 44px; }
-  .run-mile .rn { grid-row: auto; font-size: clamp(72px, 9.5vw, 180px); }
-  .run-mile h3 { font-size: clamp(22px, 2.9vw, 54px); }
-  .run-mile p { font-size: clamp(17px, 1.4vw, 26px); max-width: 28ch; }
+  .run-map { height: max(calc(100svh - 76px), 520px); }
+  .run-miles { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px 44px; padding: 40px var(--pad) 0; }
+  .run-mile { margin: 0; }
+  .run-mile .rn { font-size: clamp(72px, 8vw, 140px); }
+  .run-mile h3 { font-size: clamp(22px, 2.2vw, 40px); }
+  .run-mile p { font-size: clamp(17px, 1.3vw, 22px); }
 }
 
 /* estado vivo: a trilha é alta (altura da tela + 2,6 telas de rolagem; 3,2 no computador) e o painel fica colado no topo enquanto a rota corre.
@@ -88,15 +82,29 @@
   html.js .run-mile .rn { grid-row: auto; font-size: clamp(110px, 24vh, 240px); }
   html.js .run-pin::before { left: 42%; }
 }
+/* computador: o mapa é horizontal e ocupa a tela toda (largura 100%, altura 100dvh menos o cabeçalho); o texto vira sobreposição com fundo escuro translúcido só atrás
+   dele: painel do trecho embaixo à esquerda, hodômetro grande no canto de cima à direita, botão embaixo à direita. A câmera põe o ponto um pouco à direita do centro,
+   longe do painel (run.js) */
 @media (prefers-reduced-motion: no-preference) and (min-width: 900px) {
   html.js .run-track { height: calc(100vh + 320vh); height: calc(100dvh + 320svh); }
-  html.js .run-pin { --stage-h: min(calc(100dvh - 112px), 1000px); display: grid; padding-top: 76px; padding-bottom: 36px; padding-inline: var(--pad); }
   html.js .run-pin::before { content: none; }
-  html.js .run-map { position: relative; inset: auto; left: auto; height: var(--stage-h); }
-  html.js .run-miles { position: static; left: auto; right: auto; bottom: auto; top: auto; z-index: auto; transform: none; width: 100%; padding: 0; background: none; border: 0; }
-  html.js .run-mile { grid-template-columns: 1fr; row-gap: 14px; margin: 0; }
-  html.js .run-mile .rn { grid-row: auto; font-size: clamp(72px, 9.5vw, 180px); }
-  html.js .run-credit { left: 50%; right: auto; bottom: 10px; transform: translateX(-50%); width: max-content; max-width: 100%; padding: 0; background: none; text-align: center; white-space: nowrap; }
+  html.js .run-map { inset: 76px 0 0 0; }
+  html.js .run-miles { left: var(--pad); right: auto; bottom: 28px; width: min(34vw, 540px); padding: 22px 28px 26px; border: 0; border-left: 4px solid var(--accent);
+    background: color-mix(in srgb, var(--dark) 86%, transparent); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  html.js .run-mile { grid-template-columns: 1fr; row-gap: 10px; }
+  html.js .run-mile .rn { grid-row: auto; font-size: clamp(72px, 8.5vw, 150px); }
+  html.js .run-mile h3 { font-size: clamp(22px, 2.6vw, 48px); }
+  html.js .run-mile p { font-size: clamp(17px, 1.35vw, 24px); max-width: 30ch; }
+  html.js .run-side { display: contents; }
+  html.js .run-odo { position: absolute; z-index: 3; top: 100px; right: var(--pad); padding: 14px 24px 18px; border-right: 4px solid var(--accent);
+    background: color-mix(in srgb, var(--dark) 84%, transparent); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  html.js .run-side .btn { position: absolute; z-index: 3; right: var(--pad); bottom: 28px; }
+  html.js .run-credit { left: 50%; right: auto; bottom: 8px; transform: translateX(-50%); width: max-content; max-width: 40vw; padding: 2px 8px; background: color-mix(in srgb, var(--dark) 72%, transparent); text-align: center; white-space: nowrap; }
+  /* o mapa passa de 1 px por metro em tela grande: nomes, marcadores e linha em tamanho de tela, não de celular */
+  html.js .rm-names text { font-size: 30px; }
+  html.js .rm-mile text { font-size: 30px; }
+  html.js .rm-start text { font-size: 30px; }
+  html.js .rm-route, html.js .rm-route-ghost { stroke-width: 10px; }
 }
 @media (max-height: 520px) and (orientation: landscape) and (min-width: 600px) and (max-width: 899px) {
   .run-mile .rn { font-size: clamp(64px, 22vh, 110px); }
@@ -117,6 +125,8 @@
 .rm-start circle { fill: var(--accent); }
 .rm-start text { font: 800 46px var(--f-display); fill: var(--dark-ink); }
 .rm-dot { fill: #fff; stroke: var(--accent); stroke-width: 9; }
+.rm-names text, .rm-mile, .rm-start circle, .rm-start text { transition: opacity .2s; }
+.is-covered { opacity: 0; }   /* computador: marcador ou rótulo por baixo do hodômetro, do botão ou do painel (run.js) */
 .rm-credit { display: none; }
 .run-credit { margin: 0; padding: 10px var(--pad) 0; font: 400 14px/1.3 var(--f-mono); color: var(--run-dim); }
 body.in-run .mbar, body.in-rsvp .mbar { visibility: hidden; }

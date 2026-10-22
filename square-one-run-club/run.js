@@ -197,10 +197,24 @@
 
   /* a rota: o SVG tem o tamanho do zoom de acompanhamento e só se move por translate3d; no fim a câmera se afasta (scale < 1, nunca amplia: ficaria borrado) */
   var vb = svg.viewBox.baseVal, L = line.getTotalLength();
+  // caixa da rota (com 120 m de folga): é ela que o zoom final enquadra; o SVG pode ser bem mais largo (ruas dos lados para telas largas)
+  var bb = line.getBBox(), rb = { x: bb.x - 120, y: bb.y - 120, w: bb.width + 240, h: bb.height + 240 };
   var dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
   dot.setAttribute("class", "rm-dot"); dot.setAttribute("r", "17"); svg.appendChild(dot);
   var wide = window.matchMedia("(min-width: 900px), (orientation: landscape) and (min-width: 600px) and (max-height: 520px)");
+  var full = window.matchMedia("(min-width: 900px)");   // computador: o mapa é horizontal e cobre a tela toda; o ponto fica um pouco à direita do painel de texto
   var cw = 0, ch = 0, uh = 0, refW = 0, refH = 0, sFit = 1, sF = 1, lastP = -1;
+  /* computador: o hodômetro, o botão e o painel do trecho ficam sobre o mapa; marcador ou rótulo que passar por baixo de um deles some (com fade) até sair da zona */
+  var cand = $$(".rm-mile, .rm-start circle, .rm-start text, .rm-names text", svg);
+  var zoneEls = [$(".run-odo", run), $(".run-side .btn", run), sheet].filter(Boolean);
+  function updateCover() {
+    if (!full.matches) { cand.forEach(function (e) { if (e.classList.contains("is-covered")) e.classList.remove("is-covered"); }); return; }
+    var zones = zoneEls.map(function (e) { return e.getBoundingClientRect(); });
+    cand.forEach(function (e) {
+      var r = e.getBoundingClientRect(), hit = zones.some(function (z) { return r.right > z.left - 10 && r.left < z.right + 10 && r.bottom > z.top - 10 && r.top < z.bottom + 10; });
+      e.classList.toggle("is-covered", hit);
+    });
+  }
   function layout() {
     cw = mapBox.clientWidth; ch = mapBox.clientHeight;
     var sheetH = wide.matches ? 0 : sheet.offsetHeight;            // no celular o painel de baixo cobre a base do mapa
@@ -209,8 +223,8 @@
     // a barra de endereço do iPhone muda a altura aos poucos: só refaz o zoom quando a mudança é grande (giro, janela); o enquadramento acompanha a altura de cada quadro
     if (!refW || Math.abs(cw - refW) > 2 || Math.abs(ch - refH) > 150) {
       refW = cw; refH = ch;
-      sFit = Math.min(cw / vb.width, uh / vb.height);
-      sF = Math.max(sFit * 1.7, wide.matches ? 0.6 : 0.62);
+      sFit = Math.min(cw / rb.w, uh / rb.h);
+      sF = full.matches ? Math.max(uh / 850, cw / 2000, sFit * 1.2) : Math.max(sFit * 1.7, wide.matches ? 0.6 : 0.62);
       svg.style.width = vb.width * sF + "px"; svg.style.height = vb.height * sF + "px";
     }
   }
@@ -220,13 +234,17 @@
     dot.setAttribute("cx", pt.x); dot.setAttribute("cy", pt.y);
     line.style.strokeDashoffset = String(1000 * (1 - p));
     var z = clamp((p - 0.9) / 0.1, 0, 1); z = z * z * (3 - 2 * z);
-    var k = lerp(1, sFit / sF, z);
-    var fx = lerp(pt.x - vb.x, vb.width / 2, z), fy = lerp(pt.y - vb.y, vb.height / 2, z);
-    var w = vb.width * sF * k, h = vb.height * sF * k;
-    var tx = cw / 2 - fx * sF * k, ty = uh / 2 - fy * sF * k;
-    tx = w >= cw ? clamp(tx, cw - w, 0) : (cw - w) / 2;             // o mapa nunca deixa buraco na tela
-    ty = h >= uh ? clamp(ty, uh - h, 0) : (uh - h) / 2;
+    var k = lerp(1, sFit / sF, z), s = sF * k;
+    var fx = lerp(pt.x - vb.x, rb.x + rb.w / 2 - vb.x, z), fy = lerp(pt.y - vb.y, rb.y + rb.h / 2 - vb.y, z);
+    var ax = full.matches ? lerp(0.58, 0.56, z) : 0.5, ay = full.matches ? lerp(0.47, 0.5, z) : 0.5;
+    var tx = cw * ax - fx * s, ty = uh * ay - fy * s;
+    // a câmera nunca mostra fora do mapa: no computador o mapa é o SVG inteiro; no celular fica a caixa da rota (como sempre foi)
+    var bx0 = (full.matches ? vb.x : rb.x) - vb.x, bx1 = (full.matches ? vb.x + vb.width : rb.x + rb.w) - vb.x, by0 = full.matches ? 0 : rb.y - vb.y, by1 = full.matches ? vb.height : rb.y + rb.h - vb.y;
+    var wx = (bx1 - bx0) * s, hy = (by1 - by0) * s;
+    tx = wx >= cw ? clamp(tx, cw - bx1 * s, -bx0 * s) : (cw - wx) / 2 - bx0 * s;
+    ty = hy >= uh ? clamp(ty, uh - by1 * s, -by0 * s) : (uh - hy) / 2 - by0 * s;
     svg.style.transform = "translate3d(" + tx + "px," + ty + "px,0) scale(" + k + ")";
+    updateCover();
     var mi = p * TOTAL;
     miles.forEach(function (g) { g.classList.toggle("is-hit", mi >= parseFloat(g.getAttribute("data-mi")) - 0.02); });
     var act = 0;
