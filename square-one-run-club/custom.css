@@ -31,7 +31,7 @@ main { overflow-x: clip; }
 .hero-kicker { font-weight: 500; opacity: 1; }
 .hero-kicker { text-shadow: 0 1px 10px rgb(13 14 16 / .85), 0 0 2px rgb(13 14 16 / .6); }
 @media (max-width: 699px) { .hero-shade { background: linear-gradient(180deg, rgb(13 14 16 / .62) 0%, rgb(13 14 16 / .5) 24%, rgb(13 14 16 / .42) 40%, rgb(13 14 16 / .5) 64%, rgb(13 14 16 / .82) 100%); } }
-.hero .hl--script { transform: rotate(-3deg); text-shadow: 0 2px 16px rgb(13 14 16 / .8); }
+.hero .hl--script { transform: rotate(-3deg); text-shadow: 0 2px 16px rgb(13 14 16 / .8), 0 0 4px rgb(13 14 16 / .7); }
 /* celular baixo (iPhone SE, 360x640): sem o botão secundário o título ganha a altura que ele ocupava (a rota é o próximo toque de qualquer jeito) */
 @media (max-width: 699px) and (max-height: 720px) {
   .hero--booking .hero-actions .btn--line { display: none; }
@@ -109,3 +109,18 @@ main { overflow-x: clip; }
   .collage { height: clamp(660px, 56vw, 900px); }
   .cl-5 { top: 50%; }
 }
+
+/* ---------- seletor de idioma EN | PT no cabeçalho: o grupo idioma + menu fica junto, à direita; o botão fixo da desktop sai da frente ---------- */
+.hdr .lang { margin-left: auto; margin-right: 6px; }
+.hdr-toggle { padding-inline: 4px; }
+@media (min-width: 900px) { .btn.fcta { right: calc(var(--pad) + 196px); } }
+@media (max-width: 339px) { .hud { display: none; } }
+.lang button { font-size: 14px; }
+.hud { margin-left: 10px; }
+.hdr-toggle { gap: 8px; }
+/* celular estreito: o menu fica só com o ícone (a palavra continua no leitor de tela) para caber idioma + hodômetro + menu */
+@media (max-width: 380px) {
+  .hdr-toggle-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .hdr-toggle { min-width: 44px; justify-content: flex-end; }
+}
+@media (max-width: 380px) { .btn--lg { padding-inline: 16px; white-space: normal; text-align: center; } }

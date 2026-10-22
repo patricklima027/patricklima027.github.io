@@ -29,13 +29,20 @@
   /* "7:00 PM" nunca quebra deixando o "PM" sozinho na linha */
   var NB = /(\d) (AM|PM)\b/gi;
   function nb(str) { return str.replace(NB, "$1\u00a0$2"); }
-  (function () {
+  function nbAll() {
     var w = document.createTreeWalker($("main") || document.body, NodeFilter.SHOW_TEXT, null), n;
     while ((n = w.nextNode())) if (n.parentNode.nodeName !== "SCRIPT" && /\d (AM|PM)\b/i.test(n.nodeValue)) n.nodeValue = nb(n.nodeValue);
-  })();
+  }
+  nbAll();
 
   var run = $("[data-run]");
   var TZ = (run && run.getAttribute("data-tz")) || "";
+  /* idioma (lang.js, só nos sites com "i18n"): o que este arquivo gera (relógio, datas, número de peito) pergunta o idioma e se refaz no evento "sitelang" */
+  function cv(name, fallback) { var s = window.SiteLang, v = s && s.cfg(name); return v === undefined || v === null ? fallback : v; }
+  function tt(str) { return window.SiteLang ? window.SiteLang.t(str) : str; }
+  function flag(el) { if (el) el.setAttribute("data-lang-dyn", ""); return el; }
+  var redo = [nbAll];   // funções que refazem o texto gerado quando o idioma muda (o texto trocado pelo lang.js volta com espaço comum antes do PM)
+  addEventListener("sitelang", function () { redo.forEach(function (f) { f(); }); });
 
   /* ---------- relógio da largada e datas que rolam (fuso do clube, com horário de verão) ---------- */
   var gunTs = 0;
@@ -47,7 +54,6 @@
       var wall = function (ts) { var p = parts(ts); return Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour % 24, +p.minute, +p.second); };
       var zonedToUtc = function (y, mo, d, h, mi) { var g = Date.UTC(y, mo - 1, d, h, mi); var t = g - (wall(g) - g); return g - (wall(t) - t); };
       var DOW = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
-      var MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
       var gunDay = +run.getAttribute("data-gun-day"), gt = run.getAttribute("data-gun-time").split(":");
       var GUN_H = +gt[0], GUN_M = +gt[1] || 0, RUN_MIN = +run.getAttribute("data-gun-min") || 90;
       var nextGun = function (now) {
@@ -59,33 +65,43 @@
         }
         return 0;
       };
-      var clock = $(".hero-status"), soon = run.getAttribute("data-clock-soon"), nowTxt = run.getAttribute("data-clock-now");
+      var clock = flag($(".hero-status"));
       if (clock) { clock.removeAttribute("data-open-status"); var tab = clock.closest(".hero-tab"); if (tab) tab.classList.remove("is-open-now"); }
       var tick = function () {
         var now = Date.now(); gunTs = nextGun(now);
         if (!clock || !gunTs) return;
         var ms = gunTs - now;
-        if (ms <= 0) { clock.textContent = nowTxt; return; }
+        if (ms <= 0) { clock.textContent = run.getAttribute("data-clock-now"); return; }
         var s = Math.floor(ms / 1000), d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60), sec = s % 60;
-        clock.textContent = soon + " " + (d ? d + "d " : "") + pad(h) + ":" + pad(m) + ":" + pad(sec);
+        clock.textContent = run.getAttribute("data-clock-soon") + " " + (d ? d + cv("day_unit", "d") + " " : "") + pad(h) + ":" + pad(m) + ":" + pad(sec);
       };
       tick();
       setInterval(tick, 1000);
-      var dateOf = function (ts) { var p = parts(ts); return { m: +p.month, d: +p.day, w: p.weekday }; };
-      if (gunTs) {
-        $$("[data-run-date]").forEach(function (el) { var x = dateOf(gunTs); el.textContent = x.w + ", " + MON[x.m - 1] + " " + x.d + nb(el.getAttribute("data-run-date")); });
+      var dateOf = function (ts) { var p = parts(ts); return { m: +p.month, d: +p.day, w: DOW[p.weekday] }; };
+      var DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      var MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      var renderDates = function () {
+        if (!gunTs) return;
+        var days = cv("days", DAYS), months = cv("months", MON), fmtD = cv("date_fmt", "{w}, {m} {d}");
+        $$("[data-run-date]").forEach(function (el) {
+          flag(el);
+          var x = dateOf(gunTs), suf = (el.getAttribute("data-run-date") || "").trim();
+          el.textContent = fmtD.replace("{w}", days[x.w]).replace("{m}", months[x.m - 1]).replace("{d}", x.d) + (suf ? " " + nb(suf) : "");
+        });
         var st = $("[data-stops][data-rolling]");
         if (st) {   // as linhas das próximas saídas viram as semanas seguintes à próxima largada
           $$(".stop[data-date]", st).forEach(function (row, i) {
             var x = dateOf(gunTs + (i + 1) * 7 * 864e5);
             row.hidden = false; row.removeAttribute("data-open");
-            var dEl = $(".stop-date", row), mEl = $(".stop-month", row);
+            var dEl = flag($(".stop-date", row)), mEl = flag($(".stop-month", row));
             if (dEl) dEl.textContent = x.d;
-            if (mEl) mEl.textContent = MON[x.m - 1];
+            if (mEl) mEl.textContent = months[x.m - 1];
           });
           st.classList.remove("is-quiet");
         }
-      }
+      };
+      renderDates();
+      redo.push(function () { renderDates(); tick(); });
     } catch (err) {}
   }
 
@@ -101,7 +117,8 @@
     var bib = $(".bib", rsvp), bibNo = $("[data-bib-no]", rsvp), bibName = $("[data-bib-name]", rsvp), bibMeta = $("[data-bib-meta]", rsvp);
     var nameIn = $(".rsvp-name input", rsvp), groups = $$(".rsvp-groups input", rsvp);
     if (bib && bibNo && bibName && bibMeta) {
-      var dNo = bibNo.textContent, dName = bibName.textContent, dMeta = bibMeta.textContent, suffix = bib.getAttribute("data-bib-suffix") || "";
+      var dNo = bibNo.textContent, dName = bibName.textContent;
+      [bibNo, bibName, bibMeta].forEach(flag);
       var hash = function (str) { var h = 7; for (var i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) % 9973; return h; };
       var MAXN = nameIn ? parseInt(nameIn.getAttribute("data-max"), 10) || 12 : 12;
       var clip = function (str) {   // conta por caractere visível (emoji com ZWJ e acento contam como 1), não por unidade UTF-16
@@ -118,7 +135,8 @@
         if (nameIn && nameIn.value !== typed && nameIn.value.trim() !== typed) nameIn.value = typed;
         bibName.textContent = typed || dName;
         bibNo.textContent = typed ? ("00" + (100 + hash(typed.toLowerCase() + (g ? g.value : "")) % 400)).slice(-3) : dNo;
-        bibMeta.textContent = nb(g ? g.getAttribute("data-label") + suffix : dMeta);
+        var suf = (bib.getAttribute("data-bib-suffix") || "").trim();
+        bibMeta.textContent = nb((g ? g.getAttribute("data-label") : "") + (suf ? " " + suf : ""));
         fitName();
       };
       fitName();
@@ -126,13 +144,15 @@
       addEventListener("resize", fitName);
       if (nameIn) nameIn.addEventListener("input", paintBib);
       groups.forEach(function (r) { r.addEventListener("change", paintBib); });
+      paintBib(); redo.push(paintBib);
     }
     /* no exemplo o botão não abre inscrição nenhuma: mostra o aviso ao lado e o número de peito assenta. No site real o href é o link do clube e nada disso roda */
     var join = $(".btn--solid", rsvp), status = $("[data-join-status]", rsvp);
+    if (status) redo.push(function () { if (status.textContent) status.textContent = status.getAttribute("data-text"); });
     if (join && status && status.getAttribute("data-text") && /^#/.test(join.getAttribute("href") || "")) {
       join.addEventListener("click", function (ev) {
         ev.preventDefault(); ev.stopPropagation();
-        status.textContent = status.getAttribute("data-text");
+        status.textContent = status.getAttribute("data-text"); flag(status);
         if (bib) { bib.classList.remove("is-pinned"); void bib.offsetWidth; bib.classList.add("is-pinned"); }
       });
     }
@@ -156,7 +176,7 @@
   var hdr = $("[data-header]"), hud = document.createElement("div");
   hud.className = "hud"; hud.setAttribute("aria-hidden", "true");
   hud.innerHTML = '<span class="hud-mi">0.00</span><span class="hud-u">' + UNIT + '</span><span class="hud-t">0:00</span>';
-  if (hdr) hdr.insertBefore(hud, hdr.querySelector(".hdr-toggle"));
+  if (hdr) { var brandEl = hdr.querySelector(".hdr-brand"); hdr.insertBefore(hud, brandEl ? brandEl.nextSibling : hdr.querySelector(".hdr-toggle")); }
   var hudMi = $(".hud-mi", hud), hudT = $(".hud-t", hud);
   var course = document.createElement("div"); course.className = "course"; course.setAttribute("aria-hidden", "true");
   course.innerHTML = "<i></i>"; body.appendChild(course);
