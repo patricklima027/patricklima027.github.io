@@ -1,0 +1,165 @@
+/* Ribeiro Web Co. — template v2, run.css (só ligado quando o site usa as seções run, rsvp ou faq: clube de corrida).
+   Mecânica da rota (trilha alta + painel fixo com position: sticky), hodômetro, lista de ritmos, número de peito e perguntas.
+   Cores e fontes vêm do tema (--dark, --dark-ink, --accent, --brand, --ink, --bg, --f-*); o visual de cada clube vai no custom.css.
+   O estado "vivo" (rota que se desenha) só existe com JS e sem "reduzir movimento"; fora disso a rota já está desenhada e os painéis viram lista. */
+
+:root {
+  --run-dim: color-mix(in srgb, var(--dark-ink) 68%, var(--dark));
+  --run-rule: color-mix(in srgb, var(--dark-ink) 16%, var(--dark));
+}
+
+/* ---------- hodômetro no cabeçalho e linha de progresso no alto ---------- */
+.hud { display: flex; align-items: baseline; gap: 6px; font: 700 clamp(15px, 4vw, 18px)/1 var(--f-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.hud-u, .hud-t { font-weight: 500; opacity: .8; }
+.hud-t { margin-left: 8px; }
+@media (max-width: 420px), (min-width: 900px) and (max-width: 1099px) { .hud-t { display: none; } }   /* sem o tempo o hodômetro não encosta no botão fixo do cabeçalho */
+.course { position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 95; pointer-events: none; }
+.course i { display: block; height: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); }
+
+/* ---------- a seção da rota ---------- */
+.run { background: var(--dark); color: var(--dark-ink); }
+.run-head { padding: clamp(72px, 12vw, 160px) 0 clamp(36px, 6vw, 72px); }
+.run-head .sec-head { margin-bottom: 0; }
+.run .sec-title em { color: var(--accent); }
+.run .sec-intro { color: var(--run-dim); }
+.run-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 28px; margin: 34px 0 30px; max-width: 760px; }
+.run-facts dt { font: 500 14px/1.2 var(--f-mono); color: var(--run-dim); }
+.run-facts dd { margin: 4px 0 0; font: 800 clamp(20px, 3.2vw, 30px)/1.1 var(--f-display); }
+@media (min-width: 900px) { .run-facts { grid-template-columns: repeat(4, auto); justify-content: start; gap: 22px 56px; } }
+.run-head .btn { max-width: 100%; }
+
+/* estado parado (sem JS ou com "reduzir movimento"): mapa inteiro com a rota desenhada e os painéis em lista */
+.run-track { position: relative; border-top: 1px solid var(--run-rule); }
+.run-pin { position: relative; display: grid; }
+.run-map { position: relative; height: min(100svh, 720px); overflow: hidden; }
+.run-map svg { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; }
+.run-miles { position: static; list-style: none; margin: 0; padding: 26px var(--pad) 0; display: block; }
+.run-mile { display: grid; grid-template-columns: auto 1fr; column-gap: 16px; align-items: center; margin: 0 0 26px; }
+.run-mile .rn { grid-row: 1 / 3; font: 900 clamp(64px, 20vw, 96px)/.8 var(--f-script); font-style: normal; text-transform: none; color: var(--accent); min-width: 1ch; }
+.run-mile h3 { margin: 0; font: 800 clamp(20px, 5.4vw, 26px)/1.05 var(--f-display); text-transform: uppercase; }
+.run-mile p { margin: 6px 0 0; font: 400 16px/1.4 var(--f-text); color: var(--run-dim); }
+@media (min-width: 900px) {
+  .run-pin { grid-template-columns: 38% 1fr; align-items: center; }
+  .run-miles { order: -1; padding: 0 0 0 var(--pad); }
+  .run-mile { grid-template-columns: 1fr; row-gap: 14px; margin-bottom: 44px; }
+  .run-mile .rn { grid-row: auto; font-size: clamp(110px, 18vh, 200px); }
+  .run-mile h3 { font-size: clamp(26px, 3vw, 40px); }
+  .run-mile p { font-size: 19px; max-width: 34ch; }
+}
+
+/* estado vivo: a trilha é alta (altura da tela + 2,6 telas de rolagem; 3,2 no computador) e o painel fica colado no topo enquanto a rota corre.
+   svh/dvh: a trilha usa a altura estável (svh), o painel a altura de verdade (dvh), então a barra de endereço do iPhone não muda a distância da rota */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .run-track { height: calc(100vh + 260vh); height: calc(100dvh + 260svh); }
+  html.js .run-pin { position: sticky; top: 0; display: block; height: 100vh; height: 100dvh; overflow: hidden; }
+  html.js .run-map { position: absolute; inset: 0; height: auto; }
+  html.js .run-map svg { inset: auto; left: 0; top: 0; width: auto; height: auto; transform-origin: 0 0; will-change: transform; }
+  html.js .run-miles { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; margin: 0; padding: 16px var(--pad) calc(34px + env(safe-area-inset-bottom)); display: grid; background: color-mix(in srgb, var(--dark) 94%, transparent); border-top: 2px solid var(--accent); }
+  html.js .run-mile { grid-area: 1 / 1; margin: 0; opacity: 0; visibility: hidden; transition: opacity .3s; }
+  html.js .run-mile.is-active { opacity: 1; visibility: visible; }
+  /* no celular o crédito do mapa mora dentro do painel de baixo (fundo sólido): nunca cobre o nome de uma praça */
+  html.js .run-credit { position: absolute; z-index: 4; left: var(--pad); right: var(--pad); bottom: calc(6px + env(safe-area-inset-bottom)); padding: 0; text-align: right; }
+  /* véu sob o cabeçalho: os nomes das praças não brigam com o hodômetro */
+  html.js .run-pin::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 84px; z-index: 2; pointer-events: none; background: linear-gradient(var(--dark) 30%, color-mix(in srgb, var(--dark) 0%, transparent)); }
+  html.js .rm-mile:not(.is-hit) circle { fill: #2A2D31; stroke: #5A5E63; }
+  html.js .rm-mile:not(.is-hit) text { fill: #A9A8A2; }
+}
+@media (prefers-reduced-motion: no-preference) and (min-width: 900px), (prefers-reduced-motion: no-preference) and (orientation: landscape) and (min-width: 600px) and (max-height: 520px) {
+  html.js .run-track { height: calc(100vh + 320vh); height: calc(100dvh + 320svh); }
+  html.js .run-map { left: 42%; }
+  html.js .run-credit { left: auto; bottom: 8px; padding: 2px 6px; background: color-mix(in srgb, var(--dark) 78%, transparent); }
+  html.js .run-miles { left: var(--pad); right: auto; top: 50%; bottom: auto; width: min(36vw, 520px); padding: 0; background: none; border: 0; transform: translateY(-50%); }
+  html.js .run-mile { grid-template-columns: 1fr; row-gap: 14px; }
+  html.js .run-mile .rn { grid-row: auto; font-size: clamp(110px, 24vh, 240px); }
+  html.js .run-pin::before { left: 42%; }
+}
+@media (max-height: 520px) and (orientation: landscape) and (min-width: 600px) {
+  .run-mile .rn { font-size: clamp(64px, 22vh, 110px); }
+  .run-mile h3 { font-size: clamp(20px, 3.4vw, 28px); }
+  .run-mile p { font-size: 16px; }
+}
+
+/* ---------- o mapa ---------- */
+.rm-parks path { fill: #15181A; }
+.rm-r1 path, .rm-r2 path, .rm-r3 path, .rm-r4 path { fill: none; stroke-linecap: round; }
+.rm-r1 path { stroke: #3C4045; stroke-width: 6; } .rm-r2 path { stroke: #2F3236; stroke-width: 4.5; }
+.rm-r3 path { stroke: #25282C; stroke-width: 3.5; } .rm-r4 path { stroke: #1D2024; stroke-width: 1.6; }
+.rm-names text { font: 800 44px var(--f-display); fill: #A3A6AA; letter-spacing: .02em; text-transform: uppercase; }
+.rm-route-ghost { stroke: var(--accent); stroke-opacity: .2; stroke-width: 12; stroke-linejoin: round; stroke-linecap: round; }
+.rm-route { stroke: var(--accent); stroke-width: 13; stroke-linejoin: round; stroke-linecap: round; stroke-dasharray: 1000; stroke-dashoffset: 0; }
+.rm-mile circle { fill: var(--dark-ink); stroke: var(--accent); stroke-width: 3; transform-box: fill-box; transform-origin: center; transform: scale(1.35); transition: fill .25s; }
+.rm-mile text { font: 900 42px var(--f-display); fill: var(--ink); }
+.rm-start circle { fill: var(--accent); }
+.rm-start text { font: 800 46px var(--f-display); fill: var(--dark-ink); }
+.rm-dot { fill: #fff; stroke: var(--accent); stroke-width: 9; }
+.rm-credit { display: none; }
+.run-credit { margin: 0; padding: 10px var(--pad) 0; font: 400 14px/1.3 var(--f-mono); color: var(--run-dim); }
+body.in-run .mbar, body.in-rsvp .mbar { visibility: hidden; }
+
+/* ---------- ritmos ---------- */
+.run-groups { padding: clamp(56px, 8vw, 110px) 0 clamp(72px, 10vw, 140px); }
+.run-groups .sec-title { font-size: calc(clamp(2.4rem, 6vw, 5.4rem) * var(--title-scale)); }
+.grp-list { list-style: none; margin: 28px 0 0; padding: 0; display: grid; }
+.grp { display: grid; grid-template-columns: 1fr; gap: 4px 28px; padding: 18px 0; border-top: 2px solid var(--run-rule); }
+.grp:last-child { border-bottom: 2px solid var(--run-rule); }
+.grp p { margin: 4px 0 0; color: var(--run-dim); max-width: 44ch; }
+.grp-name { font: 900 clamp(24px, 3.4vw, 36px)/1 var(--f-display); text-transform: uppercase; }
+.grp-pace { font: 500 15px/1.3 var(--f-mono); color: var(--run-dim); }
+@media (min-width: 900px) { .grp { grid-template-columns: 220px 260px 1fr; align-items: baseline; } .grp p { margin: 0; } }
+.run-note { margin: 28px 0 0; max-width: 56ch; font: 400 14px/1.5 var(--f-mono); color: var(--run-dim); }
+
+/* ---------- chegada: linha pintada + número de peito ---------- */
+.rsvp { position: relative; background: var(--dark); color: var(--dark-ink); padding: 0 0 clamp(72px, 10vw, 140px); overflow: hidden; }
+.rsvp-line { height: 16px; background: var(--accent); transform-origin: 0 50%; }
+html.js .rsvp:not(.is-in) .rsvp-line { transform: scaleX(0); }
+html.js .rsvp-line { transition: transform 1s cubic-bezier(.16, 1, .3, 1); }
+.rsvp-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 44px; padding-top: clamp(48px, 8vw, 110px); align-items: center; }
+.rsvp-grid > * { min-width: 0; }   /* o nome do número de peito (uma linha só) nunca alarga o formulário */
+@media (min-width: 900px) { .rsvp-grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 80px; } }
+.rsvp .sec-title em { color: var(--accent); }
+.rsvp .sec-head { margin-bottom: 26px; }
+.rsvp .sec-intro { color: var(--run-dim); }
+.rsvp-groups { border: 0; padding: 0; margin: 0 0 22px; min-width: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.rsvp-groups legend { font: 500 14px/1 var(--f-mono); color: var(--run-dim); margin-bottom: 10px; padding: 0; float: left; width: 100%; }
+.rsvp-groups label { position: relative; display: block; }
+.rsvp-groups input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.rsvp-groups span { display: inline-flex; align-items: center; min-height: 48px; padding: 0 18px; border: 2px solid #6A6E73; border-radius: var(--r); font: 800 17px var(--f-display); }
+.rsvp-groups input:checked + span { background: var(--accent); border-color: var(--accent); color: var(--ink); }
+.rsvp-groups input:focus-visible + span, .rsvp-name input:focus-visible { outline: 3px solid var(--dark-ink); outline-offset: 3px; }
+.rsvp-name { display: block; margin: 0 0 24px; max-width: 340px; }
+.rsvp-name span { display: block; font: 500 14px/1 var(--f-mono); color: var(--run-dim); margin-bottom: 8px; }
+.rsvp-name input { width: 100%; min-height: 52px; padding: 0 14px; background: transparent; border: 2px solid #6A6E73; border-radius: var(--r); color: var(--dark-ink); font: 800 22px var(--f-display); text-transform: uppercase; }
+.rsvp-name input::placeholder { color: var(--run-dim); opacity: .7; }
+.rsvp .btn { max-width: 100%; white-space: normal; text-align: center; }
+.rsvp-status { margin: 14px 0 0; min-height: 1.4em; max-width: 46ch; font: 600 15px/1.4 var(--f-text); color: var(--dark-ink); }
+.rsvp-note, .rsvp-contact { margin: 12px 0 0; max-width: 46ch; font-size: 15px; line-height: 1.45; color: var(--run-dim); }
+.bib { position: relative; min-width: 0; margin: 0; padding: 26px 26px 22px; background: var(--dark-ink); color: var(--ink); border-radius: var(--r); transform: rotate(-2.2deg); display: grid; justify-items: start; gap: 6px; box-shadow: 0 30px 60px rgb(0 0 0 / .45); max-width: 440px; width: 100%; transition: transform .6s cubic-bezier(.16, 1, .3, 1), opacity .6s; }
+html.js .rsvp:not(.is-in) .bib { opacity: 0; transform: rotate(-6deg) translateY(28px); }
+.bib.is-pinned { animation: bib-pin .55s cubic-bezier(.16, 1, .3, 1); }
+@keyframes bib-pin { 0% { transform: rotate(-2.2deg) scale(1); } 35% { transform: rotate(.6deg) scale(1.025); } 100% { transform: rotate(-2.2deg) scale(1); } }
+.bib-pins i { position: absolute; width: 12px; height: 12px; border-radius: 50%; background: #B9B6AC; box-shadow: inset 0 0 0 3px #8F8D85; }
+.bib-pins i:nth-child(1) { top: 10px; left: 10px; } .bib-pins i:nth-child(2) { top: 10px; right: 10px; }
+.bib-pins i:nth-child(3) { bottom: 10px; left: 10px; } .bib-pins i:nth-child(4) { bottom: 10px; right: 10px; }
+.bib-top { font: 800 15px/1 var(--f-display); text-transform: uppercase; letter-spacing: .02em; margin: 10px 0 6px; }
+.bib-no b { display: block; padding-top: .08em; font: 900 clamp(110px, 30vw, 190px)/.85 var(--f-display); letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.bib-name { font: 900 clamp(44px, 12vw, 72px)/1 var(--f-script); font-style: normal; text-transform: uppercase; color: var(--ink); border-top: 4px solid var(--accent); padding-top: 10px; width: 100%; min-width: 0; white-space: nowrap; overflow: hidden; }
+.bib-meta { font: 500 14px/1.3 var(--f-mono); }
+
+/* ---------- perguntas ---------- */
+.faq { padding: clamp(96px, 12vw, 170px) 0; }
+.faq-item { border-top: 2px solid var(--ink); }
+.faq-item:last-child { border-bottom: 2px solid var(--ink); }
+.faq-item summary { cursor: pointer; list-style: none; min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; font: 800 clamp(19px, 2.4vw, 26px)/1.2 var(--f-display); }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: "+"; flex: none; font: 700 28px/1 var(--f-mono); }
+.faq-item[open] summary::after { content: "\2013"; }
+.faq-item p { margin: 0 0 18px; max-width: 60ch; font-size: 18px; }
+.faq-item summary:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+/* foco do teclado nos botões rosa sobre fundo escuro: anel claro (o anel padrão é quase da cor do fundo) */
+.run .btn:focus-visible, .rsvp .btn:focus-visible, .hdr .btn:focus-visible, .fcta:focus-visible, .mbar a:focus-visible, .hero .btn:focus-visible { outline: 3px solid var(--dark-ink); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .run-mile, .rm-mile circle, .rsvp-line, .bib { transition: none; }
+  .bib.is-pinned { animation: none; }
+}
