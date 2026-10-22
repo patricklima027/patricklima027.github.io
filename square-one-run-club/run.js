@@ -182,10 +182,13 @@
   course.innerHTML = "<i></i>"; body.appendChild(course);
   var courseBar = $("i", course);
   var lastHud = "";
+  var odoMi = $("[data-odo-mi]", run), odoT = $("[data-odo-t]", run);   // hodômetro grande da coluna da direita (computador)
   function setHud(mi) {
     var a = mi.toFixed(2); if (a === lastHud) return; lastHud = a;
-    hudMi.textContent = a;
-    var t = mi * PACE * 60; hudT.textContent = Math.floor(t / 60) + ":" + pad(Math.floor(t % 60));
+    var t = mi * PACE * 60, tm = Math.floor(t / 60) + ":" + pad(Math.floor(t % 60));
+    hudMi.textContent = a; hudT.textContent = tm;
+    if (odoMi) odoMi.textContent = a;
+    if (odoT) odoT.textContent = tm;
   }
   function setCourse() {
     var h = root, p = (window.pageYOffset || h.scrollTop) / Math.max(1, h.scrollHeight - innerHeight);
@@ -199,7 +202,7 @@
   var wide = window.matchMedia("(min-width: 900px), (orientation: landscape) and (min-width: 600px) and (max-height: 520px)");
   var cw = 0, ch = 0, uh = 0, refW = 0, refH = 0, sFit = 1, sF = 1, lastP = -1;
   function layout() {
-    cw = mapBox.clientWidth; ch = pin.clientHeight;
+    cw = mapBox.clientWidth; ch = mapBox.clientHeight;
     var sheetH = wide.matches ? 0 : sheet.offsetHeight;            // no celular o painel de baixo cobre a base do mapa
     uh = ch - sheetH;
     pin.style.setProperty("--sheet-h", sheetH + "px");

@@ -38,13 +38,28 @@
 .run-mile .rn { grid-row: 1 / 3; font: 900 clamp(64px, 20vw, 96px)/.8 var(--f-script); font-style: normal; text-transform: none; color: var(--accent); min-width: 1ch; }
 .run-mile h3 { margin: 0; font: 800 clamp(20px, 5.4vw, 26px)/1.05 var(--f-display); text-transform: uppercase; }
 .run-mile p { margin: 6px 0 0; font: 400 16px/1.4 var(--f-text); color: var(--run-dim); }
+/* coluna da direita (só no computador): hodômetro grande e o botão principal */
+.run-side { display: none; }
+.run-odo { margin: 0 0 28px; display: grid; gap: 6px; font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.run-odo b { font-size: clamp(52px, 6.4vw, 128px); font-weight: 700; line-height: .9; letter-spacing: -.04em; }
+.odo-u { font-size: clamp(16px, 1.6vw, 28px); color: var(--run-dim); }
+.odo-t { font-size: clamp(22px, 2.4vw, 44px); color: var(--run-dim); }
+.run-side .btn { max-width: 100%; white-space: normal; text-align: center; }
+
+/* computador (≥ 900 px): o mapa abre na vertical, num palco em retrato no centro (o percurso de Savannah é alto e estreito), quase da altura da tela;
+   os painéis de milha ficam à esquerda, o hodômetro grande e o botão à direita, em tipografia grande, sem cobrir o mapa */
 @media (min-width: 900px) {
-  .run-pin { grid-template-columns: 38% 1fr; align-items: center; }
-  .run-miles { order: -1; padding: 0 0 0 var(--pad); }
+  .run-pin { --stage-h: min(calc(100svh - 112px), 1000px); --stage-w: min(46vw, 560px, calc(var(--stage-h) * .62));
+    grid-template-columns: minmax(0, 1fr) var(--stage-w) minmax(0, 1fr); column-gap: clamp(20px, 3vw, 64px); align-items: center; padding: 0 var(--pad);
+    background-image: linear-gradient(rgb(241 238 230 / .035) 1px, transparent 1px), linear-gradient(90deg, rgb(241 238 230 / .035) 1px, transparent 1px);
+    background-size: 64px 64px; background-position: center; }
+  .run-miles { grid-column: 1; grid-row: 1; justify-self: end; width: 100%; max-width: 460px; padding: 0; }
+  .run-map { grid-column: 2; grid-row: 1; width: var(--stage-w); height: var(--stage-h); border: 1px solid var(--run-rule); background: #101214; }
+  .run-side { grid-column: 3; grid-row: 1; display: grid; justify-self: start; width: 100%; max-width: 460px; }
   .run-mile { grid-template-columns: 1fr; row-gap: 14px; margin-bottom: 44px; }
-  .run-mile .rn { grid-row: auto; font-size: clamp(110px, 18vh, 200px); }
-  .run-mile h3 { font-size: clamp(26px, 3vw, 40px); }
-  .run-mile p { font-size: 19px; max-width: 34ch; }
+  .run-mile .rn { grid-row: auto; font-size: clamp(72px, 9.5vw, 180px); }
+  .run-mile h3 { font-size: clamp(22px, 2.9vw, 54px); }
+  .run-mile p { font-size: clamp(17px, 1.4vw, 26px); max-width: 28ch; }
 }
 
 /* estado vivo: a trilha é alta (altura da tela + 2,6 telas de rolagem; 3,2 no computador) e o painel fica colado no topo enquanto a rota corre.
@@ -64,7 +79,7 @@
   html.js .rm-mile:not(.is-hit) circle { fill: #2A2D31; stroke: #5A5E63; }
   html.js .rm-mile:not(.is-hit) text { fill: #A9A8A2; }
 }
-@media (prefers-reduced-motion: no-preference) and (min-width: 900px), (prefers-reduced-motion: no-preference) and (orientation: landscape) and (min-width: 600px) and (max-height: 520px) {
+@media (prefers-reduced-motion: no-preference) and (orientation: landscape) and (min-width: 600px) and (max-width: 899px) and (max-height: 520px) {
   html.js .run-track { height: calc(100vh + 320vh); height: calc(100dvh + 320svh); }
   html.js .run-map { left: 42%; }
   html.js .run-credit { left: auto; bottom: 8px; padding: 2px 6px; background: color-mix(in srgb, var(--dark) 78%, transparent); }
@@ -73,7 +88,17 @@
   html.js .run-mile .rn { grid-row: auto; font-size: clamp(110px, 24vh, 240px); }
   html.js .run-pin::before { left: 42%; }
 }
-@media (max-height: 520px) and (orientation: landscape) and (min-width: 600px) {
+@media (prefers-reduced-motion: no-preference) and (min-width: 900px) {
+  html.js .run-track { height: calc(100vh + 320vh); height: calc(100dvh + 320svh); }
+  html.js .run-pin { --stage-h: min(calc(100dvh - 112px), 1000px); display: grid; padding-top: 76px; padding-bottom: 36px; padding-inline: var(--pad); }
+  html.js .run-pin::before { content: none; }
+  html.js .run-map { position: relative; inset: auto; left: auto; height: var(--stage-h); }
+  html.js .run-miles { position: static; left: auto; right: auto; bottom: auto; top: auto; z-index: auto; transform: none; width: 100%; padding: 0; background: none; border: 0; }
+  html.js .run-mile { grid-template-columns: 1fr; row-gap: 14px; margin: 0; }
+  html.js .run-mile .rn { grid-row: auto; font-size: clamp(72px, 9.5vw, 180px); }
+  html.js .run-credit { left: 50%; right: auto; bottom: 10px; transform: translateX(-50%); width: max-content; max-width: 100%; padding: 0; background: none; text-align: center; white-space: nowrap; }
+}
+@media (max-height: 520px) and (orientation: landscape) and (min-width: 600px) and (max-width: 899px) {
   .run-mile .rn { font-size: clamp(64px, 22vh, 110px); }
   .run-mile h3 { font-size: clamp(20px, 3.4vw, 28px); }
   .run-mile p { font-size: 16px; }
