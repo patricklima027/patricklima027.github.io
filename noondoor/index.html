@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Noondoor | One-page websites for local businesses</title>
+<meta name="description" content="Preview first, pay later. Noondoor builds one-page websites for local businesses in the U.S. $210, paid only after you approve the finished site.">
+<!-- [CONFIRMAR] noindex enquanto nao houver dominio proprio. No lancamento: trocar por index,follow, ligar canonical e og:url com o endereco final, sitemap.xml e robots.txt (ver entrega.md) -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#2A1D14">
+<!-- [CONFIRMAR] sem dominio ainda: og:image relativa e sem canonical/og:url. Quando houver dominio, usar URL absoluta -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Noondoor">
+<meta property="og:title" content="Noondoor | Your site, before you pay.">
+<meta property="og:description" content="One-page websites for local shops, trucks and studios. I build a preview first. You pay $210 only after you approve the finished site.">
+<meta property="og:image" content="img/og-1200x630.png">
+<meta property="og:image:alt" content="Noondoor: a door arch with the noon sun inside, and the words Your site, before you pay.">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="img/fav/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="img/fav/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="img/fav/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="img/fav/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- uma familia por chamada no Fontshare (varias numa so devolvem outra fonte no lugar) -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap">
+<link rel="preload" as="image" href="img/3d/porta-800.webp" fetchpriority="high">
+<link rel="stylesheet" href="styles.css">
+<!-- three.js 0.169.0 sem build (versao fixa). So e baixado pelo porta3d.js, depois do load e so se o visitante aceita movimento e a maquina aguenta -->
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script>
+<script>
+/* classes de partida. "intro" esconde o topo ate o main.js assumir a animacao de entrada; se ele nao rodar em 4,5 s, o topo aparece sozinho */
+(function () {
+  var r = document.documentElement, reduce = false;
+  try { reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+  r.classList.add("js");
+  if (reduce) { r.classList.add("reduce"); return; }
+  r.classList.add("intro");
+  setTimeout(function () { r.classList.remove("intro"); }, 4500);
+})();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "@id": "#business",
+      "name": "Noondoor",
+      "email": "hello.noondoor@gmail.com",
+      "description": "One-page websites for local businesses in the U.S., built as a private preview first and paid for only after approval.",
+      "areaServed": { "@type": "Country", "name": "United States" },
+      "address": { "@type": "PostalAddress", "addressCountry": "BR" },
+      "founder": { "@type": "Person", "name": "Patrick Lima" },
+      "sameAs": ["https://instagram.com/noondoorstudio"],
+      "priceRange": "$210",
+      "makesOffer": [
+        {
+          "@type": "Offer",
+          "name": "One-page website",
+          "price": "210",
+          "priceCurrency": "USD",
+          "description": "One-page website with a private preview first. Paid only after you approve the finished site. Free hosting, two rounds of changes."
+        },
+        {
+          "@type": "Offer",
+          "name": "Care Plan",
+          "description": "Optional after launch: changes to menu, prices, hours, photos and notices, help with the Google Business Profile, and a monthly check that the site and form work.",
+          "priceSpecification": { "@type": "UnitPriceSpecification", "price": "25", "priceCurrency": "USD", "unitText": "MONTH" }
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "Do I pay anything before I see my site?", "acceptedAnswer": { "@type": "Answer", "text": "No. I build a preview first. You pay $210 only after you approve the finished site. I never ask for passwords or payment up front." } },
+        { "@type": "Question", "name": "What do you need from me?", "acceptedAnswer": { "@type": "Answer", "text": "Your Instagram or website, your hours, address, phone, menu or services with prices, and the links you want on the page (delivery, booking, social). I mark anything missing and ask you. I never make up details." } },
+        { "@type": "Question", "name": "How long does it take?", "acceptedAnswer": { "@type": "Answer", "text": "Up to 72 hours after I have your info." } },
+        { "@type": "Question", "name": "Can I ask for changes?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Two rounds of changes are included before launch. After that, the Care Plan ($25 a month) covers changes, or a single change is $25." } },
+        { "@type": "Question", "name": "What about my domain and hosting?", "acceptedAnswer": { "@type": "Answer", "text": "Hosting is free on Cloudflare. A domain costs about $10 to $15 a year, bought in your name, and I walk you through it step by step. Once you've paid, I publish the site and send you the files and a short guide." } },
+        { "@type": "Question", "name": "Can I take orders or bookings?", "acceptedAnswer": { "@type": "Answer", "text": "The site has your call, directions and order buttons, and links to the system you already use (Toast, Square, Clover, DoorDash, Calendly). A full online store with a cart is not part of the one-page site." } },
+        { "@type": "Question", "name": "Are the sample sites real businesses?", "acceptedAnswer": { "@type": "Answer", "text": "No. They are made-up shops I designed to show what a site can feel like. Yours is built from your own photos, colors and words." } },
+        { "@type": "Question", "name": "Where are you based?", "acceptedAnswer": { "@type": "Answer", "text": "In Brazil. I work remotely with businesses in the U.S., by message and email." } },
+        { "@type": "Question", "name": "Will your name be on my site?", "acceptedAnswer": { "@type": "Answer", "text": "A small \"Website by Noondoor\" sits in the footer. If you'd rather not have it, ask and I remove it." } },
+        { "@type": "Question", "name": "Do I need WhatsApp?", "acceptedAnswer": { "@type": "Answer", "text": "No. Pick what you already use: Instagram DM, email or WhatsApp." } }
+      ]
+    }
+  ]
+}
+</script>
+<script defer src="lang.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
+<script defer src="main.js"></script>
+<link rel="stylesheet" href="fonts/fonts.css">
+</head>
+<body>
+
+<!-- sprite: gradiente do sol, logo horizontal. O sol so existe em formas, nunca em texto -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="sun" gradientUnits="userSpaceOnUse" x1="80" y1="90" x2="124" y2="146">
+      <stop offset="0" stop-color="#F0B450"/><stop offset="0.55" stop-color="#D9732F"/><stop offset="1" stop-color="#B4532A"/>
+    </linearGradient>
+    <linearGradient id="sunBox" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F0B450"/><stop offset="0.55" stop-color="#D9732F"/><stop offset="1" stop-color="#B4532A"/>
+    </linearGradient>
+    <symbol id="logo-h" viewBox="38 38 889.747 124">
+      <path d="M59.0,141.0 V100 A41.0,41.0 0 0 1 141.0,100 V141.0" fill="none" stroke="currentColor" stroke-width="42" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="100" cy="116.2" r="14.4" fill="url(#sun)"/>
+      <g transform="translate(202.0,85.12) scale(0.7688)"><g fill="none" stroke="currentColor" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"><path d="M 16 16 V 84"/><path d="M 16 50 A 34 34 0 0 1 84 50 V 84"/><path d="M 142 50 A 34 34 0 1 0 210 50 A 34 34 0 1 0 142 50"/><path d="M 268 50 A 34 34 0 1 0 336 50 A 34 34 0 1 0 268 50"/><path d="M 394 16 V 84"/><path d="M 394 50 A 34 34 0 0 1 462 50 V 84"/><path d="M 520 50 A 34 34 0 1 0 588 50 A 34 34 0 1 0 520 50"/><path d="M 588 -12 V 84"/><path d="M 646 50 A 34 34 0 1 0 714 50 A 34 34 0 1 0 646 50"/><path d="M 772 50 A 34 34 0 1 0 840 50 A 34 34 0 1 0 772 50"/><path d="M 898 16 V 84"/><path d="M 898 58 C 898 28 904 16 940 16"/></g></g>
+    </symbol>
+  </defs>
+</svg>
+
+<a class="skip" href="#main">Skip to content</a>
+<div class="sunbar" aria-hidden="true"><i data-sunbar></i></div>
+
+<!-- cabecalho fixo -->
+<header class="hdr" data-header data-tone="dark">
+  <a class="hdr-logo" href="#top" aria-label="Noondoor, back to top"><svg class="logo" aria-hidden="true" focusable="false"><use href="#logo-h"/></svg></a>
+  <svg class="hdr-arc" viewBox="0 0 120 28" aria-hidden="true" focusable="false"><path data-arc d="M6 24 Q60 -14 114 24" fill="none" stroke="currentColor" stroke-opacity=".4" stroke-width="1.2" stroke-linecap="round"/><circle data-arc-sun cx="6" cy="24" r="6.5" fill="url(#sunBox)"/></svg>
+  <nav class="hdr-nav" aria-label="Sections">
+    <a href="#samples">Samples</a>
+    <a href="#how">How it works</a>
+    <a href="#pricing">Price</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+  <div class="lang" role="group" aria-label="Language">
+    <button type="button" data-lang="en" lang="en" aria-label="English" aria-pressed="true">EN</button>
+    <button type="button" data-lang="pt" lang="pt-BR" aria-label="Português" aria-pressed="false">PT</button>
+  </div>
+  <a class="btn btn-primary hdr-cta" href="#contact">Ask for my preview</a>
+  <button class="hdr-toggle" type="button" aria-expanded="false" aria-controls="menu" data-toggle data-lang-skip><span class="hdr-toggle-label" data-label-open="Menu" data-label-close="Close">Menu</span><span class="burger" aria-hidden="true"><i></i><i></i></span></button>
+</header>
+
+<!-- menu em tela cheia (celular) -->
+<div class="ov" id="menu" data-overlay aria-hidden="true">
+  <nav class="ov-nav" aria-label="Menu">
+    <a href="#samples" data-close>Samples</a>
+    <a href="#how" data-close>How it works</a>
+    <a href="#pricing" data-close>Price</a>
+    <a href="#about" data-close>About</a>
+    <a href="#faq" data-close>FAQ</a>
+    <a href="#contact" data-close>Contact</a>
+  </nav>
+  <div class="ov-foot">
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" lang="en" aria-label="English" aria-pressed="true">EN</button>
+      <button type="button" data-lang="pt" lang="pt-BR" aria-label="Português" aria-pressed="false">PT</button>
+    </div>
+    <a class="mono ov-mail" href="mailto:hello.noondoor@gmail.com" data-email>hello.noondoor@gmail.com</a>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- 1. PORTA: topo (giro, meio-dia), travessia e abertura dos exemplos, tudo no mesmo trilho ------------------------------ -->
+<section class="porta" id="top" data-tone="dark" data-porta>
+  <div class="porta-stage" data-stage>
+    <div class="porta-bg" aria-hidden="true"></div>
+    <div class="porta-top" data-top>
+      <!-- o slot e o retangulo que o 3D usa para se posicionar. Enquanto o three nao carrega (ou sem WebGL, ou com movimento reduzido), ele mostra o poster e o sol em CSS -->
+      <div class="porta-slot" data-door-slot aria-hidden="true">
+        <i class="slot-mem" data-slot-mem></i>
+        <img class="slot-poster" data-poster src="img/3d/porta-800.webp" srcset="img/3d/porta-800.webp 800w, img/3d/porta-1600.webp 1600w" sizes="(min-width: 900px) 46svh, 32svh" alt="" width="800" height="800" fetchpriority="high" decoding="async">
+        <i class="slot-sun" data-slot-sun></i>
+      </div>
+      <canvas class="porta-gl" data-gl aria-hidden="true"></canvas>
+
+      <div class="hero-text" data-hero-text>
+        <p class="mono clock" data-clock data-lang-skip>Built in Brazil, for the U.S.</p>
+        <h1 class="h1" data-h1><span class="l">Your site,</span> <span class="l">before</span> <span class="l">you pay<i class="dot" aria-hidden="true"></i></span></h1>
+        <div class="hero-side">
+          <p class="sub">One-page websites for local shops, trucks and studios. I build a preview first. You pay $210 only after you approve the finished site.</p>
+          <div class="ctas">
+            <a class="btn btn-primary" href="#contact">Ask for my preview</a>
+            <a class="btn btn-line" href="#samples" data-samples-link>See the samples</a>
+          </div>
+          <p class="mono note">No upfront payment. No passwords.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="porta-frase" data-frase>Instagram is a great <em>window</em>. A site is the door.</p>
+
+    <div class="samples-head" data-samples-head>
+      <h2 class="h2" id="samples-title">Seven shops. Seven front doors.</h2>
+      <p class="lead">Sample sites for made-up businesses. Each one starts from its own world: a hand-painted sign, a kiln, a race route. Yours will too.</p>
+      <p class="mono samples-note">Every business here is made up. Yours will be built from your own photos, colors and words.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2. EXEMPLOS (creme, logo depois da travessia) ---------------------------------------------------------------------------- -->
+<section class="samples" id="samples" data-tone="light" data-samples aria-labelledby="samples-title">
+  <div class="samples-pin" data-samples-pin>
+    <div class="samples-track" data-samples-track>
+      <div class="cards" data-cards>
+      <article class="card" data-card data-set="en">
+        <a class="card-screen" href="https://patricklima027.github.io/el-comal-rojo/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="img/telas/el-comal-rojo.webp" alt="" width="520" height="4000" loading="lazy" decoding="async"></a>
+        <p class="mono cap">Taco truck, San Antonio</p>
+        <h3 class="card-name">El Comal Rojo</h3>
+        <p class="card-line">A hand-painted sign, papel picado and a trompo turning late.</p>
+        <a class="btn btn-small" href="https://patricklima027.github.io/el-comal-rojo/" target="_blank" rel="noopener">Open the live sample<span class="sr">: El Comal Rojo</span><svg class="arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+      </article>
+
+      <article class="card" data-card data-set="en">
+        <a class="card-screen" href="https://patricklima027.github.io/square-one-run-club/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="img/telas/square-one.webp" alt="" width="520" height="4000" loading="lazy" decoding="async"></a>
+        <p class="mono cap">Run club, Savannah</p>
+        <h3 class="card-name">Square One Run Club</h3>
+        <p class="card-line">The page is the run. Scrolling draws the route on a real map.</p>
+        <a class="btn btn-small" href="https://patricklima027.github.io/square-one-run-club/" target="_blank" rel="noopener">Open the live sample<span class="sr">: Square One Run Club</span><svg class="arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+      </article>
+
+      <article class="card" data-card data-set="en">
+        <a class="card-screen" href="https://patricklima027.github.io/two-napkin/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="img/telas/two-napkin.webp" alt="" width="520" height="4000" loading="lazy" decoding="async"></a>
+        <p class="mono cap">Burger joint, Houston Heights</p>
+        <h3 class="card-name">Two Napkin Burger Co.</h3>
+        <p class="card-line">A two-napkin burger: flash photos, diner tile, neon.</p>
+        <a class="btn btn-small" href="https://patricklima027.github.io/two-napkin/" target="_blank" rel="noopener">Open the live sample<span class="sr">: Two Napkin Burger Co.</span><svg class="arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+      </article>
+
+      <article class="card" data-card data-set="en">
+        <a class="card-screen" href="https://patricklima027.github.io/kiln-coffee/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="img/telas/kiln.webp" alt="" width="520" height="4000" loading="lazy" decoding="async"></a>
+        <p class="mono cap">Coffee bar, East Austin</p>
+        <h3 class="card-name">Kiln Coffee Bar</h3>
+        <p class="card-line">Fired slow. Cup labels set like ceramic tags.</p>
+        <a class="btn btn-small" href="https://patricklima027.github.io/kiln-coffee/" target="_blank" rel="noopener">Open the live sample<span class="sr">: Kiln Coffee Bar</span><svg class="arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+      </article>
+
+      <article class="card" data-card data-set="en">
+        <a class="card-screen" href="https://patricklima027.github.io/saltwater-supply/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="img/telas/saltwater.webp" alt="" width="520" height="4000" loading="lazy" decoding="async"></a>
+        <p class="mono cap">Vintage and surf, St. Pete</p>
+        <h3 class="card-name">Saltwater Supply</h3>
+        <p class="card-line">Faded by salt and sun, with price-tag handwriting.</p>
+        <a class="btn btn-small" href="https://patricklima027.github.io/saltwater-supply/" target="_blank" rel="noopener">Open the live sample<span class="sr">: Saltwater Supply</span><svg class="arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+      </article>
+
+      <article class="card" data-card data-set="en">
+        <a class="card-screen" href="https://patricklima027.github.io/the-toner-room/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="img/telas/toner-room.webp" alt="" width="520" height="4000" loading="lazy" decoding="async"></a>
+        <p class="mono cap">Blonde salon, Somerville</p>
+        <h3 class="card-name">The Toner Room</h3>
+        <p class="card-line">Violet toner, brass mirrors, the color formula as a signature.</p>
+        <a class="btn btn-small" href="https://patricklima027.github.io/the-toner-room/" target="_blank" rel="noopener">Open the live sample<span class="sr">: The Toner Room</span><svg class="arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+      </article>
+
+      <article class="card" data-card data-set="en">
+        <a class="card-screen" href="https://patricklima027.github.io/dulce-manana/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="img/telas/dulce-manana.webp" alt="" width="520" height="4000" loading="lazy" decoding="async"></a>
+        <p class="mono cap">Bakery, Orlando</p>
+        <h3 class="card-name">Dulce Mañana Bakery</h3>
+        <p class="card-line">Opens before the sun: night blue outside, oven light inside.</p>
+        <a class="btn btn-small" href="https://patricklima027.github.io/dulce-manana/" target="_blank" rel="noopener">Open the live sample<span class="sr">: Dulce Mañana Bakery</span><svg class="arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+      </article>
+
+      <!-- exemplos em portugues: so aparecem na versao PT (primeiro) -->
+      <article class="card" data-card data-set="br">
+        <a class="card-screen" href="https://patricklima027.github.io/cafune-estudio/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="img/telas/cafune.webp" alt="" width="520" height="4000" loading="lazy" decoding="async"></a>
+        <p class="mono cap">Hair salon, Vitória</p>
+        <h3 class="card-name">Cafuné Estúdio</h3>
+        <p class="card-line">The appointment book, penciled in. Spiral, margin, pink highlighter.</p>
+        <a class="btn btn-small" href="https://patricklima027.github.io/cafune-estudio/" target="_blank" rel="noopener">Open the live sample<span class="sr">: Cafuné Estúdio</span><svg class="arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+      </article>
+
+      <article class="card" data-card data-set="br">
+        <a class="card-screen" href="https://patricklima027.github.io/cadeira-cativa/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="img/telas/cadeira-cativa.webp" alt="" width="520" height="4000" loading="lazy" decoding="async"></a>
+        <p class="mono cap">Barbershop, Vila Velha</p>
+        <h3 class="card-name">Cadeira Cativa Barbearia</h3>
+        <p class="card-line">An open tab: the price list is a bar receipt, and the chair is yours.</p>
+        <a class="btn btn-small" href="https://patricklima027.github.io/cadeira-cativa/" target="_blank" rel="noopener">Open the live sample<span class="sr">: Cadeira Cativa Barbearia</span><svg class="arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+      </article>
+
+      <article class="card" data-card data-set="br">
+        <a class="card-screen" href="https://patricklima027.github.io/osso-duro/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="img/telas/osso-duro.webp" alt="" width="520" height="4000" loading="lazy" decoding="async"></a>
+        <p class="mono cap">Martial arts gym, Vitória</p>
+        <h3 class="card-name">Osso Duro Jiu-Jitsu &amp; Muay Thai</h3>
+        <p class="card-line">The page climbs the belts, from white to black.</p>
+        <a class="btn btn-small" href="https://patricklima027.github.io/osso-duro/" target="_blank" rel="noopener">Open the live sample<span class="sr">: Osso Duro Jiu-Jitsu &amp; Muay Thai</span><svg class="arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+      </article>
+
+      </div>
+
+      <div class="samples-end">
+        <a class="btn btn-primary" href="#contact">Ask for my preview</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6.2 FAIXA CORRIDA --------------------------------------------------------------------------------------- -->
+<section class="kinds" id="kinds" data-tone="light" aria-label="Kinds of businesses">
+  <div class="marquee" data-marquee>
+    <div class="marquee-track" data-marquee-track>
+      <p class="marquee-set"><span>Taco trucks</span><i class="sun-dot"></i><span class="o">Bakeries</span><i class="sun-dot"></i><span>Coffee bars</span><i class="sun-dot"></i><span class="o">Burger joints</span><i class="sun-dot"></i><span>Salons</span><i class="sun-dot"></i><span class="o">Boutiques</span><i class="sun-dot"></i><span>Run clubs</span><i class="sun-dot"></i><span class="o">Your shop</span><i class="sun-dot"></i></p>
+      <p class="marquee-set" aria-hidden="true"><span>Taco trucks</span><i class="sun-dot"></i><span class="o">Bakeries</span><i class="sun-dot"></i><span>Coffee bars</span><i class="sun-dot"></i><span class="o">Burger joints</span><i class="sun-dot"></i><span>Salons</span><i class="sun-dot"></i><span class="o">Boutiques</span><i class="sun-dot"></i><span>Run clubs</span><i class="sun-dot"></i><span class="o">Your shop</span><i class="sun-dot"></i></p>
+    </div>
+  </div>
+</section>
+
+<!-- 6.5 COMO FUNCIONA --------------------------------------------------------------------------------------- -->
+<section class="how" id="how" data-tone="light">
+  <div class="how-head">
+    <h2 class="h2">Three steps. The preview comes first.</h2>
+    <p class="mono how-sub">You pay after step 3. Never before.</p>
+  </div>
+  <ol class="steps">
+    <li class="step step-1" data-step data-leaf="1">
+      <svg class="hdoor" viewBox="0 0 100 150" aria-hidden="true" focusable="false" style="--leaf:1"><defs><clipPath id="hc1"><path d="M18 148V50A32 32 0 0 1 82 50V148Z"/></clipPath></defs><g clip-path="url(#hc1)"><rect width="100" height="150" fill="#F3EADB"/><circle cx="50" cy="80" r="17" fill="url(#sunBox)"/><g class="leaf"><rect x="18" y="10" width="64" height="140" fill="#8C5B3F"/><path d="M33 44h34M33 104h34" stroke="#2A1D14" stroke-opacity=".28" stroke-width="2.4" stroke-linecap="round"/><circle cx="72" cy="88" r="3.2" fill="#D9A03F"/></g></g><path d="M12 148V50A38 38 0 0 1 88 50V148" fill="none" stroke="#2A1D14" stroke-width="12" stroke-linecap="round"/></svg>
+      <span class="n" aria-hidden="true">1</span>
+      <h3 class="step-title">Send me your Instagram.</h3>
+      <p>A DM or an email is enough. With your OK, I take your logo, colors and best photos from your page, and I ask only for what's missing: hours, address, phone, menu and prices.</p>
+    </li>
+    <li class="step step-2" data-step data-leaf="0.45">
+      <svg class="hdoor" viewBox="0 0 100 150" aria-hidden="true" focusable="false" style="--leaf:.45"><defs><clipPath id="hc2"><path d="M18 148V50A32 32 0 0 1 82 50V148Z"/></clipPath></defs><g clip-path="url(#hc2)"><rect width="100" height="150" fill="#F3EADB"/><circle cx="50" cy="80" r="17" fill="url(#sunBox)"/><g class="leaf"><rect x="18" y="10" width="64" height="140" fill="#8C5B3F"/><path d="M33 44h34M33 104h34" stroke="#2A1D14" stroke-opacity=".28" stroke-width="2.4" stroke-linecap="round"/><circle cx="72" cy="88" r="3.2" fill="#D9A03F"/></g></g><path d="M12 148V50A38 38 0 0 1 88 50V148" fill="none" stroke="#2A1D14" stroke-width="12" stroke-linecap="round"/></svg>
+      <span class="n" aria-hidden="true">2</span>
+      <h3 class="step-title">Open your preview on your phone.</h3>
+      <p>A private link with your name on it, ready within 72 hours of getting your info. Ask for changes: two rounds are included.</p>
+    </li>
+    <li class="step step-3" data-step data-leaf="0.06">
+      <svg class="hdoor" viewBox="0 0 100 150" aria-hidden="true" focusable="false" style="--leaf:.06"><defs><clipPath id="hc3"><path d="M18 148V50A32 32 0 0 1 82 50V148Z"/></clipPath></defs><g clip-path="url(#hc3)"><rect width="100" height="150" fill="#F3EADB"/><circle cx="50" cy="80" r="17" fill="url(#sunBox)"/><g class="leaf"><rect x="18" y="10" width="64" height="140" fill="#8C5B3F"/><path d="M33 44h34M33 104h34" stroke="#2A1D14" stroke-opacity=".28" stroke-width="2.4" stroke-linecap="round"/><circle cx="72" cy="88" r="3.2" fill="#D9A03F"/></g></g><path d="M12 148V50A38 38 0 0 1 88 50V148" fill="none" stroke="#2A1D14" stroke-width="12" stroke-linecap="round"/></svg>
+      <span class="n" aria-hidden="true">3</span>
+      <h3 class="step-title">Approve it. Then pay $210.</h3>
+      <p>You pay only after you approve the finished site. Then I publish it and send you the files and a short guide.</p>
+    </li>
+  </ol>
+  <p class="how-close">No payment up front. No passwords.</p>
+</section>
+
+<!-- 6.6 PRECO ----------------------------------------------------------------------------------------------- -->
+<section class="price" id="pricing" data-tone="light">
+  <div class="price-top">
+    <div class="price-num" data-price data-lang-skip>
+      <i class="price-sun" data-price-sun aria-hidden="true"></i>
+      <span class="num num-en" data-count="210" data-prefix="$">$210</span>
+      <span class="num num-pt" data-count="297" data-prefix="R$&nbsp;">R$&nbsp;297</span>
+    </div>
+    <div class="price-side">
+      <h2 class="h3">One page. You pay after you approve it.</h2>
+      <p class="mono">One time. Free hosting. No monthly fee required.</p>
+      <a class="btn btn-primary" href="#contact">Ask for my preview</a>
+    </div>
+  </div>
+
+  <div class="lists">
+    <div class="list">
+      <h3 class="list-title">What's included</h3>
+      <ul>
+        <li>Up to six sections: top photo with your main button, menu or services (up to 40 items), about, gallery, hours and map, contact.</li>
+        <li>Call, directions and order buttons. Order links go to the Toast, Square, Clover, DoorDash or Calendly page you already use.</li>
+        <li>A contact form that lands in your email.</li>
+        <li>Local SEO basics so Google understands who you are and where.</li>
+        <li>Free hosting on Cloudflare. No monthly fee required.</li>
+        <li>Two rounds of changes, ready within 72 hours of getting your info.</li>
+        <li>A small "Website by Noondoor" in the footer. Ask me and I take it off.</li>
+      </ul>
+    </div>
+    <div class="list list-no">
+      <h3 class="list-title">Not included</h3>
+      <ul>
+        <li>Your domain (about $10 to $15 a year, bought in your name, and I walk you through it).</li>
+        <li>An online store with a cart.</li>
+        <li>A booking system of my own: I link the one you use.</li>
+        <li>A blog or long articles.</li>
+        <li>Logo design.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="care" data-us-only>
+    <div class="care-in">
+      <p class="care-title">After launch, if you want it: the Care Plan, $25 a month.</p>
+      <p class="care-text">Changes to menu, prices, hours, photos and notices (about an hour a month, ready within 48 hours). Help keeping your Google Business Profile up to date. A monthly check that your site and form work. Cancel any time. Without the plan, a single change is $25.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6.7 QUEM SOU -------------------------------------------------------------------------------------------- -->
+<section class="about" id="about" data-tone="light">
+  <div class="about-tile">
+    <div class="about-text">
+      <h2 class="h2">Hi, I'm Patrick.</h2>
+      <p class="lead">I'm a web designer in Brazil. I build one-page websites for small businesses in the U.S., and we do everything by message and email, so it stays quick. I'm not in the U.S. and I won't pretend to be. That's the reason the preview comes first: you judge the work before anything else.</p>
+      <div class="clocks mono" data-clocks aria-live="off">
+        <p><span class="cl-label">Brazil</span><span class="cl-time" data-clock-br>--:--</span></p>
+        <p><span class="cl-label">You</span><span class="cl-time" data-clock-you>--:--</span></p>
+      </div>
+    </div>
+    <figure class="about-shot">
+      <a class="device" href="https://www.crcell.com.br" target="_blank" rel="noopener"><img src="img/crcell-900.webp" alt="The home page of crcell.com.br: a black page with the CRCELL logo in yellow and white" width="900" height="562" loading="lazy" decoding="async"></a>
+      <figcaption class="mono">A site I built for a phone store in Brazil: <a href="https://www.crcell.com.br" target="_blank" rel="noopener">crcell.com.br</a> (in Portuguese).</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6.8 FAQ ------------------------------------------------------------------------------------------------- -->
+<section class="faq" id="faq" data-tone="light">
+  <h2 class="h2">Questions people ask</h2>
+  <div class="faq-list">
+    <details><summary>Do I pay anything before I see my site?</summary><p>No. I build a preview first. You pay $210 only after you approve the finished site. I never ask for passwords or payment up front.</p></details>
+    <details><summary>What do you need from me?</summary><p>Your Instagram or website, your hours, address, phone, menu or services with prices, and the links you want on the page (delivery, booking, social). I mark anything missing and ask you. I never make up details.</p></details>
+    <details><summary>How long does it take?</summary><p>Up to 72 hours after I have your info.</p></details>
+    <details><summary>Can I ask for changes?</summary><p>Yes. Two rounds of changes are included before launch. After that, the Care Plan ($25 a month) covers changes, or a single change is $25.</p></details>
+    <details><summary>What about my domain and hosting?</summary><p>Hosting is free on Cloudflare. A domain costs about $10 to $15 a year, bought in your name, and I walk you through it step by step. Once you've paid, I publish the site and send you the files and a short guide.</p></details>
+    <details><summary>Can I take orders or bookings?</summary><p>The site has your call, directions and order buttons, and links to the system you already use (Toast, Square, Clover, DoorDash, Calendly). A full online store with a cart is not part of the one-page site.</p></details>
+    <details><summary>Are the sample sites real businesses?</summary><p>No. They are made-up shops I designed to show what a site can feel like. Yours is built from your own photos, colors and words.</p></details>
+    <details><summary>Where are you based?</summary><p>In Brazil. I work remotely with businesses in the U.S., by message and email.</p></details>
+    <details><summary>Will your name be on my site?</summary><p>A small "Website by Noondoor" sits in the footer. If you'd rather not have it, ask and I remove it.</p></details>
+    <details><summary>Do I need WhatsApp?</summary><p>No. Pick what you already use: Instagram DM, email or WhatsApp.</p></details>
+  </div>
+</section>
+
+<!-- 8. CADASTRO ---------------------------------------------------------------------------------------------------------- -->
+<section class="contact" id="contact" data-tone="light">
+  <div class="contact-text">
+    <h2 class="h2">Want to see yours first?</h2>
+    <p class="lead">Tell me about your shop and the easiest way to reach you. I'll get in touch there, and if it's a fit, I'll build your preview. It costs nothing to look.</p>
+    <p class="alt-q">Rather skip the form?</p>
+    <p class="alts">
+      <a class="alt-link" href="https://instagram.com/noondoorstudio" target="_blank" rel="noopener" data-ig>DM PREVIEW to @noondoorstudio</a>
+      <a class="alt-link" href="mailto:hello.noondoor@gmail.com" data-email-alt>Email <span data-email>hello.noondoor@gmail.com</span></a>
+    </p>
+    <p class="mono">I'm in Brazil (UTC-3), so I reply by message and email.</p>
+  </div>
+
+  <div class="panel" data-panel>
+    <!-- sem JS: o formulario envia direto para a FormSubmit (todos os campos de contato aparecem) -->
+    <form class="form" id="form" action="https://formsubmit.co/hello.noondoor@gmail.com" method="POST" novalidate data-form>
+      <!-- [CONFIRMAR] a FormSubmit precisa ser ativada uma vez (e-mail de ativacao no Gmail); o JS fica em modo previa ate FORM_LIVE = true no main.js -->
+      <input type="hidden" name="_subject" value="Preview request">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input class="hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <div class="field" data-field>
+        <label for="f-name">Your name</label>
+        <input id="f-name" name="Name" type="text" autocomplete="name" required aria-describedby="e-name">
+        <p class="err" id="e-name" hidden>Please add your name.</p>
+      </div>
+      <div class="field" data-field>
+        <label for="f-biz">Business name</label>
+        <input id="f-biz" name="Business" type="text" autocomplete="organization" required aria-describedby="e-biz">
+        <p class="err" id="e-biz" hidden>Please add your business name.</p>
+      </div>
+      <div class="field" data-field>
+        <label for="f-link">Instagram or website (optional)</label>
+        <input id="f-link" name="Instagram or website" type="text" autocapitalize="none" autocorrect="off" spellcheck="false" aria-describedby="h-link">
+        <p class="hint mono" id="h-link">Like @yourshop or yourshop.com</p>
+      </div>
+
+      <fieldset class="methods" data-methods>
+        <legend>Best way to reach you</legend>
+        <div class="seg">
+          <label class="opt" data-opt="instagram"><input type="radio" name="Best way to reach you" value="Instagram DM" checked aria-controls="c-instagram"><span><i class="opt-sun" aria-hidden="true"></i>Instagram DM</span></label>
+          <label class="opt" data-opt="email"><input type="radio" name="Best way to reach you" value="Email" aria-controls="c-email"><span><i class="opt-sun" aria-hidden="true"></i>Email</span></label>
+          <label class="opt" data-opt="whatsapp"><input type="radio" name="Best way to reach you" value="WhatsApp" aria-controls="c-whatsapp"><span><i class="opt-sun" aria-hidden="true"></i>WhatsApp</span></label>
+        </div>
+      </fieldset>
+
+      <div class="cond" id="c-instagram" data-cond="instagram">
+        <div class="cond-in">
+          <div class="field" data-field>
+            <label for="f-ig">Your Instagram</label>
+            <input id="f-ig" name="Instagram" type="text" placeholder="@yourshop" autocapitalize="none" autocorrect="off" spellcheck="false" aria-describedby="e-ig">
+            <p class="err" id="e-ig" hidden>Please add your Instagram, like @yourshop.</p>
+          </div>
+        </div>
+      </div>
+      <div class="cond" id="c-email" data-cond="email">
+        <div class="cond-in">
+          <div class="field" data-field>
+            <label for="f-mail">Your email</label>
+            <input id="f-mail" name="email" type="email" autocomplete="email" aria-describedby="e-mail">
+            <p class="err" id="e-mail" hidden>Please add a valid email.</p>
+          </div>
+        </div>
+      </div>
+      <div class="cond" id="c-whatsapp" data-cond="whatsapp">
+        <div class="cond-in">
+          <div class="field" data-field>
+            <label for="f-wa">WhatsApp number</label>
+            <input id="f-wa" name="WhatsApp" type="tel" inputmode="tel" autocomplete="tel" aria-describedby="h-wa e-wa">
+            <p class="hint mono" id="h-wa">With country code, like +1 512 555 0123</p>
+            <p class="err" id="e-wa" hidden>Please add a number with country code.</p>
+          </div>
+          <div class="field consent" data-field>
+            <label class="check"><input id="f-consent" type="checkbox" name="Consent" value="yes" aria-describedby="e-consent"><span>Yes, you can message me at this number about my site. Message and data rates may apply. Reply STOP anytime.</span></label>
+            <p class="hint mono">I only message people who ask. No lists, no marketing texts.</p>
+            <p class="err" id="e-consent" hidden>Please tick the box so I can message you.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="field" data-field>
+        <label for="f-city">City and state (optional)</label>
+        <input id="f-city" name="City / state" type="text" autocomplete="address-level2" aria-describedby="h-city">
+        <p class="hint mono" id="h-city">Or country, if you're outside the U.S.</p>
+      </div>
+      <div class="field" data-field>
+        <label for="f-msg">Anything I should know? (optional)</label>
+        <textarea id="f-msg" name="Message" rows="4"></textarea>
+      </div>
+
+      <p class="form-msg form-err" role="alert" hidden data-form-fail>That didn't go through. Try again, or DM PREVIEW on Instagram, or email <span data-email>hello.noondoor@gmail.com</span>.</p>
+      <p class="form-msg form-preview mono" role="status" hidden data-form-preview>Preview mode: nothing was sent.</p>
+      <button class="btn btn-primary" type="submit" data-submit>Ask for my preview</button>
+      <p class="mono form-note">I only use this to reply to you.</p>
+    </form>
+
+    <div class="done" data-done hidden>
+      <svg class="done-mark" viewBox="38 38 124 124" aria-hidden="true" focusable="false"><path d="M59 141V100A41 41 0 0 1 141 100V141" fill="none" stroke="#2A1D14" stroke-width="42" stroke-linecap="round" stroke-linejoin="round"/><circle data-done-sun cx="100" cy="116.2" r="14.4" fill="url(#sun)"/></svg>
+      <h3 class="done-title" tabindex="-1" data-done-title></h3>
+      <p class="done-text" data-done-text></p>
+      <a class="alt-link" href="#samples">Back to the samples</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- 9. RODAPE: o arco de vidro e o primeiro "n" do noondoor gigante; o sol se poe saindo por baixo da porta -------------------- -->
+<footer class="end" id="end" data-tone="dark" data-end>
+  <div class="end-gl" data-end-gl aria-hidden="true"></div>
+  <div class="end-in">
+    <div class="end-mark" role="img" aria-label="noondoor" data-end-mark>
+      <div class="end-slot" data-end-slot>
+        <img class="slot-poster" data-end-poster src="img/3d/porta-800.webp" alt="" width="800" height="800" loading="lazy" decoding="async">
+        <i class="slot-sun" data-end-sun></i>
+      </div>
+      <svg viewBox="0 -30 960 134" focusable="false" overflow="visible" aria-hidden="true">
+        <g fill="none" stroke="currentColor" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" data-end-paths>
+          <path pathLength="1" d="M 142 50 A 34 34 0 1 0 210 50 A 34 34 0 1 0 142 50"/><path pathLength="1" d="M 268 50 A 34 34 0 1 0 336 50 A 34 34 0 1 0 268 50"/><path pathLength="1" d="M 394 16 V 84"/><path pathLength="1" d="M 394 50 A 34 34 0 0 1 462 50 V 84"/><path pathLength="1" d="M 520 50 A 34 34 0 1 0 588 50 A 34 34 0 1 0 520 50"/><path pathLength="1" d="M 588 -12 V 84"/><path pathLength="1" d="M 646 50 A 34 34 0 1 0 714 50 A 34 34 0 1 0 646 50"/><path pathLength="1" d="M 772 50 A 34 34 0 1 0 840 50 A 34 34 0 1 0 772 50"/><path pathLength="1" d="M 898 16 V 84"/><path pathLength="1" d="M 898 58 C 898 28 904 16 940 16"/>
+        </g>
+      </svg>
+    </div>
+    <div class="end-rows">
+      <p>Noondoor · One-page websites for local businesses · Made in Brazil, for the U.S.</p>
+      <p><a href="mailto:hello.noondoor@gmail.com" data-email>hello.noondoor@gmail.com</a></p>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en" lang="en" aria-label="English" aria-pressed="true">EN</button>
+        <button type="button" data-lang="pt" lang="pt-BR" aria-label="Português" aria-pressed="false">PT</button>
+      </div>
+      <p>© <span data-year data-lang-skip>2026</span> Noondoor</p>
+      <details class="priv"><summary>Privacy</summary><p>The form asks for your name, business, link, how to reach you (Instagram, email or phone) and your city. I use them only to reply to you, and I don't sell or share them. Your message is delivered to my inbox by FormSubmit. To ask me to delete what you sent, write to <span data-email>hello.noondoor@gmail.com</span>.</p></details>
+    </div>
+  </div>
+</footer>
+
+<!-- barra fixa do celular: aparece depois da travessia e some quando o cadastro esta na tela -->
+<div class="bar is-hidden" data-bar>
+  <a class="btn btn-line btn-dark" href="https://instagram.com/noondoorstudio" target="_blank" rel="noopener" data-ig>DM PREVIEW</a>
+  <a class="btn btn-primary" href="#contact">Ask for my preview</a>
+</div>
+
+<div class="cursor" data-cursor aria-hidden="true"></div>
+
+<script type="application/json" id="lang-data">{"langs": [{"code": "en", "label": "EN", "name": "English", "html_lang": "en"}, {"code": "pt", "label": "PT", "name": "Português", "html_lang": "pt-BR"}], "default": "en", "storage": "noondoor-lang", "group_label": "Language", "pt": {"title": "Noondoor | Sites de uma página para negócios locais", "strings": {"Noondoor | One-page websites for local businesses": "Noondoor | Sites de uma página para negócios locais", "Preview first, pay later. Noondoor builds one-page websites for local businesses in the U.S. $210, paid only after you approve the finished site.": "Prévia primeiro, pagamento depois. A Noondoor faz sites de uma página para negócios locais. R$ 297 por Pix, só depois de você aprovar o site pronto.", "Noondoor | Your site, before you pay.": "Noondoor | Seu site, antes de você pagar.", "One-page websites for local shops, trucks and studios. I build a preview first. You pay $210 only after you approve the finished site.": "Sites de uma página para lojas, salões e negócios do bairro. Eu monto uma prévia primeiro. Você só paga R$ 297 depois de aprovar o site pronto.", "Noondoor: a door arch with the noon sun inside, and the words Your site, before you pay.": "Noondoor: um arco de porta com o sol do meio-dia dentro e a frase Seu site, antes de você pagar.", "Noondoor, back to top": "Noondoor, voltar ao topo", "Sections": "Seções", "Language": "Idioma", "Kinds of businesses": "Tipos de negócio", "Close": "Fechar", "Skip to content": "Pular para o conteúdo", "Samples": "Exemplos", "How it works": "Como funciona", "Price": "Preço", "FAQ": "Dúvidas", "About": "Sobre", "Contact": "Contato", "Ask for my preview": "Quero ver a minha prévia", "See the samples": "Ver os exemplos", "Your site,": "Seu site,", "before": "antes de", "you pay": "você pagar", "No upfront payment. No passwords.": "Sem pagar adiantado. Sem senhas.", "El Comal Rojo, a sample taco truck site (opens in a new tab)": "El Comal Rojo, site de exemplo de food truck de tacos (abre em nova aba)", "Square One Run Club, a sample run club site (opens in a new tab)": "Square One Run Club, site de exemplo de clube de corrida (abre em nova aba)", "Two Napkin Burger Co., a sample burger joint site (opens in a new tab)": "Two Napkin Burger Co., site de exemplo de hamburgueria (abre em nova aba)", "Kiln Coffee Bar, a sample coffee bar site (opens in a new tab)": "Kiln Coffee Bar, site de exemplo de cafeteria (abre em nova aba)", "Saltwater Supply, a sample vintage and surf shop site (opens in a new tab)": "Saltwater Supply, site de exemplo de loja vintage e de surf (abre em nova aba)", "The Toner Room, a sample salon site (opens in a new tab)": "The Toner Room, site de exemplo de salão (abre em nova aba)", "Dulce Mañana Bakery, a sample bakery site (opens in a new tab)": "Dulce Mañana Bakery, site de exemplo de padaria (abre em nova aba)", "Cafuné Estúdio, a sample salon site in Portuguese (opens in a new tab)": "Cafuné Estúdio, site de exemplo de salão (abre em nova aba)", "Cadeira Cativa Barbearia, a sample barbershop site in Portuguese (opens in a new tab)": "Cadeira Cativa Barbearia, site de exemplo de barbearia (abre em nova aba)", "Osso Duro Jiu-Jitsu e Muay Thai, a sample martial arts gym site in Portuguese (opens in a new tab)": "Osso Duro Jiu-Jitsu e Muay Thai, site de exemplo de escola de artes marciais (abre em nova aba)", "Taco trucks": "Food trucks", "Bakeries": "Padarias", "Coffee bars": "Cafeterias", "Burger joints": "Hamburguerias", "Salons": "Salões e barbearias", "Boutiques": "Boutiques", "Run clubs": "Clubes de corrida", "Your shop": "O seu negócio", "Seven shops. Seven front doors.": "Dez negócios. Dez portas de entrada.", "Sample sites for made-up businesses. Each one starts from its own world: a hand-painted sign, a kiln, a race route. Yours will too.": "Sites de exemplo para negócios inventados. Cada um nasce do próprio mundo: uma placa pintada à mão, um forno de cerâmica, um percurso de corrida. O seu também.", "Taco truck, San Antonio": "Food truck de tacos, San Antonio", "A hand-painted sign, papel picado and a trompo turning late.": "Uma placa pintada à mão, papel picado e um trompo girando até tarde.", "Run club, Savannah": "Clube de corrida, Savannah", "The page is the run. Scrolling draws the route on a real map.": "A página é a corrida. Ao rolar, o percurso é desenhado num mapa de verdade.", "Burger joint, Houston Heights": "Hamburgueria, Houston Heights", "A two-napkin burger: flash photos, diner tile, neon.": "Um hambúrguer de dois guardanapos: fotos com flash, azulejo de lanchonete e neon.", "Coffee bar, East Austin": "Cafeteria, East Austin", "Fired slow. Cup labels set like ceramic tags.": "Queimado devagar. Etiquetas de copo como etiquetas de cerâmica.", "Vintage and surf, St. Pete": "Brechó e surf, St. Pete", "Faded by salt and sun, with price-tag handwriting.": "Desbotada pelo sal e pelo sol, com letra de etiqueta de preço.", "Blonde salon, Somerville": "Salão de loiras, Somerville", "Violet toner, brass mirrors, the color formula as a signature.": "Matizador violeta, espelhos de latão e a fórmula da cor como assinatura.", "Bakery, Orlando": "Padaria, Orlando", "Opens before the sun: night blue outside, oven light inside.": "Abre antes do sol: azul de noite lá fora, luz de forno aqui dentro.", "Hair salon, Vitória": "Salão de beleza, Vitória", "The appointment book, penciled in. Spiral, margin, pink highlighter.": "A agenda marcada a lápis: espiral, margem e marca-texto rosa.", "Barbershop, Vila Velha": "Barbearia, Vila Velha", "An open tab: the price list is a bar receipt, and the chair is yours.": "Comanda aberta: a tabela de preços é uma comanda de boteco e a cadeira é sua.", "Martial arts gym, Vitória": "Escola de artes marciais, Vitória", "The page climbs the belts, from white to black.": "A página sobe a escada das faixas, da branca à preta.", "Open the live sample": "Abrir o exemplo no ar", "Every business here is made up. Yours will be built from your own photos, colors and words.": "Todos os negócios daqui são inventados. O seu será feito com as suas fotos, cores e palavras.", "Three steps. The preview comes first.": "Três passos. A prévia vem primeiro.", "You pay after step 3. Never before.": "Você paga depois do passo 3. Nunca antes.", "Send me your Instagram.": "Me mande o seu Instagram.", "A DM or an email is enough. With your OK, I take your logo, colors and best photos from your page, and I ask only for what's missing: hours, address, phone, menu and prices.": "Uma DM ou um e-mail bastam. Com o seu OK, eu pego o logo, as cores e as melhores fotos da sua página e pergunto só o que faltar: horários, endereço, telefone, cardápio e preços.", "Open your preview on your phone.": "Abra a sua prévia no celular.", "A private link with your name on it, ready within 72 hours of getting your info. Ask for changes: two rounds are included.": "Um link privado com o seu nome, pronto em até 72 horas depois de eu receber as informações. Peça mudanças: duas rodadas estão incluídas.", "Approve it. Then pay $210.": "Aprovou? Aí você paga R$ 297.", "You pay only after you approve the finished site. Then I publish it and send you the files and a short guide.": "Você só paga, por Pix, depois de aprovar o site pronto. Aí eu publico e te mando os arquivos e um guia curto.", "No payment up front. No passwords.": "Nada de pagar adiantado. Nada de senha.", "One page. You pay after you approve it.": "Uma página. Você paga depois de aprovar.", "One time. Free hosting. No monthly fee required.": "Pagamento único, por Pix. Hospedagem grátis. Sem mensalidade obrigatória.", "What's included": "O que está incluído", "Up to six sections: top photo with your main button, menu or services (up to 40 items), about, gallery, hours and map, contact.": "Até seis seções: foto de abertura com o seu botão principal, cardápio ou serviços (até 40 itens), sobre, galeria, horários e mapa, contato.", "Call, directions and order buttons. Order links go to the Toast, Square, Clover, DoorDash or Calendly page you already use.": "Botões de ligar, como chegar e WhatsApp. Os links de pedido ou agendamento vão para a página que você já usa.", "A contact form that lands in your email.": "Um formulário de contato que chega no seu e-mail.", "Local SEO basics so Google understands who you are and where.": "O básico de SEO local para o Google entender quem você é e onde fica.", "Free hosting on Cloudflare. No monthly fee required.": "Hospedagem grátis na Cloudflare. Sem mensalidade obrigatória.", "Two rounds of changes, ready within 72 hours of getting your info.": "Duas rodadas de alterações, pronto em até 72 horas depois de eu receber as suas informações.", "A small \"Website by Noondoor\" in the footer. Ask me and I take it off.": "Um pequeno \"Site por Noondoor\" no rodapé. Me peça e eu tiro.", "Not included": "Não está incluído", "Your domain (about $10 to $15 a year, bought in your name, and I walk you through it).": "O seu domínio (um .com.br custa cerca de R$ 40 por ano, registrado no seu nome, e eu te acompanho passo a passo).", "An online store with a cart.": "Loja online com carrinho.", "A booking system of my own: I link the one you use.": "Um sistema de agendamento próprio: eu coloco o link do que você já usa.", "A blog or long articles.": "Blog ou textos longos.", "Logo design.": "Criação de logotipo.", "Hi, I'm Patrick.": "Oi, eu sou o Patrick.", "I'm a web designer in Brazil. I build one-page websites for small businesses in the U.S., and we do everything by message and email, so it stays quick. I'm not in the U.S. and I won't pretend to be. That's the reason the preview comes first: you judge the work before anything else.": "Sou web designer no Brasil. Faço sites de uma página para pequenos negócios e a gente resolve tudo por mensagem e e-mail, para ficar rápido. Por isso a prévia vem primeiro: você avalia o trabalho antes de qualquer coisa.", "Brazil": "Brasil", "You": "Você", "The home page of crcell.com.br: a black page with the CRCELL logo in yellow and white": "A página inicial do crcell.com.br: uma página preta com o logo da CRCELL em amarelo e branco", "A site I built for a phone store in Brazil:": "Um site que fiz para uma loja de celulares no Brasil:", "(in Portuguese).": "", "Questions people ask": "Perguntas comuns", "Do I pay anything before I see my site?": "Eu pago alguma coisa antes de ver o meu site?", "No. I build a preview first. You pay $210 only after you approve the finished site. I never ask for passwords or payment up front.": "Não. Eu monto a prévia primeiro. Você só paga R$ 297, por Pix, depois de aprovar o site pronto. Nunca peço senha nem pagamento adiantado.", "What do you need from me?": "O que você precisa me enviar?", "Your Instagram or website, your hours, address, phone, menu or services with prices, and the links you want on the page (delivery, booking, social). I mark anything missing and ask you. I never make up details.": "O seu Instagram ou site, horários, endereço, telefone, cardápio ou serviços com preços e os links que você quiser na página (WhatsApp, delivery, agendamento, redes). O que faltar eu marco e te pergunto. Nunca invento informação.", "How long does it take?": "Quanto tempo leva?", "Up to 72 hours after I have your info.": "Até 72 horas depois de eu ter as suas informações.", "Can I ask for changes?": "Posso pedir mudanças?", "Yes. Two rounds of changes are included before launch. After that, the Care Plan ($25 a month) covers changes, or a single change is $25.": "Pode. Duas rodadas de alterações estão incluídas antes de publicar.", "What about my domain and hosting?": "E o domínio e a hospedagem?", "Hosting is free on Cloudflare. A domain costs about $10 to $15 a year, bought in your name, and I walk you through it step by step. Once you've paid, I publish the site and send you the files and a short guide.": "A hospedagem é grátis na Cloudflare. Um domínio .com.br custa cerca de R$ 40 por ano, registrado no seu nome, e eu te acompanho passo a passo. Depois que você pagar, eu publico o site e te mando os arquivos e um guia curto.", "Can I take orders or bookings?": "Dá para receber pedidos ou agendamentos?", "The site has your call, directions and order buttons, and links to the system you already use (Toast, Square, Clover, DoorDash, Calendly). A full online store with a cart is not part of the one-page site.": "O site tem os botões de ligar, como chegar e WhatsApp, e links para o sistema que você já usa. Uma loja online com carrinho não faz parte do site de uma página.", "Are the sample sites real businesses?": "Os sites de exemplo são negócios de verdade?", "No. They are made-up shops I designed to show what a site can feel like. Yours is built from your own photos, colors and words.": "Não. São negócios inventados que eu desenhei para mostrar como um site pode ser. O seu é montado com as suas fotos, cores e palavras.", "Where are you based?": "De onde você atende?", "In Brazil. I work remotely with businesses in the U.S., by message and email.": "Do Brasil, por mensagem e e-mail.", "Will your name be on my site?": "O nome da Noondoor vai aparecer no meu site?", "A small \"Website by Noondoor\" sits in the footer. If you'd rather not have it, ask and I remove it.": "Um pequeno \"Site por Noondoor\" fica no rodapé. Se preferir sem, é só pedir que eu tiro.", "Instagram is a great window. A site is the door.": "O Instagram é uma ótima *janela*. O site é a *porta*.", "Do I need WhatsApp?": "Preciso ter WhatsApp?", "No. Pick what you already use: Instagram DM, email or WhatsApp.": "Não. Pode ser Instagram ou e-mail também.", "Tell me about your shop and the easiest way to reach you. I'll get in touch there, and if it's a fit, I'll build your preview. It costs nothing to look.": "Me conte do seu negócio e do jeito mais fácil de falar com você. Eu te chamo por lá e, se fizer sentido, monto a sua prévia. Olhar não custa nada.", "Rather skip the form?": "Prefere sem formulário?", "DM PREVIEW to @noondoorstudio": "Mande PREVIEW no Instagram @noondoorstudio", "I'm in Brazil (UTC-3), so I reply by message and email.": "Estou no Brasil (UTC-3). Respondo por mensagem e e-mail.", "Instagram or website (optional)": "Instagram ou site (opcional)", "Like @yourshop or yourshop.com": "Como @seunegocio ou seunegocio.com.br", "Best way to reach you": "Melhor jeito de falar com você", "Instagram DM": "Instagram (DM)", "Your Instagram": "Seu Instagram", "@yourshop": "@seunegocio", "Your email": "Seu e-mail", "WhatsApp number": "Número do WhatsApp", "With country code, like +1 512 555 0123": "Com DDD, como (27) 99999-0000", "Yes, you can message me at this number about my site. Message and data rates may apply. Reply STOP anytime.": "Pode me chamar no WhatsApp neste número para falar do meu site.", "I only message people who ask. No lists, no marketing texts.": "Só mando mensagem para quem pede. Sem listas, sem mensagem de propaganda.", "City and state (optional)": "Cidade (opcional)", "Or country, if you're outside the U.S.": "Pode incluir o estado.", "Anything I should know? (optional)": "Quer me contar algo? (opcional)", "Please add your name.": "Preencha o seu nome.", "Please add your business name.": "Preencha o nome do negócio.", "Please add your Instagram, like @yourshop.": "Preencha o seu Instagram, como @seunegocio.", "Please add a valid email.": "Preencha um e-mail válido.", "Please add a number with country code.": "Preencha um número com DDD.", "Please tick the box so I can message you.": "Marque a caixa para eu poder te chamar.", "That didn't go through. Try again, or DM PREVIEW on Instagram, or email": "Não foi. Tente de novo, ou mande PREVIEW no Instagram, ou escreva para", "Back to the samples": "Voltar aos exemplos", "The form asks for your name, business, link, how to reach you (Instagram, email or phone) and your city. I use them only to reply to you, and I don't sell or share them. Your message is delivered to my inbox by FormSubmit. To ask me to delete what you sent, write to": "O formulário pede o seu nome, negócio, link, o jeito de falar com você (Instagram, e-mail ou telefone) e a sua cidade. Eu uso só para te responder e não vendo nem compartilho. A sua mensagem chega na minha caixa de entrada pela FormSubmit. Para pedir que eu apague o que você enviou, escreva para", "Want to see yours first?": "Quer ver o seu antes?", "Your name": "Seu nome", "Business name": "Nome do negócio", "Email": "E-mail", "I only use this to reply to you.": "Uso isso só para te responder.", "Preview mode: nothing was sent.": "Modo prévia: nada foi enviado.", "Noondoor · One-page websites for local businesses · Made in Brazil, for the U.S.": "Noondoor · Sites de uma página para negócios locais · Feito no Brasil", "Noondoor": "Noondoor", "Privacy": "Privacidade"}}}</script>
+</body>
+</html>
