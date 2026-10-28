@@ -1,4 +1,4 @@
-/* Ribeiro Web Co. — template v2, lang.js (só carregado quando o site tem o campo "i18n": seletor de idioma EN | PT, sem recarregar).
+/* Noondoor: lang.js (seletor de idioma EN | PT, sem recarregar).
    O texto padrão (o idioma do site.json) fica no HTML; a outra língua é um dicionário embutido no próprio HTML (<script id="lang-data">):
    a chave é o texto em inglês como aparece na página (sem marcação, espaços normais) e o valor é a tradução, com *palavra* para destaque.
    Cada trecho é achado pelo texto, não por posição: o título, o hero, os alt, aria-label, placeholder e os atributos data-* de rótulo trocam juntos.
@@ -82,7 +82,7 @@
     doc.setAttribute("data-lang", code);
     window.dispatchEvent(new CustomEvent("sitelang", { detail: { lang: code } }));
     // títulos que o fit-text mede (hero, nome do rodapé) e posições das animações mudam com o texto
-    setTimeout(function () { window.dispatchEvent(new Event("resize")); if (window.ScrollTrigger) try { ScrollTrigger.refresh(); } catch (e) {} }, 60);
+    setTimeout(function () { window.dispatchEvent(new Event("resize")); }, 60);
   }
 
   /* ---------- API para o JS do site ---------- */
