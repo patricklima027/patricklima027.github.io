@@ -90,6 +90,7 @@ html.framed .world-img{ left:0; top:0; width:100%; height:100%; object-fit:fill;
 
 /* o simbolo: poster (render do vidro, fundo transparente) + sol em CSS + sombra de meio-dia. O 3D entra por cima e o poster some */
 .slot{ position:absolute; left:50%; width:120px; height:120px; margin-left:-60px; top:40%; z-index:1; }
+.slot-float{ position:absolute; inset:0; display:block; will-change:transform; }
 .slot-poster{ position:absolute; left:-8.14%; top:-8.14%; width:116.28%; height:116.28%; max-width:none; transition:opacity .35s ease; }
 .slot-sun{ position:absolute; left:50%; top:63.06%; width:23.2%; aspect-ratio:1; border-radius:50%; background:var(--sun); transform:translate(-50%,-50%); transition:opacity .35s ease; }
 .slot-shadow{ position:absolute; left:-15%; right:-15%; bottom:-4%; height:12%; border-radius:50%; background:radial-gradient(ellipse at 50% 50%, rgba(42,29,20,.20) 0%, rgba(42,29,20,.08) 45%, rgba(42,29,20,0) 72%); transition:opacity .35s ease; }

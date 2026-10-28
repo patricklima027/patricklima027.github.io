@@ -496,6 +496,18 @@
   }
   function clear2D() { slotEl.style.transform = ""; sWorld.style.clipPath = ""; ring.style.visibility = "hidden"; slotSun.style.top = ""; }
 
+  /* simbolo no modo 2D: balanca devagar como o giro do 3D (sobe e desce 5 px e vira ate 22 graus, uma ida e volta a cada 12 s); para ao comecar a rolar */
+  var floatEl = $("[data-slot-float]");
+  function floatLoop(now) {
+    requestAnimationFrame(floatLoop);
+    if (document.hidden) return;
+    var a = use2D ? 1 - ss(0, 0.08, curP) : 0;
+    if (a <= 0.001) { if (floatEl.style.transform) floatEl.style.transform = ""; return; }
+    var t = now / 1000;
+    floatEl.style.transform = "perspective(520px) translateY(" + (-Math.sin(t * 1.1) * 5 * a).toFixed(2) + "px) rotateY(" + (Math.sin(t * Math.PI * 2 / 12) * 22 * a).toFixed(2) + "deg)";
+  }
+  if (!reduce && floatEl) requestAnimationFrame(floatLoop);
+
   /* T2: a porta que sobe (oferta e final). O fundo tem clip-path (so forma, nunca no texto). Cada bloco de texto so aparece quando o arco ja o cobre inteiro (a folga
      ate a borda do arco, nos dois cantos de cima, e positiva) e entra por opacidade e deslocamento; fora do arco ele fica invisivel e sem foco. */
   var T2_SEL = "h1,h2,h3,p,li,a,button,summary,details,.lang,.where,.end-mid";

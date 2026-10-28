@@ -280,7 +280,7 @@ export async function createPorta(opts) {
         const avg = fpsHist.reduce((a, b) => a + b, 0) / Math.max(1, fpsHist.length);
         if (!tierDropped) {
           if (TIER === "a" && avg > 22) setTier("b");
-          else if (TIER === "b" && avg > 30) { tierDropped = true; opts.onTier && opts.onTier("c"); }
+          else if (TIER === "b" && avg > 40) { tierDropped = true; opts.onTier && opts.onTier("c"); }   // 40 ms: iPhone em modo de economia (30 fps) continua no 3D
         }
       }
     }
