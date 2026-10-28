@@ -7,7 +7,7 @@
   var CONTACT_EMAIL = "hello.noondoor@gmail.com";   // e-mail de contato (o Gmail ja existe). Trocando aqui o JS atualiza links, textos e JSON-LD
   var SOURCE_EMAIL = "hello.noondoor@gmail.com";    // valor escrito no HTML e no _dev/lang.py (nao mexer; ver entrega.md para trocar a fonte tambem)
   var INSTAGRAM = "noondoorstudio";                  // conta da marca; vazio esconde o "DM PREVIEW"
-  var FORM_LIVE = false;                             // true so quando o Patrick ativar a FormSubmit (e-mail de ativacao). false = modo previa (valida e nao envia)
+  var FORM_LIVE = true;                              // true so quando o Patrick ativar a FormSubmit (e-mail de ativacao). false = modo previa (valida e nao envia)
   var FORM_ENDPOINT = "https://formsubmit.co/ajax/"; // + CONTACT_EMAIL (ou o apelido que a FormSubmit der depois da ativacao)
   var LENIS_URL = "https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js";
 
