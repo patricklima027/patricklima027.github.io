@@ -20,6 +20,8 @@
 
 <div class="draft" role="note">Draft preview for Manno's Grill<span class="dl">&nbsp;by Noondoor. Not public.</span></div>
 
+<div class="prog" aria-hidden="true"><i></i></div>
+
 <header class="hdr" id="top">
   <a class="brand" href="#top" aria-label="Manno's Grill, top of page">
     <span class="brand-s">Manno's</span><span class="brand-g">Grill</span>
@@ -40,9 +42,16 @@
     <img src="img/hero.jpg" alt="A double smash burger with melted cheese, held up in black gloves" fetchpriority="high" width="1500" height="1500">
   </picture>
   <div class="hero-shade"></div>
+  <div class="hero-glow" aria-hidden="true"></div>
   <div class="hero-in">
     <svg class="neon" viewBox="0 0 200 190" role="img" aria-label="Neon burger sign">
       <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="7">
+        <g class="ghost" stroke="#3a2f55" opacity=".7">
+          <path d="M34 84 C34 36 166 36 166 84 Z"/>
+          <path d="M26 103 q9 -13 18 0 t18 0 t18 0 t18 0 t18 0 t18 0 t18 0 t18 0"/>
+          <path d="M34 125 H166"/>
+          <path d="M34 146 H166 C166 176 150 176 140 176 H60 C50 176 34 176 34 146 Z"/>
+        </g>
         <path class="t t1" pathLength="1" d="M34 84 C34 36 166 36 166 84 Z"/>
         <path class="t t2" pathLength="1" d="M26 103 q9 -13 18 0 t18 0 t18 0 t18 0 t18 0 t18 0 t18 0 t18 0"/>
         <path class="t t3" pathLength="1" d="M34 125 H166"/>
@@ -61,7 +70,8 @@
 
 <!-- BURGER OF THE MONTH -->
 <section class="bom" aria-labelledby="bom-h">
-  <div class="bom-poster rv" data-par="-0.06">
+<div class="bom-stage">
+  <div class="bom-poster rv">
     <img src="img/poster-bom.jpg" alt="Manno's Grill flyer: Burger of the Month, Cosmic Manno Chop Cheese on an 8 inch sub roll, $12" loading="lazy" width="900" height="1196">
   </div>
   <div class="bom-text">
@@ -78,10 +88,12 @@
     </ul>
     <p class="note rv">Make it a combo for $3 more.</p>
   </div>
+</div>
 </section>
 
 <!-- THE BOARD -->
 <section class="board" id="board" aria-labelledby="board-h">
+<div class="board-stage">
   <h2 id="board-h" class="rv">On the board</h2>
   <ol class="rows">
     <li class="row rv">
@@ -105,15 +117,16 @@
       <span class="rd">Ask about the off-menu selections. You never know what Manno's might cook up.</span>
     </li>
   </ol>
+</div>
 </section>
 
 <!-- PHOTOS -->
 <section class="wall" aria-labelledby="wall-h">
   <h2 id="wall-h" class="wall-h rv"><span>Made</span> <em>right in front of you</em></h2>
   <div class="wall-grid">
-    <figure class="w1 rv" data-par="-0.05"><img src="img/grill.jpg" alt="Cooking at the grill outside the shop, in a Manno's Grill shirt and black gloves" loading="lazy" width="900" height="1200"><figcaption>On the grill</figcaption></figure>
-    <figure class="w2 rv" data-par="0.06"><img src="img/box.jpg" alt="Sauce going over food in a kraft box" loading="lazy" width="900" height="1200"><figcaption>Sauce time</figcaption></figure>
-    <figure class="w3 rv" data-par="-0.03"><img src="img/c-og.jpg" alt="A tall double smash burger with melted cheese, pickles and sauce, from the OG Smash flyer" loading="lazy" width="700" height="680"><figcaption>OG Smash</figcaption></figure>
+    <figure class="w1 rv"><img src="img/grill.jpg" alt="Cooking at the grill outside the shop, in a Manno's Grill shirt and black gloves" loading="lazy" width="900" height="1200"><figcaption>On the grill</figcaption></figure>
+    <figure class="w2 rv"><img src="img/box.jpg" alt="Sauce going over food in a kraft box" loading="lazy" width="900" height="1200"><figcaption>Sauce time</figcaption></figure>
+    <figure class="w3 rv"><img src="img/c-og.jpg" alt="A tall double smash burger with melted cheese, pickles and sauce, from the OG Smash flyer" loading="lazy" width="700" height="680"><figcaption>OG Smash</figcaption></figure>
   </div>
 </section>
 
@@ -163,6 +176,9 @@
   <a href="https://www.google.com/maps/search/?api=1&amp;query=4701+S+Orange+Blossom+Trl+Unit+B+Orlando+FL+32839" rel="noopener">Directions</a>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js" defer></script>
 <script src="main.js" defer></script>
 </body>
 </html>
