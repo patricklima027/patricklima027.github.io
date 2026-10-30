@@ -1,0 +1,14 @@
+{
+  "_exemplo": "DADOS FICTICIOS DE EXEMPLO. Gerado por editar-agenda.html; cole por cima deste arquivo.",
+  "truck": {"name": "Smokestack Tacos", "tagline": "Wood-fired tacos on four wheels", "phone": "+14075550123", "city": "Orlando, FL"},
+  "updated": "2026-10-26",
+  "days": [
+    {"date": "2026-10-26", "closed": true, "name": "Day off"},
+    {"date": "2026-10-27", "name": "Brewery Lot Lunch", "place": "Example Brewing Co.", "address": "100 Example St, Orlando, FL 32801", "start": "11:00", "end": "15:00"},
+    {"date": "2026-10-28", "name": "Wednesday Night Market", "place": "Example Park, north gate", "address": "200 Sample Ave, Orlando, FL 32803", "start": "17:00", "end": "21:00"},
+    {"date": "2026-10-29", "name": "Brewery Lot Lunch", "place": "Example Brewing Co.", "address": "100 Example St, Orlando, FL 32801", "start": "11:00", "end": "15:00"},
+    {"date": "2026-10-30", "name": "Friday Food Truck Row", "place": "Sample Plaza", "address": "300 Placeholder Blvd, Orlando, FL 32804", "start": "17:00", "end": "22:00"},
+    {"date": "2026-10-31", "name": "Halloween Block Party", "place": "Example Park", "address": "200 Sample Ave, Orlando, FL 32803", "start": "16:00", "end": "23:00", "note": "Costume = free churro"},
+    {"date": "2026-11-01", "closed": true, "name": "Day off"}
+  ]
+}

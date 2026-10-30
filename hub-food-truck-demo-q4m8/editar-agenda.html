@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Edit this week</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+body{padding:0 0 40px}
+.ed{max-width:720px;margin:0 auto;padding:28px 16px}
+.day{border:2px solid var(--ink);border-radius:6px;background:var(--paper2);padding:12px;margin-bottom:12px;display:grid;gap:10px}
+.day h3{font:800 20px "Bricolage Grotesque",sans-serif}
+.day label{display:grid;gap:4px;font:500 12px "DM Mono",monospace;text-transform:uppercase;letter-spacing:.06em}
+.day input[type=text],.day input[type=time]{font:500 16px "Bricolage Grotesque",sans-serif;padding:10px;min-height:44px;border:2px solid var(--ink);border-radius:6px;background:var(--paper);width:100%}
+.day .row3{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.chk{display:flex!important;align-items:center;gap:10px;min-height:44px;grid-auto-flow:column;justify-content:start}
+.chk input{width:22px;height:22px}
+.acts{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+textarea#out{width:100%;min-height:200px;font:400 12px/1.4 "DM Mono",monospace;padding:10px;border:2px solid var(--ink);border-radius:6px;background:#fff}
+.note{color:var(--mute);font-size:14px}
+</style>
+</head>
+<body>
+<div class="exbar">EXAMPLE DATA · prototype</div>
+<main class="ed">
+<h1 class="h2">Edit this week</h1>
+<p class="sub">Fill in where you'll be parked. Hit the button, then paste the result to us (WhatsApp or email) or over <code>agenda.json</code>. Takes about a minute.</p>
+<div id="days"></div>
+<div class="acts">
+  <button class="btn btn--ink" id="gen" type="button">Make my week</button>
+  <button class="btn btn--dir" id="copy" type="button">Copy</button>
+</div>
+<textarea id="out" readonly aria-label="Generated JSON"></textarea>
+<p class="note" id="st" role="status"></p>
+<p class="note">Same address as last week? Leave it. Closed? Tick "Day off".</p>
+</main>
+<script>
+var DN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+function iso(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+var base={truck:{name:"Smokestack Tacos",tagline:"Wood-fired tacos on four wheels",phone:"+14075550123",city:"Orlando, FL"},days:[]};
+var box=document.getElementById('days');
+function row(d,v){
+  v=v||{};
+  var s=document.createElement('div');s.className='day';s.dataset.date=d.date;
+  s.innerHTML='<h3>'+DN[new Date(d.date+'T12:00').getDay()]+' '+d.date.slice(5)+'</h3>'+
+  '<label class="chk"><input type="checkbox" class="off"'+(v.closed?' checked':'')+'> Day off</label>'+
+  '<label>Event name<input type="text" class="nm" value="'+(v.name&&!v.closed?v.name:'')+'"></label>'+
+  '<label>Place<input type="text" class="pl" value="'+(v.place||'')+'"></label>'+
+  '<label>Street address<input type="text" class="ad" value="'+(v.address||'')+'"></label>'+
+  '<div class="row3"><label>Start<input type="time" class="st" value="'+(v.start||'11:00')+'"></label><label>End<input type="time" class="en" value="'+(v.end||'15:00')+'"></label></div>'+
+  '<label>Note (optional)<input type="text" class="no" value="'+(v.note||'')+'"></label>';
+  box.appendChild(s);
+}
+fetch('agenda.json').then(function(r){return r.json()}).then(function(j){
+  base.truck=j.truck||base.truck;
+  var mon=new Date();mon.setDate(mon.getDate()-((mon.getDay()+6)%7));
+  for(var i=0;i<7;i++){var d=new Date(mon);d.setDate(mon.getDate()+i);var k=iso(d);
+    row({date:k},j.days.filter(function(x){return x.date===k})[0]||(i===0||i===6?{closed:true}:null));}
+}).catch(function(){var mon=new Date();for(var i=0;i<7;i++){var d=new Date(mon);d.setDate(mon.getDate()+i);row({date:iso(d)})}});
+function make(){
+  var days=[].map.call(box.children,function(s){
+    var q=function(c){return s.querySelector(c)};
+    if(q('.off').checked)return{date:s.dataset.date,closed:true,name:'Day off'};
+    var o={date:s.dataset.date,name:q('.nm').value.trim(),place:q('.pl').value.trim(),address:q('.ad').value.trim(),start:q('.st').value,end:q('.en').value};
+    if(q('.no').value.trim())o.note=q('.no').value.trim();
+    return o;});
+  var bad=days.filter(function(d){return !d.closed&&(!d.name||!d.address)}).map(function(d){return d.date});
+  document.getElementById('st').textContent=bad.length?'Missing name or address on: '+bad.join(', '):'Ready. Copy and send.';
+  var out={truck:base.truck,updated:iso(new Date()),days:days};
+  document.getElementById('out').value=JSON.stringify(out,null,2);
+}
+document.getElementById('gen').onclick=make;
+document.getElementById('copy').onclick=function(){
+  var t=document.getElementById('out');if(!t.value)make();t.select();
+  (navigator.clipboard?navigator.clipboard.writeText(t.value):Promise.reject()).then(function(){document.getElementById('st').textContent='Copied.'}).catch(function(){document.execCommand('copy');document.getElementById('st').textContent='Copied.'});
+};
+</script>
+</body>
+</html>

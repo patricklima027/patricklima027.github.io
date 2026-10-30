@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Smokestack Tacos — this week (EXAMPLE)</title>
+<meta name="description" content="Prototype of a food truck hub. Fictional example data.">
+<meta name="theme-color" content="#17120e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Mono:wght@400;500&family=Caveat+Brush&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="exbar">EXAMPLE DATA · fictional truck · prototype</div>
+
+<header class="hero">
+  <p class="hero__kicker" id="city">Orlando, FL</p>
+  <h1 class="hero__title"><span id="tname">Smokestack Tacos</span></h1>
+  <p class="hero__tag" id="ttag">Wood-fired tacos on four wheels</p>
+  <p class="hero__next" id="next" aria-live="polite"></p>
+  <a class="scrollcue" href="#week">This week <span aria-hidden="true">↓</span></a>
+</header>
+
+<main>
+<section class="week" id="week">
+  <h2 class="h2">Where we're parked</h2>
+  <p class="sub" id="updated"></p>
+  <ol class="stubs" id="stubs"><li class="stub stub--skel">Loading the week…</li></ol>
+  <noscript><p>Enable JavaScript to see the weekly schedule.</p></noscript>
+</section>
+
+<section class="menu" id="menu">
+  <h2 class="h2">The short menu</h2>
+  <ul class="items">
+    <li class="item"><span class="item__n">Brisket taco</span><span class="item__d">smoked 12 h, pickled onion, salsa verde</span><span class="item__p">$5</span></li>
+    <li class="item"><span class="item__n">Chicken tinga taco</span><span class="item__d">chipotle, crema, cilantro</span><span class="item__p">$4</span></li>
+    <li class="item"><span class="item__n">Elote cup</span><span class="item__d">corn, lime, cotija, tajín</span><span class="item__p">$6</span></li>
+    <li class="item"><span class="item__n">Loaded fries</span><span class="item__d">brisket, queso, jalapeño</span><span class="item__p">$11</span></li>
+    <li class="item"><span class="item__n">Churros</span><span class="item__d">cinnamon sugar, chocolate dip</span><span class="item__p">$6</span></li>
+  </ul>
+  <p class="fine">Example menu and prices — each truck sends its own.</p>
+</section>
+
+<section class="catering" id="catering">
+  <h2 class="h2">Book us for your event</h2>
+  <p class="sub">Parties, offices, weddings. We reply within a day.</p>
+  <form id="cform" class="form" novalidate>
+    <input type="hidden" name="access_key" value="[CONFIRMAR]">
+    <input type="hidden" name="subject" value="Catering request (EXAMPLE prototype)">
+    <input type="text" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <label>Name<input name="name" required autocomplete="name"></label>
+    <label>Phone or email<input name="contact" required autocomplete="email"></label>
+    <div class="row">
+      <label>Date<input type="date" name="date"></label>
+      <label>Guests<input type="number" name="guests" min="1" inputmode="numeric"></label>
+    </div>
+    <label>Tell us about it<textarea name="msg" rows="3"></textarea></label>
+    <button class="btn btn--ink" type="submit">Send request</button>
+    <p class="form__msg" id="fmsg" role="status"></p>
+  </form>
+</section>
+
+<section class="qr" id="qr">
+  <img src="qr.svg" alt="QR code to this page (example link)" width="168" height="168">
+  <div>
+    <h2 class="h2 h2--s">Scan at the window</h2>
+    <p class="sub">Print it on the truck. Customers land here, see today's spot.</p>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <p>Hub do Food Truck · prototype by Noondoor · example data</p>
+</footer>
+
+<nav class="dock" aria-label="Call or order">
+  <a class="btn btn--call" id="call" href="tel:+14075550123">Call / Order</a>
+  <a class="btn btn--dir" id="dirnow" href="#week">Directions</a>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
+<script src="app.js" defer></script>
+</body>
+</html>
