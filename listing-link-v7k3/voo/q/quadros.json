@@ -1,0 +1,15 @@
+{
+ "quadros": 240,
+ "fps_origem": 24.0,
+ "passo": 3,
+ "largura_desktop": 1920,
+ "largura_celular": 1280,
+ "padrao_nome": "f{:04d}.webp",
+ "mb_desktop": 14.4,
+ "mb_celular": 8.7,
+ "clipes": [
+  "empresa/saas-corretores/prototipo/voo/voo-1.mp4",
+  "empresa/saas-corretores/prototipo/voo/voo-2.mp4",
+  "empresa/saas-corretores/prototipo/voo/voo-3.mp4"
+ ]
+}
