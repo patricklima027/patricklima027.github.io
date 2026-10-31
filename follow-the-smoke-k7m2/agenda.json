@@ -1,0 +1,53 @@
+{
+  "sample": true,
+  "truck": {
+    "name": "Follow The Smoke Memphis BBQ",
+    "area": "Orlando and Central Florida",
+    "instagram": "followthesmokebbq",
+    "phone": "",
+    "timezone": "America/New_York"
+  },
+  "updated": "",
+  "days": [
+    {
+      "weekday": 3,
+      "icon": "drop",
+      "name": "Digress Wine",
+      "place": "Digress Wine",
+      "address": "",
+      "start": "17:00",
+      "end": "21:00",
+      "note": ""
+    },
+    {
+      "weekday": 4,
+      "icon": "sun",
+      "name": "Sunoco, Osteen",
+      "place": "Sunoco",
+      "address": "160 SR-415, Osteen, FL",
+      "start": "12:30",
+      "end": "18:30",
+      "note": ""
+    },
+    {
+      "weekday": 5,
+      "icon": "night",
+      "name": "TPD Night Market",
+      "place": "TPD Night Market",
+      "address": "",
+      "start": "18:00",
+      "end": "22:00",
+      "note": ""
+    },
+    {
+      "weekday": 6,
+      "icon": "sun",
+      "name": "ABC Liquor Store at The Loop",
+      "place": "ABC Liquor Store at The Loop",
+      "address": "3300 N John Young Pkwy, Kissimmee, FL",
+      "start": "13:00",
+      "end": "18:00",
+      "note": ""
+    }
+  ]
+}
