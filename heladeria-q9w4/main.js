@@ -13,10 +13,25 @@
     var h = draft && draft.offsetParent !== null ? draft.offsetHeight : 0;
     root.style.setProperty('--draft-h', h + 'px');
     if (phA) root.style.setProperty('--a-w', Math.round(phA.getBoundingClientRect().width) + 'px');
+    fitB();
+  }
+  function fitB() {
+    if (!top) return;
+    top.classList.remove('top--nob');
+    var b = q('.top__ph--b')[0];
+    if (!b || W.getComputedStyle(b).display === 'none') return;
+    var rb = b.getBoundingClientRect(), hit = false;
+    [q('.arc__fill')[0], q('.top__lead')[0], q('.top__cta')[0]].forEach(function (e) {
+      if (!e) return;
+      var r = e.getBoundingClientRect();
+      if (r.right + 14 > rb.left && r.left - 14 < rb.right && r.bottom + 14 > rb.top && r.top - 14 < rb.bottom) hit = true;
+    });
+    if (hit) top.classList.add('top--nob');
   }
   measure();
   W.addEventListener('resize', function () { measure(); tick(); }, { passive: true });
   W.addEventListener('load', measure);
+  if (d.fonts && d.fonts.ready) d.fonts.ready.then(measure);
 
   function show(el) { el.classList.add('in'); }
   var items = q('.rv, .ph, .fio');
