@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="Night market">
+<title>Night market</title>
+<circle cx="48" cy="48" r="46" fill="#F1E6D0"/>
+<g fill="none" stroke="#0F0C0A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M58 24 a22 22 0 1 0 14 30 a17 17 0 0 1 -14 -30 Z"/><path d="M20 70 Q48 84 76 70"/><path d="M32 76 v4 M48 79 v4 M64 76 v4"/><circle cx="32" cy="83" r="1.6" fill="#0F0C0A"/><circle cx="48" cy="86" r="1.6" fill="#0F0C0A"/><circle cx="64" cy="83" r="1.6" fill="#0F0C0A"/></g>
+</svg>

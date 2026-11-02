@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="Smoke">
+<title>Smoke</title>
+<circle cx="48" cy="48" r="46" fill="#F1E6D0"/>
+<g fill="none" stroke="#0F0C0A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M34 72 C24 62 44 56 36 46 C30 38 42 34 38 24"/><path d="M50 74 C40 62 62 54 52 42 C46 34 58 30 54 20"/><path d="M66 72 C58 64 74 58 66 48"/></g>
+</svg>
