@@ -1,0 +1,53 @@
+{
+  "sample": false,
+  "truck": {
+    "name": "Follow The Smoke Memphis BBQ",
+    "area": "Orlando and Central Florida",
+    "instagram": "followthesmokebbq",
+    "phone": "",
+    "timezone": "America/New_York"
+  },
+  "updated": "2026-11-02",
+  "days": [
+    {
+      "date": "2026-11-03",
+      "icon": "night",
+      "name": "Edoboy 4 Year Anniversary Market",
+      "place": "Edoboy 4 Year Anniversary Market",
+      "address": "728 N Thornton Ave, Orlando, FL 32803",
+      "start": "19:00",
+      "end": "23:00",
+      "note": ""
+    },
+    {
+      "date": "2026-11-04",
+      "icon": "drop",
+      "name": "Digress Wine",
+      "place": "Digress Wine",
+      "address": "1215 Edgewater Dr, Orlando, FL 32804",
+      "start": "17:00",
+      "end": "21:00",
+      "note": ""
+    },
+    {
+      "date": "2026-11-06",
+      "icon": "sun",
+      "name": "LandonHouse Apts",
+      "place": "LandonHouse Apts",
+      "address": "7010 Lake Nona Blvd, Orlando, FL 32827",
+      "start": "17:00",
+      "end": "19:00",
+      "note": ""
+    },
+    {
+      "date": "2026-11-07",
+      "icon": "sun",
+      "name": "Orlando Kart Center",
+      "place": "Orlando Kart Center",
+      "address": "10724 Cosmonaut Blvd, Orlando, FL 32824",
+      "start": "12:00",
+      "end": "18:00",
+      "note": ""
+    }
+  ]
+}
