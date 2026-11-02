@@ -1,0 +1,54 @@
+/* YS Cuts: The Kingdom. Neon verde e vermelho sobre preto, mural do gorila. */
+:root { --neon-green: #3ee08a; --neon-red: #ff4a2e; }
+body { background: var(--bg); }
+.hero-title .hl--script { color: var(--neon-green); text-shadow: 0 0 .35em color-mix(in srgb, var(--neon-green) 55%, transparent); }
+em, .sec-title em { color: var(--neon-green); font-style: normal; font-family: var(--f-script); text-shadow: 0 0 .5em color-mix(in srgb, var(--neon-green) 45%, transparent); }
+.btn--solid { background: var(--neon-red); color: #0a0c0d; font-weight: 800; box-shadow: 0 0 28px color-mix(in srgb, var(--neon-red) 40%, transparent); }
+.btn--solid::before { background: var(--ink); }
+.btn--solid:hover { color: #0a0c0d; }
+.ftr-word, .ftr-word span { color: var(--neon-red); text-shadow: 0 0 .25em color-mix(in srgb, var(--neon-red) 45%, transparent); }
+/* gallery title behind */
+.cl-title { color: color-mix(in srgb, var(--neon-green) 16%, transparent); }
+
+/* marcador */
+.schedule--agenda { background: var(--surface); }
+.bk { display: grid; gap: 28px; margin-top: 34px; max-width: 980px; }
+.bk-group { border: 0; padding: 0; margin: 0; min-width: 0; }
+.bk-group legend { display: flex; align-items: baseline; gap: 14px; padding: 0; margin-bottom: 12px; font: 700 1.05rem var(--f-text); }
+.bk-step { font: 500 .95rem var(--f-mono); color: var(--neon-green); }
+.bk-opts { display: grid; gap: 10px; }
+.bk-cuts .bk-opts { grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); }
+.bk-days .bk-opts { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+.bk-wins .bk-opts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.bk-opt { position: relative; display: block; cursor: pointer; }
+.bk-opt input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.bk-face { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 56px; padding: 10px 8px; text-align: center; border: 1.5px solid color-mix(in srgb, var(--ink) 26%, transparent); border-radius: var(--r); background: transparent; color: var(--ink); transition: background .2s, border-color .2s, color .2s, box-shadow .2s; }
+.bk-face b { font: 700 1rem var(--f-text); }
+.bk-days .bk-face { min-height: 78px; }
+.bk-days .bk-face i, .bk-days .bk-face em { font: 500 .8rem var(--f-mono); font-style: normal; color: var(--muted); text-shadow: none; }
+.bk-days .bk-face b { font: 400 1.5rem var(--f-display); }
+.bk-cuts .bk-face { align-items: flex-start; text-align: left; padding: 12px 16px; }
+.bk-opt:hover .bk-face { border-color: var(--neon-green); }
+.bk-opt input:focus-visible + .bk-face { outline: 3px solid var(--ink); outline-offset: 3px; }
+.bk-opt input:checked + .bk-face { background: color-mix(in srgb, var(--neon-green) 16%, var(--bg)); border-color: var(--neon-green); box-shadow: 0 0 22px color-mix(in srgb, var(--neon-green) 30%, transparent); }
+.bk-opt input:checked + .bk-face i, .bk-opt input:checked + .bk-face em { color: var(--ink); }
+.bk-name label { display: block; font: 700 1rem var(--f-text); margin-bottom: 8px; }
+.bk-name label span { font-weight: 400; color: var(--muted); }
+.bk-name input { width: 100%; max-width: 360px; min-height: 48px; padding: 10px 14px; font: 1rem var(--f-text); color: var(--ink); background: var(--bg); border: 1.5px solid color-mix(in srgb, var(--ink) 26%, transparent); border-radius: var(--r); }
+.bk-name input:focus-visible { outline: 3px solid var(--neon-green); outline-offset: 2px; }
+.bk-out { display: grid; gap: 14px; padding: 22px; border: 1.5px dashed color-mix(in srgb, var(--neon-green) 55%, transparent); border-radius: var(--r); background: var(--bg); }
+.bk-label { margin: 0; font: 500 .875rem var(--f-mono); color: var(--muted); }
+.bk-msg { margin: 0; font: 500 1.05rem/1.5 var(--f-text); max-width: 60ch; }
+.bk:not(.is-ready) .bk-msg { color: var(--muted); }
+.bk-send { justify-self: start; }
+.bk-send[aria-disabled="true"] { opacity: .45; box-shadow: none; }
+.bk-hint { margin: 0; font: 400 .875rem var(--f-mono); color: var(--muted); }
+.bk.is-missing .bk-hint { color: var(--neon-red); }
+.schedule .book { margin-top: 36px; }
+@media (max-width: 699px) {
+  .bk-days .bk-opts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .bk-wins .bk-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bk-send { justify-self: stretch; text-align: center; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) { .bk-face { transition: none; } }
+.ab-img img { object-position: 50% 72%; }
