@@ -33,7 +33,7 @@
 <link rel="preload" as="image" href="img/hero-m-800.webp" imagesrcset="img/hero-m-800.webp 800w, img/hero-m-1200.webp 1200w" imagesizes="100vw" media="(max-width:899px)" fetchpriority="high">
 <link rel="preload" as="image" href="img/hero-d-1600.webp" imagesrcset="img/hero-d-1000.webp 1000w, img/hero-d-1600.webp 1600w" imagesizes="62vw" media="(min-width:900px)" fetchpriority="high">
 <script>document.documentElement.className="js";window.__rv=setTimeout(function(){document.documentElement.classList.add("rv-fallback")},3500)</script>
-<link rel="stylesheet" href="styles.css?v=012b2ade">
+<link rel="stylesheet" href="styles.css?v=d700fe2c">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FoodEstablishment","@id":"https://ftsmokebbq.com/#business","name":"Follow The Smoke Memphis BBQ","url":"https://ftsmokebbq.com/","description":"Memphis BBQ food truck in Orlando and Central Florida: ribs, brisket, chicken, mac and cheese. Catering for weddings, corporate and private events.","image":"https://ftsmokebbq.com/img/og.jpg","logo":"https://ftsmokebbq.com/img/icon-512.png","servesCuisine":["Barbecue","Memphis-style BBQ"],"areaServed":[{"@type":"City","name":"Orlando"},{"@type":"City","name":"Lake Nona"},{"@type":"City","name":"Hunter's Creek"},{"@type":"City","name":"Kissimmee"},{"@type":"City","name":"Osteen"}],"sameAs":["https://www.instagram.com/followthesmokebbq/"],"email":"ftsmokebbq@gmail.com"}</script>
 </head>
 <body>
@@ -151,12 +151,33 @@
     <h2 id="ct">Bring the smoke to your event.</h2>
     <div class="kinds"><p>Weddings. Corporate. Private events.</p><img class="plate" src="img/picto-plate.svg" width="96" height="96" alt="" aria-hidden="true"></div>
   </div>
-  <div class="cater-body no-form">
+  <div class="cater-body">
+    <form class="form" id="cater-form" action="#" method="post">
+      <p class="form-lead">Tell us the date, the place and how many people.</p>
+      <label class="fld"><span>Name</span><input type="text" name="name" autocomplete="name" required></label>
+      <label class="fld"><span>Phone or email</span><input type="text" name="contact" autocomplete="email" inputmode="email" required></label>
+      <div class="row2">
+        <label class="fld"><span>Event date</span><input type="date" name="date" required></label>
+        <label class="fld"><span>Guests</span><input type="text" name="guests" inputmode="numeric" autocomplete="off"></label>
+      </div>
+      <label class="fld"><span>Place</span><input type="text" name="place" autocomplete="off"></label>
+      <fieldset class="kind">
+        <legend>Type of event</legend>
+        <div class="kind-in">
+          <label><input type="radio" name="kind" value="Wedding"><span>Wedding</span></label>
+          <label><input type="radio" name="kind" value="Corporate"><span>Corporate</span></label>
+          <label><input type="radio" name="kind" value="Private"><span>Private</span></label>
+        </div>
+      </fieldset>
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button type="submit" class="btn">Ask about catering</button>
+      <button type="button" class="btn btn2" id="ig-send" hidden>Send on Instagram</button>
+      <p class="form-msg" id="cater-msg" role="status" aria-live="polite" hidden></p>
+    </form>
     <aside class="talk" aria-labelledby="talk-h">
-      <h3 id="talk-h">Tell us the date, the place and how many people.</h3>
-      <a class="btn" href="https://ig.me/m/followthesmokebbq" target="_blank" rel="noopener">Message on Instagram</a>
-      <a class="btn btn2" href="mailto:ftsmokebbq@gmail.com?subject=Catering%20request&amp;body=Hi%21%20I%27d%20like%20to%20ask%20about%20catering.%0A%0AEvent%20date%3A%0APlace%3A%0ANumber%20of%20guests%3A%0AType%20of%20event%20%28wedding%2C%20corporate%2C%20private%29%3A%0A">Email us</a><p class="mailtxt">ftsmokebbq@gmail.com</p>
-      
+      <h3 id="talk-h">Prefer to talk?</h3>
+      <p><a class="big" href="https://ig.me/m/followthesmokebbq" target="_blank" rel="noopener">Message on Instagram</a></p>
+      <p><a class="big" href="mailto:ftsmokebbq@gmail.com">ftsmokebbq@gmail.com</a></p>
     </aside>
   </div>
 </section>
@@ -222,6 +243,6 @@
 </nav>
 
 <script type="application/json" id="agenda-fallback">{"sample":false,"truck":{"name":"Follow The Smoke Memphis BBQ","area":"Orlando and Central Florida","instagram":"followthesmokebbq","phone":"","timezone":"America/New_York"},"updated":"2026-11-02","days":[{"date":"2026-11-03","icon":"night","name":"Edoboy 4 Year Anniversary Market","place":"Edoboy 4 Year Anniversary Market","address":"728 N Thornton Ave, Orlando, FL 32803","start":"19:00","end":"23:00","note":""},{"date":"2026-11-04","icon":"drop","name":"Digress Wine","place":"Digress Wine","address":"1215 Edgewater Dr, Orlando, FL 32804","start":"17:00","end":"21:00","note":""},{"date":"2026-11-06","icon":"sun","name":"LandonHouse Apts","place":"LandonHouse Apts","address":"7010 Lake Nona Blvd, Orlando, FL 32827","start":"17:00","end":"19:00","note":""},{"date":"2026-11-07","icon":"sun","name":"Orlando Kart Center","place":"Orlando Kart Center","address":"10724 Cosmonaut Blvd, Orlando, FL 32824","start":"12:00","end":"18:00","note":""}]}</script>
-<script src="main.js?v=e9833492" defer></script>
+<script src="main.js?v=63138a34" defer></script>
 </body>
 </html>

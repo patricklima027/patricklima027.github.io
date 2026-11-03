@@ -178,7 +178,7 @@ html:not(.reduce) .js-trail .stop:not(.reached) .body{opacity:.78}
 .btn{display:inline-flex;align-items:center;justify-content:center;width:100%;min-height:60px;margin-top:32px;padding:0 30px;border:0;border-radius:18px;background:linear-gradient(100deg,var(--orange),var(--amber));color:var(--coal);font:800 23px/1 var(--display);text-transform:uppercase;letter-spacing:.02em;cursor:pointer;text-decoration:none;transition:transform .25s var(--ease),filter .25s}
 .btn:hover{transform:translateY(-2px);filter:brightness(1.06)}
 .btn:active{transform:none}
-.form-msg{margin-top:16px;font:500 16px/1.5 var(--mono);color:var(--amber)}
+.form-msg{white-space:pre-line;margin-top:16px;font:500 16px/1.5 var(--mono);color:var(--amber)}
 .talk{margin-top:48px;padding-top:24px;border-top:1px solid var(--hair)}
 .talk h3{font:800 clamp(30px,8vw,40px)/1 var(--display);text-transform:uppercase}
 .talk .big{display:inline-flex;align-items:center;min-height:48px;margin-top:10px;font:700 clamp(19px,5vw,22px) var(--text);text-decoration:none;border-bottom:2px solid var(--orange);padding-bottom:2px;transition:color .2s,border-color .2s}

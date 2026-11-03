@@ -10,6 +10,7 @@
   if (saveData) root.classList.add('save-data');
 
   var CFG = {
+    EMAIL: "ftsmokebbq@gmail.com",                          // e-mail de catering (final): sem chave do Web3Forms o formulario abre este e-mail
     FORM_KEY: "",
     FORM_URL: 'https://api.web3forms.com/submit',
     AGENDA: 'agenda.json',
@@ -326,6 +327,27 @@
     f.addEventListener('submit', function (e) {
       e.preventDefault();
       if (f.elements.botcheck && f.elements.botcheck.checked) return;          // honeypot
+      if (!CFG.FORM_KEY && CFG.EMAIL) {   // sem chave do Web3Forms: abre o e-mail pronto e oferece o Instagram (nada e enviado por aqui)
+        var v = function (n) { return f.elements[n] ? String(f.elements[n].value || '').trim() : ''; };
+        var kind = f.querySelector('input[name=kind]:checked'), dv = v('date'), pretty = dv;
+        if (/^\d{4}-\d{2}-\d{2}$/.test(dv)) { var dp = dv.split('-'); pretty = MON[+dp[1] - 1] + ' ' + (+dp[2]) + ', ' + dp[0]; }
+        var lines = ["Hi! I'd like to ask about catering.", 'Name: ' + v('name'), 'Contact: ' + v('contact'), 'Date: ' + pretty, 'Guests: ' + (v('guests') || '-'), 'Place: ' + (v('place') || '-')];
+        if (kind) lines.push('Type of event: ' + kind.value);
+        var msgText = lines.join('\n');
+        var igBtn = $('ig-send');
+        if (igBtn) {
+          igBtn.hidden = false;
+          igBtn.onclick = function () {
+            var done = function () { show('Message copied. Paste it in the chat.'); };
+            if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(msgText).then(done, function () { show('Copy this message and paste it in the chat:\n' + msgText); });
+            else show('Copy this message and paste it in the chat:\n' + msgText);
+            W.open('https://ig.me/m/' + CFG.IG_USER, '_blank', 'noopener');
+          };
+        }
+        show('Your email app should open with the message ready. Nothing goes out until you press send there. No email app? Use the Instagram button.');
+        W.location.href = 'mailto:' + CFG.EMAIL + '?subject=' + encodeURIComponent('Catering request') + '&body=' + encodeURIComponent(msgText);
+        return;
+      }
       if (!CFG.FORM_KEY) { show('Something went wrong. Message us on Instagram instead.'); return; }
       var btn = f.querySelector('button[type=submit]');
       btn.disabled = true; show('Sending...');
@@ -334,7 +356,7 @@
       fd.append('subject', 'Catering request from the Follow The Smoke website');
       fd.append('from_name', CFG.NAME + ' website');
       fetch(CFG.FORM_URL, { method: 'POST', body: fd }).then(function (r) { return r.json(); }).then(function (j) {
-        if (j && j.success) { show('Got it. We\'ll be in touch.'); f.reset(); }
+        if (j && j.success) { show('Thanks, we\'ll get back to you.'); f.reset(); }
         else throw new Error('form');
       }).catch(function () { show('Something went wrong. Message us on Instagram instead.'); }).then(function () { btn.disabled = false; });
     });
