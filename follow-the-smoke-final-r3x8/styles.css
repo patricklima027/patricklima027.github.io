@@ -53,7 +53,7 @@ button,input{font:inherit;color:inherit}
   -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 26%,#000 82%,transparent 100%);
   mask-image:linear-gradient(to bottom,transparent 0,#000 26%,#000 82%,transparent 100%)}
 .hero-copy{position:relative;z-index:2;padding:6px var(--gut) 20px}
-.wm{display:block;width:min(74%,290px);height:auto;filter:drop-shadow(0 6px 26px rgba(0,0,0,.55))}
+.wm{display:block;width:100%;max-width:640px;height:auto;filter:drop-shadow(0 6px 30px rgba(213,43,30,.28))}
 .line{margin-top:14px;font:600 clamp(19px,5vw,26px)/1.15 var(--text);display:flex;align-items:center;gap:10px}
 .line img{width:34px;height:34px;flex:none}
 .line b{font-weight:700;color:var(--amber)}
@@ -266,7 +266,7 @@ html:not(.reduce) .js-trail .stop:not(.reached) .body{opacity:.78}
   .bar nav a{text-shadow:0 1px 10px rgba(15,12,10,.9)}
   .hero{min-height:min(calc(100svh - var(--draft-h)),860px);display:grid;grid-template-columns:minmax(0,52%) 1fr;grid-template-rows:1fr auto}
   .hero-copy{grid-column:1;grid-row:1;align-self:end;padding:6px 0 22px var(--gut)}
-  .wm{width:auto;max-width:none;height:min(300px,calc(100svh - 470px),36vw);min-height:150px}
+  .wm{max-width:min(46vw,680px,max(320px,calc((100svh - 440px) * 2.1)))}
   .smoke{inset:0;height:100%;opacity:.85}
   .smoke img{object-position:30% 50%}
   .photo{left:auto;right:0;top:-7%;bottom:0;width:58%;height:auto}
@@ -330,7 +330,7 @@ html:not(.reduce) .js-trail .stop:not(.reached) .body{opacity:.78}
 }
 /* phone in landscape: smaller lettering, panel never covers the logo */
 @media(max-width:899px) and (max-height:520px){
-  .wm{width:auto;height:min(38svh,200px)}
+  .wm{max-width:min(100%,calc(46svh * 2.1))}
   .what{max-width:none}
   .hero-copy{padding-bottom:12px}
   .line{font-size:18px;gap:8px;margin-top:10px}
@@ -373,3 +373,6 @@ html:not(.reduce) .js-trail .stop:not(.reached) .body{opacity:.78}
 
 .bcol+.bcol{margin-top:36px}
 @media(min-width:900px){.bcol+.bcol{margin-top:0}}
+
+.cart{display:block;width:min(100%,300px);height:auto;margin-top:40px}
+@media(min-width:900px){.cart{grid-column:2;margin-top:28px}}
