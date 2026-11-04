@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Manno's Grill | Smash burgers in Orlando</title>
+<meta name="description" content="Hand crafted smash burgers, made with love. Order from Manno's Grill, find the Saturday pop-up in Orlando or book us for your event.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0A0710">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Epilogue:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/burger-800.jpg" imagesrcset="img/burger-800.jpg 800w, img/burger-1400.jpg 1400w" imagesizes="(min-width:900px) 58vw, 100vw">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<!--
+Preview v5 (private, by Noondoor). Pending with the owner:
+[CONFIRMAR] how orders are taken. WhatsApp number = ONE constant at the top of main.js (WA_NUMBER), empty today. (407) 800-7128 came by DM and is only used for the Call buttons (PHONE_TEL).
+[CONFIRMAR] price of the smash burger, combo contents (fries/drink), pickup or delivery.
+[CONFIRMAR] Saturday hours (they change weekly; the site sends people to Instagram).
+[CONFIRMAR] Catering: package names, sizes, inclusions, prices, areas served, minimums, notice, deposit. Names, event types and descriptions are placeholders; no price shown. Quote form builds a message only (no backend).
+[CONFIRMAR] name of the burger in the photo (called "smash burger" here), email, new logo and photos.
+-->
+
+<header class="hdr" id="top">
+  <a class="brand" href="#top" aria-label="Manno's Grill, top of page">Manno's Grill</a>
+  <nav class="nav" aria-label="Sections">
+    <a href="#menu">Menu</a>
+    <a href="#order">Order</a>
+    <a href="#saturdays">Saturdays</a>
+    <a href="#catering">Catering</a>
+  </nav>
+  <a class="btn btn-pink hdr-order" href="#order">Order now</a>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero" aria-labelledby="h1">
+  <div class="hero-copy">
+    <h1 id="h1"><span class="l1">Burgers</span><span class="l2">with <em>love.</em></span></h1>
+    <p class="hero-sub">Hand crafted smash burgers from Orlando. Made exactly how you want it.</p>
+    <div class="hero-cta">
+      <a class="btn btn-pink" href="#order">Order now</a>
+      <a class="btn btn-line" data-call href="tel:+14078007128">Call (407) 800-7128</a>
+    </div>
+    <p class="hero-where"><a href="#saturdays">Saturdays at Cosmic Smoke &amp; Vape</a></p>
+  </div>
+  <figure class="hero-photo">
+    <img src="img/burger-800.jpg" srcset="img/burger-800.jpg 800w, img/burger-1400.jpg 1400w" sizes="(min-width:900px) 58vw, 100vw" width="1400" height="1400" alt="A double smash burger with melted cheese, lettuce and sauce, held in a black glove" fetchpriority="high">
+    <a class="burst" href="#menu" aria-label="Burger of the Month, Cosmic Manno Chop Cheese, 12 dollars">
+      <svg viewBox="0 0 200 200" aria-hidden="true"><polygon points="100,4 118,36 152,18 156,56 192,56 176,90 200,112 170,132 184,168 148,170 140,200 110,180 84,198 72,168 36,176 38,142 4,128 28,104 10,72 46,66 44,30 78,40"/></svg>
+      <span class="burst-t"><small>Burger of the Month</small><b>$12</b><small>Chop Cheese</small></span>
+    </a>
+  </figure>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu" aria-labelledby="menu-h">
+  <h2 id="menu-h" class="sr">Menu</h2>
+
+  <article class="dish dish-a">
+    <figure class="dish-img par"><img src="img/burger-macro.jpg" width="1400" height="880" loading="lazy" alt="Close-up of two smashed beef patties with melted cheese, lettuce and sauce on a toasted bun" data-par></figure>
+    <div class="dish-txt rv">
+      <h3>The smash burger</h3>
+      <p>Two patties smashed on the flat top until the edges crisp, melted cheese, crisp lettuce and sauce, on a toasted bun. Hand crafted, made with love.</p>
+      <p class="mono">Ask about toppings. We make it your way.</p>
+      <a class="btn btn-pink" href="#order" data-pick="OG Smash">Order this one</a>
+    </div>
+  </article>
+
+  <article class="dish dish-b">
+    <figure class="dish-img par"><img src="img/chop.jpg" width="1000" height="395" loading="lazy" alt="The Cosmic Manno Chop Cheese: chopped beef, melted cheese, lettuce, tomato and potato sticks on a toasted sub roll"></figure>
+    <div class="dish-txt rv">
+      <h3>Cosmic Manno <span>Chop Cheese</span></h3>
+      <p>The Burger of the Month. On an 8 inch sub roll: onions and peppers, lettuce, tomato, potato sticks, ketchup and mayo. Toasted and lightly pressed.</p>
+      <p class="price"><b>$12</b> <span>Make it a combo for just $3 extra.</span></p>
+      <a class="btn btn-pink" href="#order" data-pick="Cosmic Manno Chop Cheese">Order this one</a>
+    </div>
+  </article>
+</section>
+
+<!-- STREET BAND -->
+<section class="street" aria-labelledby="street-h">
+  <div class="street-img par"><img src="img/cook-p-800.jpg" srcset="img/cook-p-800.jpg 800w, img/cook-l-1600.jpg 1600w" sizes="100vw" width="1600" height="1067" loading="lazy" alt="The Manno's Grill cook in a black glove working the flat top in front of a colorful mural storefront" data-par></div>
+  <div class="street-txt rv">
+    <h2 id="street-h">Fired up on the street.</h2>
+    <p>The flat top comes to you: Saturday pop-ups, markets and parties around Orlando.</p>
+  </div>
+</section>
+
+<!-- ORDER -->
+<section class="order" id="order" aria-labelledby="order-h">
+  <figure class="order-img"><img src="img/box-900.jpg" srcset="img/box-900.jpg 900w, img/box-1400.jpg 1400w" sizes="(min-width:900px) 44vw, 100vw" width="1400" height="1867" loading="lazy" alt="A kraft takeout box getting a squeeze of red sauce over a cheesy smash burger"></figure>
+  <form class="order-form" id="orderForm" autocomplete="off">
+    <h2 id="order-h">Order now.</h2>
+    <p class="order-lead">Build it, tap send, and your order is ready to message us. Or just call.</p>
+
+    <fieldset class="opts">
+      <legend>What are you having?</legend>
+      <label class="opt"><input type="radio" name="item" value="OG Smash" checked><span><b>OG Smash</b><i>Double smash burger</i></span></label>
+      <label class="opt"><input type="radio" name="item" value="Cosmic Manno Chop Cheese"><span><b>Cosmic Manno Chop Cheese</b><i>Burger of the Month, $12</i></span></label>
+    </fieldset>
+
+    <div class="row2">
+      <label class="chk"><input type="checkbox" name="combo"><span>Make it a combo <i>+$3</i></span></label>
+      <div class="qty" role="group" aria-label="Quantity">
+        <button type="button" data-q="-1" aria-label="One less">&minus;</button>
+        <output id="qty" aria-live="polite">1</output>
+        <button type="button" data-q="1" aria-label="One more">+</button>
+      </div>
+    </div>
+
+    <label class="fld">Your name<input type="text" name="name" placeholder="First name" autocomplete="given-name"></label>
+    <label class="fld">Make it your way<input type="text" name="notes" placeholder="No onions, extra sauce..."></label>
+
+    <button class="btn btn-pink btn-lg" type="submit" id="send">Send my order</button>
+    <a class="btn btn-line btn-lg" data-call href="tel:+14078007128">Call to order</a>
+    <p class="order-msg" id="orderMsg" role="status" aria-live="polite"></p>
+    <p class="fine">We confirm price, pickup time and where to find us when we answer.</p>
+  </form>
+</section>
+
+<!-- SATURDAYS -->
+<section class="sat" id="saturdays" aria-labelledby="sat-h">
+  <div class="sat-img par"><img src="img/night.jpg" width="1320" height="609" loading="lazy" alt="Neon Manno's Grill burger sign next to the Cosmic Smoke and Vape logo"></div>
+  <div class="sat-txt rv">
+    <h2 id="sat-h">Saturdays at Cosmic.</h2>
+    <p class="sat-lead">Our pop-up at Cosmic Smoke &amp; Vape. Come hungry.</p>
+    <address>
+      <b>Cosmic Smoke &amp; Vape</b>
+      4701 S Orange Blossom Trl, Unit B<br>Orlando, FL 32839
+    </address>
+    <p class="sat-hours">Hours change week to week. We post each one on Instagram, or just call.</p>
+    <div class="sat-cta">
+      <a class="btn btn-yellow" id="dir" href="https://www.google.com/maps/search/?api=1&amp;query=4701+S+Orange+Blossom+Trl+Unit+B+Orlando+FL+32839" rel="noopener" target="_blank">Get directions</a>
+      <a class="btn btn-line" href="https://www.instagram.com/mannosgrill/" rel="noopener" target="_blank">This week on Instagram</a>
+    </div>
+  </div>
+</section>
+
+<!-- CATERING -->
+<section class="cater" id="catering" aria-labelledby="cat-h">
+  <div class="cater-head rv">
+    <h2 id="cat-h">Catering for <em>any event.</em></h2>
+    <p>Corporate, weddings, private parties, anything. Tell us what you are planning and we build the menu around it.</p>
+  </div>
+
+  <ul class="ev" aria-label="Events we cater">
+    <li class="rv"><span class="n">01</span><h3>Corporate events</h3><p>Office lunches, team days and launches.</p></li>
+    <li class="rv"><span class="n">02</span><h3>Weddings</h3><p>Receptions, rehearsal dinners and late-night bites.</p></li>
+    <li class="rv"><span class="n">03</span><h3>Private parties</h3><p>Birthdays, graduations and backyard get-togethers.</p></li>
+    <li class="rv"><span class="n">04</span><h3>Community events</h3><p>Markets, block parties and pop-ups at your venue.</p></li>
+  </ul>
+
+  <div class="how">
+    <h3 class="how-h rv">How it works</h3>
+    <ol class="steps">
+      <li class="rv"><b>1</b><div><h4>Tell us about your event</h4><p>Date, place and roughly how many people.</p></div></li>
+      <li class="rv"><b>2</b><div><h4>Get your quote</h4><p>We come back to you with a quote built for your event.</p></div></li>
+      <li class="rv"><b>3</b><div><h4>We cook</h4><p>Hand crafted burgers, made with love, served to your crowd.</p></div></li>
+    </ol>
+  </div>
+
+  <h3 class="pk-h rv">Pick a starting point</h3>
+  <ul class="pk">
+    <li class="pk-1 rv"><div><h4>The Cookout</h4><p>Birthdays, office lunches and smaller get-togethers.</p></div><a class="btn btn-pink" href="#quote" data-quote="The Cookout">Ask for a quote</a></li>
+    <li class="pk-2 rv"><div><h4>Block Party</h4><p>Bigger crowds and a fuller menu.</p></div><a class="btn btn-cyan" href="#quote" data-quote="Block Party">Ask for a quote</a></li>
+    <li class="pk-3 rv"><div><h4>The Takeover</h4><p>Weddings, corporate and brand events. We plan it with you.</p></div><a class="btn btn-yellow" href="#quote" data-quote="The Takeover">Ask for a quote</a></li>
+  </ul>
+  <p class="pk-note">Not sure which one fits? Pick "Not sure yet" in the form and we will help you choose.</p>
+
+  <form class="quote" id="quote" autocomplete="off" novalidate aria-labelledby="quote-h">
+    <div class="quote-intro">
+      <h3 id="quote-h">Ask for a quote.</h3>
+      <p>Fill this in and tap the button. It builds your request as a message, ready to send.</p>
+    </div>
+    <div class="quote-grid">
+      <fieldset class="chips">
+        <legend>Type of event</legend>
+        <label><input type="radio" name="etype" value="Corporate event"><span>Corporate</span></label>
+        <label><input type="radio" name="etype" value="Wedding"><span>Wedding</span></label>
+        <label><input type="radio" name="etype" value="Private party"><span>Private party</span></label>
+        <label><input type="radio" name="etype" value="Community event / pop-up"><span>Community</span></label>
+        <label><input type="radio" name="etype" value="Other"><span>Other</span></label>
+      </fieldset>
+      <label class="fld">Starting point
+        <select name="pkg"><option>Not sure yet</option><option>The Cookout</option><option>Block Party</option><option>The Takeover</option></select>
+      </label>
+      <label class="fld">Event date<input type="date" name="date"></label>
+      <label class="fld">Number of guests<input type="text" inputmode="numeric" name="guests" placeholder="About how many?"></label>
+      <label class="fld">Event location<input type="text" name="where" placeholder="Venue or city"></label>
+      <label class="fld">Your name<input type="text" name="qname" placeholder="First and last name" autocomplete="name" required></label>
+      <label class="fld">Phone or email<input type="text" name="contact" placeholder="Best way to reach you" autocomplete="off" required></label>
+    </div>
+    <div class="quote-act">
+      <button class="btn btn-pink btn-lg" type="submit">Build my quote request</button>
+      <a class="btn btn-line btn-lg" data-call href="tel:+14078007128">Or call (407) 800-7128</a>
+    </div>
+    <p class="order-msg" id="quoteMsg" role="status" aria-live="polite"></p>
+    <div class="out" id="quoteOut" hidden>
+      <label for="quoteTxt">Your request</label>
+      <textarea id="quoteTxt" readonly rows="9"></textarea>
+      <a class="btn btn-yellow" id="quoteIg" href="https://www.instagram.com/mannosgrill/" rel="noopener" target="_blank" hidden>Open @mannosgrill on Instagram</a>
+    </div>
+  </form>
+</section>
+</main>
+
+<footer class="ftr">
+  <p class="ftr-big">Burgers with love.</p>
+  <div class="ftr-cols">
+    <p><b>Manno's Grill</b><br>Orlando, FL</p>
+    <p><a data-call href="tel:+14078007128">(407) 800-7128</a><br><a href="https://www.instagram.com/mannosgrill/" rel="noopener" target="_blank">@mannosgrill</a></p>
+    <p>Saturdays<br>4701 S Orange Blossom Trl, Unit B</p>
+    <p><a href="#catering">Catering for any event</a></p>
+  </div>
+</footer>
+
+<div class="bar" aria-label="Quick actions">
+  <a class="btn btn-pink" href="#order">Order now</a>
+  <a class="btn btn-line" data-call href="tel:+14078007128">Call</a>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
