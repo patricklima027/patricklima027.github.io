@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Manno's Grill | Smash burgers, ordered and catered</title>
+<meta name="description" content="Manno's Grill: smash burgers off the grill. Order online, find the Saturday pop-up at Cosmic Smoke & Vape in Orlando, or book catering.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#E9D3AE">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Schibsted+Grotesk:wght@400;500;700&family=Martian+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/hero.jpg" media="(min-width:760px)">
+<link rel="preload" as="image" href="img/hero-m.jpg" media="(max-width:759px)">
+<script>document.documentElement.className="js";window.__rv=setTimeout(function(){document.documentElement.classList.add("rv-fallback")},3000)</script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<!--
+Preview v2 (private, by Noondoor). Pending with the owner:
+[CONFIRMAR] how orders are taken (WhatsApp, phone call or an ordering link). WhatsApp number below assumed to be the same as the phone number he sent by DM.
+[CONFIRMAR] OG Smash price, combo contents, fries/drinks, delivery or pickup only.
+[CONFIRMAR] Saturday hours (they change weekly, latest flyer says 2 PM to 9 PM on Sept 26).
+[CONFIRMAR] Catering: package names, guest counts, what is included, prices, travel area, deposit, notice needed. Nothing below is a price.
+[CONFIRMAR] email, new logo and new photos he is shooting.
+-->
+<div class="draft" role="note">Draft v2 for Manno's Grill by Noondoor. Not public.</div>
+
+<header class="hdr" id="top">
+  <a class="brand" href="#top" aria-label="Manno's Grill, top of page">Manno's<small>Grill</small></a>
+  <nav class="nav" aria-label="Sections">
+    <a href="#order">Order</a>
+    <a href="#saturday">Saturdays</a>
+    <a href="#catering">Catering</a>
+  </nav>
+  <a class="hdr-cta" href="#order">Order now</a>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="h1">
+  <div class="hero-photo">
+    <picture>
+      <source media="(max-width:759px)" srcset="img/hero-m.jpg">
+      <img src="img/hero.jpg" alt="A double smash burger with melted cheese and lettuce, held up in a black glove" fetchpriority="high" width="1500" height="1500">
+    </picture>
+  </div>
+  <div class="hero-in">
+    <h1 id="h1"><span class="l l1">Smashed</span><span class="l l2">to order.</span></h1>
+    <p class="lede">Hand crafted burgers, made with love. Order ahead, catch the Saturday pop-up in Orlando, or hire the grill for your event.</p>
+    <div class="cta">
+      <a class="btn btn-red" href="#order">Order a burger</a>
+      <a class="btn" href="#catering">Book catering</a>
+    </div>
+  </div>
+</section>
+
+<section class="order" id="order" aria-labelledby="order-h">
+  <svg class="drips" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+    <path class="dr" d="M0 0H1200V30C1180 30 1170 34 1160 40C1150 46 1146 70 1146 86C1146 104 1126 104 1126 86C1126 66 1120 44 1100 38C1060 28 1030 30 1000 34C970 38 962 50 962 62C962 78 944 78 944 62C944 48 930 36 900 34C840 30 780 30 740 36C720 40 712 52 712 96C712 116 690 116 690 96C690 52 684 40 660 36C600 28 520 30 470 34C440 38 430 48 430 58C430 72 412 72 412 58C412 46 400 38 380 36C320 30 250 30 200 34C170 38 160 46 160 78C160 98 140 98 140 78C140 48 132 38 110 36C70 32 30 30 0 30Z" fill="#C8281E"/>
+  </svg>
+  <div class="order-in">
+    <div class="order-copy">
+      <h2 id="order-h">Build your ticket.</h2>
+      <p>Pick what you want, hit send, and the ticket lands in Manno's WhatsApp ready to go. No app, no account.</p>
+      <p class="fine">Pickup and the exact way to order get confirmed in the chat.</p>
+      <div class="order-alt">
+        <a class="btn" href="tel:+14078007128">Prefer to call? (407) 800-7128</a>
+      </div>
+      <figure class="order-pic"><img src="img/box.jpg" alt="Hot sauce being squeezed from a red bottle over food in a kraft box" loading="lazy" width="900" height="1200"></figure>
+    </div>
+    <form class="ticket" id="ticket" onsubmit="return false">
+      <div class="tk-top">
+        <span class="tk-h">Manno's Grill</span>
+        <span class="tk-n">Ticket <b id="tkNum">0001</b></span>
+      </div>
+      <p class="tk-sub">Burgers with love</p>
+      <ul class="tk-lines">
+        <li class="tk-line" data-name="OG Smash burger">
+          <div class="tk-info"><b>OG Smash</b><span>Double smash, cheese, pickles, onions, sauce</span><i class="tk-price">Ask for price</i></div>
+          <div class="qty"><button type="button" class="m" aria-label="Remove one OG Smash">&minus;</button><output>0</output><button type="button" class="p" aria-label="Add one OG Smash">+</button></div>
+        </li>
+        <li class="tk-line" data-name="Cosmic Manno Chop Cheese">
+          <div class="tk-info"><b>Cosmic Manno Chop Cheese</b><span>Burger of the Month, 8 inch sub roll</span><i class="tk-price">$12</i></div>
+          <div class="qty"><button type="button" class="m" aria-label="Remove one Chop Cheese">&minus;</button><output>0</output><button type="button" class="p" aria-label="Add one Chop Cheese">+</button></div>
+        </li>
+        <li class="tk-line" data-name="Make it a combo">
+          <div class="tk-info"><b>Make it a combo</b><span>On the Chop Cheese</span><i class="tk-price">+$3</i></div>
+          <div class="qty"><button type="button" class="m" aria-label="Remove one combo">&minus;</button><output>0</output><button type="button" class="p" aria-label="Add one combo">+</button></div>
+        </li>
+      </ul>
+      <label class="tk-note"><span>Notes, name, pickup time</span><textarea id="tkNote" rows="2" placeholder="Plain Jane's, no onions, name for the order..."></textarea></label>
+      <a class="btn btn-red tk-send" id="tkSend" href="https://wa.me/14078007128" rel="noopener">Send ticket on WhatsApp</a>
+      <p class="tk-foot" id="tkHint">Add at least one item.</p>
+      <i class="perf" aria-hidden="true"></i>
+    </form>
+  </div>
+</section>
+
+<section class="sat" id="saturday" aria-labelledby="sat-h">
+  <div class="sat-in">
+    <div class="sat-text">
+      <p class="when">Every Saturday</p>
+      <h2 id="sat-h">The grill is at <span>Cosmic Smoke &amp; Vape.</span></h2>
+      <address>4701 S Orange Blossom Trl, Unit B<br>Orlando, FL 32839</address>
+      <p class="fine">Hours change from week to week. The newest flyer is always on <a href="https://www.instagram.com/mannosgrill/" rel="noopener">@mannosgrill</a>.</p>
+      <div class="cta">
+        <a class="btn btn-yel" href="https://www.google.com/maps/search/?api=1&amp;query=4701+S+Orange+Blossom+Trl+Unit+B+Orlando+FL+32839" rel="noopener">Get directions</a>
+        <a class="btn btn-line" href="tel:+14078007128">Call</a>
+      </div>
+    </div>
+    <div class="sat-pics">
+      <figure class="sp1"><img src="img/grill.jpg" alt="The cook at the flat top grill in a Manno's Grill shirt and black gloves" loading="lazy" width="900" height="1200"></figure>
+      <figure class="sp2"><img src="img/popup.jpg" alt="Flyer for a Manno's Grill pop-up at Cosmic Smoke and Vape" loading="lazy" width="800" height="1067"></figure>
+    </div>
+  </div>
+</section>
+
+<section class="cat" id="catering" aria-labelledby="cat-h">
+  <div class="cat-in">
+    <h2 id="cat-h">Hire the grill.</h2>
+    <p class="cat-lede">Birthdays, pop-ups, block parties, company lunches. Choose a size, tell Manno's the date and the place, and get a quote.</p>
+    <ol class="pk">
+      <!-- [CONFIRMAR] package names, sizes, inclusions, prices and travel area. Names below are placeholders. -->
+      <li class="pkg">
+        <span class="pk-n">1</span>
+        <h3>The Small Spread</h3>
+        <p>For a house party, a team lunch or a small crowd.</p>
+        <ul><li>Smash burgers off the grill</li><li>Sides and drinks: ask</li></ul>
+        <p class="quote">Ask for a quote</p>
+        <a class="btn btn-line" data-pk="The Small Spread" href="https://wa.me/14078007128" rel="noopener">Ask about this one</a>
+      </li>
+      <li class="pkg pkg-mid">
+        <span class="pk-n">2</span>
+        <h3>The Block Party</h3>
+        <p>For a birthday, a graduation or a bigger backyard.</p>
+        <ul><li>Smash burgers and the Burger of the Month</li><li>Sides and drinks: ask</li></ul>
+        <p class="quote">Ask for a quote</p>
+        <a class="btn btn-yel" data-pk="The Block Party" href="https://wa.me/14078007128" rel="noopener">Ask about this one</a>
+      </li>
+      <li class="pkg">
+        <span class="pk-n">3</span>
+        <h3>The Pop-up Takeover</h3>
+        <p>For markets, venues and big events that need the grill on site.</p>
+        <ul><li>Manno's on site, cooking live</li><li>Custom menu: ask</li></ul>
+        <p class="quote">Ask for a quote</p>
+        <a class="btn btn-line" data-pk="The Pop-up Takeover" href="https://wa.me/14078007128" rel="noopener">Ask about this one</a>
+      </li>
+    </ol>
+    <p class="fine">Not sure which one? Send the date, the place and how many people, and Manno's will tell you what fits.</p>
+  </div>
+</section>
+
+<section class="menu-wall" aria-label="Flyers">
+  <figure class="mw1"><img src="img/cosmic.jpg" alt="Flyer: Cosmic Manno Chop Cheese, Burger of the Month, $12" loading="lazy" width="800" height="1063"></figure>
+  <figure class="mw2"><img src="img/og.jpg" alt="A tall double smash burger with melted cheese, pickles and sauce, from the OG Smash flyer" loading="lazy" width="700" height="680"></figure>
+</section>
+</main>
+
+<footer class="ftr">
+  <div class="ftr-big">Burgers with love.</div>
+  <div class="ftr-cols">
+    <p>Manno's Grill<br>4701 S Orange Blossom Trl, Unit B<br>Orlando, FL 32839<br>Saturdays</p>
+    <p><a href="tel:+14078007128">(407) 800-7128</a><br><a href="https://www.instagram.com/mannosgrill/" rel="noopener">Instagram @mannosgrill</a><br><a href="https://www.tiktok.com/@mannosgrill" rel="noopener">TikTok @mannosgrill</a></p>
+  </div>
+  <p class="credit">Website by Noondoor</p>
+</footer>
+
+<div class="mbar" role="navigation" aria-label="Quick actions">
+  <a class="mb-red" href="#order">Order</a>
+  <a href="tel:+14078007128">Call</a>
+  <a href="https://www.google.com/maps/search/?api=1&amp;query=4701+S+Orange+Blossom+Trl+Unit+B+Orlando+FL+32839" rel="noopener">Directions</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js" defer></script>
+<script src="main.js" defer></script>
+</body>
+</html>
